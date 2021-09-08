@@ -1072,6 +1072,7 @@ MonoBehaviour:
   - {fileID: 1468312536501880682, guid: 9b861e6ed84d66d4d892de64048f0f8a, type: 3}
   - {fileID: 3337968177563840482, guid: ac7a9ffaa528c184c80c32db163018f1, type: 3}
   - {fileID: 2125925172756096916, guid: 6cc73a3c423f1bf4b93f40634229b3f0, type: 3}
+  initialRoom: {fileID: 2125925172756096916, guid: adffc0f99cb4c4340b5c5fec9a359dfc, type: 3}
   minNumRooms: 10
   maxNumRooms: 15
   roomSelector: {fileID: 75517522}

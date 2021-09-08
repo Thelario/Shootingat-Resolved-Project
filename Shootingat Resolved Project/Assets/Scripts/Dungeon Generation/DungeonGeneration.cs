@@ -8,6 +8,8 @@ public class DungeonGeneration : MonoBehaviour
 
     [SerializeField] private List<GameObject> rooms = new List<GameObject>();
 
+    [SerializeField] private GameObject initialRoom;
+
     [SerializeField] private int minNumRooms;
     [SerializeField] private int maxNumRooms;
 
@@ -66,11 +68,8 @@ public class DungeonGeneration : MonoBehaviour
 
         roomCreatedPositions.Add(pos);
 
-        // Get a room that can be connected with the current room.
-        GameObject roomToBeCreated = GetRandomRoom();
-
-        // Actual creation of the rooms in the game
-        GameObject g = Instantiate(roomToBeCreated, pos, Quaternion.identity, transform);
+        // Creating the initial room (the same room in each game)
+        GameObject g = Instantiate(initialRoom, pos, Quaternion.identity, transform);
         Room r = g.GetComponent<Room>();
         numRoomsCounter++;
         roomsCreated.Add(r);

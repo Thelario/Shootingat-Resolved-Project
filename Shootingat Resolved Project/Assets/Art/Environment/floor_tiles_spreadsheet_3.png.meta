@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 600d56ff2f0efdc48a5bf9ce48e69044
+guid: 9e1c1912a7a866148a8a3d2d19713ca2
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -29,6 +29,27 @@ TextureImporter:
   - first:
       213: -4032074461623233533
     second: floor_tiles_spreadsheet_3_8
+  - first:
+      213: -6365641570459126508
+    second: floor_tiles_spreadsheet_3_9
+  - first:
+      213: -3519111090187557648
+    second: floor_tiles_spreadsheet_3_10
+  - first:
+      213: 1347569301217055196
+    second: floor_tiles_spreadsheet_3_11
+  - first:
+      213: -5665510495891936604
+    second: floor_tiles_spreadsheet_3_12
+  - first:
+      213: 5645710222297975919
+    second: floor_tiles_spreadsheet_3_13
+  - first:
+      213: -1957327832681849629
+    second: floor_tiles_spreadsheet_3_14
+  - first:
+      213: 6089941532010310977
+    second: floor_tiles_spreadsheet_3_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -95,7 +116,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -107,7 +128,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -119,7 +140,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,7 +155,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -155,7 +176,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 32
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -176,7 +197,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -196,8 +217,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
+        x: 48
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -217,8 +238,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_4
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
+        x: 0
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -238,8 +259,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
+        x: 16
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -259,8 +280,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 32
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -280,8 +301,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_7
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
+        x: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -301,8 +322,8 @@ TextureImporter:
       name: floor_tiles_spreadsheet_3_8
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 0
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -314,6 +335,153 @@ TextureImporter:
       bones: []
       spriteID: 304d507d3a13b08c0800000000000000
       internalID: -4032074461623233533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415f251e7b2b8a7a0800000000000000
+      internalID: -6365641570459126508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f4ab38cb1b992fc0800000000000000
+      internalID: -3519111090187557648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd19345c32783b210800000000000000
+      internalID: 1347569301217055196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aa2d1d98301061b0800000000000000
+      internalID: -5665510495891936604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6cccd0f887995e40800000000000000
+      internalID: 5645710222297975919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec5300e4bc26d4e0800000000000000
+      internalID: -1957327832681849629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: floor_tiles_spreadsheet_3_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14d6f56be81d38450800000000000000
+      internalID: 6089941532010310977
       vertices: []
       indices: 
       edges: []
