@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable IDE0052 // Quitar miembros privados no leídos
+
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
@@ -121,7 +123,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Moving", moving);
         animator.SetFloat("Horizontal", dir.x);
         animator.SetFloat("Vertical", dir.y);
-        animator.SetBool("Shooting", shooting);
+        //animator.SetBool("Shooting", shooting);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

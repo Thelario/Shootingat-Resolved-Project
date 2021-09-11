@@ -131,7 +131,8 @@ public class DungeonGeneration : MonoBehaviour
     {
         roomCreatedPositions.Add(pos);
 
-        GameObject roomToBeCreated = null;
+        GameObject roomToBeCreated = roomSelector.GetRoomFromVariants(rt);
+        /*GameObject roomToBeCreated = null;
         foreach (GameObject go in rooms)
         {
             if (rt == go.GetComponent<Room>().type)
@@ -139,7 +140,7 @@ public class DungeonGeneration : MonoBehaviour
                 roomToBeCreated = go;
                 break;
             }
-        }
+        }*/
 
         GameObject g = Instantiate(roomToBeCreated, pos, Quaternion.identity, transform);
         Room r = g.GetComponent<Room>();

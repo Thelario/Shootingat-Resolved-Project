@@ -84,11 +84,12 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private void Move()
     {
+        // Check if the bullet has moved its maximum range
+        Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
+
         // Refactorizar toda la lógica de las balas, porque esto es una chapuza
         if (type == BulletType.playerBullet)
         {
-            // Check if the bullet has moved its maximum range
-            Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
             if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= ps.bulletRange)
                 StartCoroutine(DisableBullet(0f));
 
@@ -96,8 +97,6 @@ public class Bullet : MonoBehaviour
         }
         else if (type == BulletType.enemyBullet)
         {
-            // Check if the bullet has moved its maximum range
-            Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
             if (l.magnitude >= enemyBulletRange)
                 StartCoroutine(DisableBullet(0f));
 

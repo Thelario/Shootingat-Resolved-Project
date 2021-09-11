@@ -6,8 +6,10 @@ public enum RoomType { L, R, U, D, LR, LU, LD, RU, RD, UD, LUD, LUR, URD, LDR, L
 [System.Serializable]
 public class RoomSerializable
 {
-    public GameObject roomPrefab;
+    public List<GameObject> roomPrefabVariants;
     public RoomType roomType;
+
+    public GameObject GetRandomVariant() { return roomPrefabVariants[Random.Range(0, roomPrefabVariants.Count)]; }
 }
 
 public class RoomSelector : MonoBehaviour
@@ -90,7 +92,18 @@ public class RoomSelector : MonoBehaviour
         foreach (RoomSerializable rs in roomPrefabs)
         {
             if (rs.roomType == roomTypeSol)
-                return rs.roomPrefab;
+                return rs.GetRandomVariant();
+        }
+
+        return null;
+    }
+
+    public GameObject GetRoomFromVariants(RoomType rt)
+    {
+        foreach (RoomSerializable rs in roomPrefabs)
+        {
+            if (rs.roomType == rt)
+                return rs.GetRandomVariant();
         }
 
         return null;
@@ -100,7 +113,7 @@ public class RoomSelector : MonoBehaviour
     /// Gets a random room from the ones available
     /// </summary>
     /// <returns></returns>
-    public GameObject GetRandomRoom() { return roomPrefabs[Random.Range(0, roomPrefabs.Count)].roomPrefab; }
+    public GameObject GetRandomRoom() { return roomPrefabs[Random.Range(0, roomPrefabs.Count)].GetRandomVariant(); }
 
     /// <summary>
     /// Function used to get the opposite side type room from a given one

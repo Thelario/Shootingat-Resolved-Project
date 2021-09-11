@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private BoxCollider2D doorCollider;
 
-    public RoomOld RoomAssociatedWith { get; set; }
+    public Room RoomAssociatedWith { get; set; }
 
     public void OpenDoor()
     {

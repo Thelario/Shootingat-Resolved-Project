@@ -37,7 +37,7 @@ public class EnemyShootBasic : EnemyBase
 
     public override void Die()
     {
-        OnEnemyDead(clarityToGiveToPlayerWhenDied);
+        //OnEnemyDead(clarityToGiveToPlayerWhenDied);
         Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
         Destroy(Instantiate(Assets.Instance.bloodSplash_1, transform.position, transform.rotation), 10f);
         Destroy(gameObject);

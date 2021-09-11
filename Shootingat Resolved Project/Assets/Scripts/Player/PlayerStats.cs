@@ -40,7 +40,7 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
 
     private void Awake()
     {
-        EnemyBase.OnEnemyDead += HealHealth;
+        //EnemyBase.OnEnemyDead += HealHealth;
     }
 
     private void Start()

@@ -168,7 +168,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9200384582083607039
@@ -351,10 +351,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9200384582610188844}
-  - component: {fileID: 9200384582610188846}
-  - component: {fileID: 9200384582610188845}
   - component: {fileID: 9200384582610188832}
   - component: {fileID: 2984691167234270574}
+  - component: {fileID: 9200384582610188846}
+  - component: {fileID: 9200384582610188845}
   - component: {fileID: 3795138208701771452}
   - component: {fileID: 304192961}
   m_Layer: 0
@@ -381,50 +381,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9200384582610188846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200384582610188843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46777d57afafdc84288cd6d261502aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentClarity: 5
-  maxCurrentClarity: 5
-  lastMaxClarity: 20
-  bulletSpeed: 10
-  maxBulletSpeed: 20
-  fireRate: 0.5
-  minFireRate: 0.1
-  bulletDamage: 1
-  maxBulletDamage: 5
-  bulletRange: 1
-  maxBulletRange: 2
-  moveSpeed: 3.5
-  maxMoveSpeed: 6.5
-  psui: {fileID: 3795138208701771452}
-  pc: {fileID: 304192961}
---- !u!114 &9200384582610188845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200384582610188843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b87834266e38e488bb3fff57f75394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootPoint: {fileID: 9200384582755046442}
-  camController: {fileID: 0}
-  weaponTransform: {fileID: 9200384582147479607}
-  animator: {fileID: 9200384582083607026}
-  ps: {fileID: 9200384582610188846}
 --- !u!50 &9200384582610188832
 Rigidbody2D:
   serializedVersion: 4
@@ -472,6 +428,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &9200384582610188846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582610188843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46777d57afafdc84288cd6d261502aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentClarity: 5
+  maxCurrentClarity: 5
+  lastMaxClarity: 20
+  bulletSpeed: 10
+  maxBulletSpeed: 20
+  fireRate: 0.5
+  minFireRate: 0.1
+  bulletDamage: 1
+  maxBulletDamage: 5
+  bulletRange: 7.5
+  maxBulletRange: 30
+  moveSpeed: 4
+  maxMoveSpeed: 7
+  psui: {fileID: 3795138208701771452}
+  pc: {fileID: 304192961}
+--- !u!114 &9200384582610188845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582610188843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b87834266e38e488bb3fff57f75394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPoint: {fileID: 9200384582755046442}
+  camController: {fileID: 0}
+  weaponTransform: {fileID: 9200384582147479607}
+  animator: {fileID: 9200384582083607026}
+  ps: {fileID: 9200384582610188846}
 --- !u!114 &3795138208701771452
 MonoBehaviour:
   m_ObjectHideFlags: 0
