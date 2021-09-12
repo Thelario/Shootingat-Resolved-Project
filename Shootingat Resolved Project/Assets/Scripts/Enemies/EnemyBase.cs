@@ -8,4 +8,6 @@ public abstract class EnemyBase : HealthAgent
     public static EnemyDead OnEnemyDead;
 
     [SerializeField] protected int clarityToGiveToPlayerWhenDied;
+
+    public Room RoomAssociatedTo { get; set; }
 }

@@ -56,7 +56,7 @@ MonoBehaviour:
   oldType: 0
   roomDoors: []
   spawnPoints: []
-  enemies: []
+  enemyCount: 4
 --- !u!1 &889797729779054981
 GameObject:
   m_ObjectHideFlags: 0

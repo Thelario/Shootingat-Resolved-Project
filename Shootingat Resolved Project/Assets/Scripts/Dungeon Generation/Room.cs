@@ -8,16 +8,23 @@ public class Room : MonoBehaviour
     public List<Transform> points;
     public RoomType type;
 
-    [SerializeField] private RoomTypeOld oldType;                 // Type of the room
-    [SerializeField] private List<Door> roomDoors;          // Doors associated to the room
-    [SerializeField] private List<Transform> spawnPoints;   // Points to spawn enemies
-    [SerializeField] private List<GameObject> enemies;      // Enemy prefabs to be instantiated
+    [SerializeField] private RoomTypeOld oldType;               // Type of the room
+    [SerializeField] private List<Door> roomDoors;              // Doors associated to the room
+    [SerializeField] private List<Transform> spawnPoints;       // Points to spawn enemies
+    [SerializeField] private int enemyCount;
 
+    private List<GameObject> enemies = new List<GameObject>();
     private bool[] spawnPointsCreated;
+    private int enemyCounter = 0;
 
     private void Awake()
     {
         AssignRoomToDoors();
+    }
+
+    private void Start()
+    {
+        enemyCounter = enemyCount;
     }
 
     private void Update()
@@ -56,9 +63,7 @@ public class Room : MonoBehaviour
         // In the future, this function will change, because enemies need to be taken randomly
         // according to the current level of the dungeon an so on.
 
-        // Closing all doors associated to this room
-        foreach (Door d in roomDoors)
-            d.CloseDoor();
+        CloseDoors();
 
         // Initializing the spawnPointsCreated array
         spawnPointsCreated = new bool[spawnPoints.Count];
@@ -66,17 +71,32 @@ public class Room : MonoBehaviour
             spawnPointsCreated[i] = false;
 
         // Spawnning enemies
-        foreach (GameObject enemy in enemies)
+        for (int i = 0; i < enemyCount; i++)
         {
             // For not allowing two enemies to spawn in the same spawpoint
             Vector3 pos = GetRandomSpawnPoint();
 
             // Creating the enemies in the pos calculated position
-            // TODO: now i need to add a transform parent to attach all enemies, so that everytime an enemy is killed,
-            // I can check how many enemies are left, and if none, open doors again.
             ParticlesManager.Instance.CreateParticle(ParticleType.EnemySpawn, pos, 1f);
-            Instantiate(enemy, pos, Quaternion.identity);
+            GameObject go = Instantiate(EnemyManager.Instance.GetRandomEnemy(), pos, Quaternion.identity);
+            enemies.Add(go);
         }
+
+        AssignRoomToEnemies();
+    }
+
+    private void CloseDoors()
+    {
+        // Closing all doors associated to this room
+        foreach (Door d in roomDoors)
+            d.CloseDoor();
+    }
+
+    private void OpenDoors()
+    {
+        // Closing all doors associated to this room
+        foreach (Door d in roomDoors)
+            d.OpenDoor();
     }
 
     /// <summary>
@@ -132,5 +152,22 @@ public class Room : MonoBehaviour
     {
         foreach (Door d in roomDoors)
             d.RoomAssociatedWith = this;
+    }
+
+    private void AssignRoomToEnemies()
+    {
+        foreach (GameObject e in enemies)
+            e.GetComponent<EnemyBase>().RoomAssociatedTo = this;
+    }
+
+    public void ReduceEnemyCounter()
+    {
+        enemyCounter -= 1;
+
+        if (enemyCounter <= 0)// All enemies from the room have been defeated
+        {
+            OpenDoors();
+            // Play small victory sound
+        }
     }
 }

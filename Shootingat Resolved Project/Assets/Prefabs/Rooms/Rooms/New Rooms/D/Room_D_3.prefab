@@ -5984,7 +5984,7 @@ MonoBehaviour:
   - {fileID: 4486019126341010252}
   - {fileID: 2002608300051606273}
   - {fileID: 5531726244668765876}
-  enemies: []
+  enemyCount: 5
 --- !u!1 &4384131754991448932
 GameObject:
   m_ObjectHideFlags: 0

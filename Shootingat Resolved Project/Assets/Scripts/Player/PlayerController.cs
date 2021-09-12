@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#pragma warning disable IDE0052 // Quitar miembros privados no leídos
+#pragma warning disable CS0414 // Quitar miembros privados no leídos
 
 public class PlayerController : MonoBehaviour
 {

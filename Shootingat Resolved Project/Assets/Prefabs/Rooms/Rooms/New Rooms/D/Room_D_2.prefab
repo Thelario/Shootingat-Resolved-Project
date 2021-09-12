@@ -5443,12 +5443,7 @@ MonoBehaviour:
   - {fileID: 7539852620584245177}
   - {fileID: 5799541112733443000}
   - {fileID: 4490084380561836503}
-  enemies:
-  - {fileID: 6028875060605162012, guid: 9cece7e1441c94c4b8212d3e52fee2f9, type: 3}
-  - {fileID: 388338677628858185, guid: 64584183bb30087429181adc849f7fe2, type: 3}
-  - {fileID: 388338677628858185, guid: 64584183bb30087429181adc849f7fe2, type: 3}
-  - {fileID: 388338677628858185, guid: 64584183bb30087429181adc849f7fe2, type: 3}
-  - {fileID: 6028875060605162012, guid: 9cece7e1441c94c4b8212d3e52fee2f9, type: 3}
+  enemyCount: 5
 --- !u!1 &4384131754991448932
 GameObject:
   m_ObjectHideFlags: 0
