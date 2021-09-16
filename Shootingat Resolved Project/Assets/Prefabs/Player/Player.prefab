@@ -474,7 +474,7 @@ MonoBehaviour:
   ps: {fileID: 9200384582610188846}
   playerCollider: {fileID: 2984691167234270574}
   dashTime: 0.5
-  dashSpeedUpperLimit: 20
+  dashSpeedUpperLimit: 21.5
   dashDropRate: 30
 --- !u!114 &3795138208701771452
 MonoBehaviour:
