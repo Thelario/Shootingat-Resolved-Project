@@ -12,7 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform weaponTransform;
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerStats ps;
+    [SerializeField] private BoxCollider2D playerCollider;
 
+    [Header("Fields")]
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashSpeedUpperLimit;
+    [SerializeField] private float dashDropRate;
+
+    private float dashTimeCounter;
     private float horizontal;
     private float vertical;
     private float fireRateCounter;
@@ -20,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool moving;
     private bool shooting;
     private Vector2 dir;
+    private float dashSpeedSmoothed;
 
     private void Start()
     {
@@ -28,15 +36,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        fireRateCounter += Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Time.timeScale == 0f)
-                Time.timeScale = 1f;
-            else
-                Time.timeScale = 0f;
+            if (dashTimeCounter <= 0f)
+                Dash();
         }
 
-        fireRateCounter += Time.deltaTime;
+        if (dashTimeCounter > 0f)
+        {
+            transform.position += new Vector3(horizontal, vertical) * dashSpeedSmoothed * Time.deltaTime;
+            dashTimeCounter -= Time.deltaTime;
+            dashSpeedSmoothed -= ps.moveSpeed/dashDropRate;
+            dashSpeedSmoothed = Mathf.Clamp(dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
+            return;
+        }
 
         Move();
 
@@ -112,6 +127,13 @@ public class PlayerController : MonoBehaviour
 
         ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
         SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
+    }
+
+    private void Dash()
+    {
+        dashTimeCounter = dashTime;
+        animator.SetTrigger("Dashing");
+        dashSpeedSmoothed = dashSpeedUpperLimit;
     }
 
     /// <summary>

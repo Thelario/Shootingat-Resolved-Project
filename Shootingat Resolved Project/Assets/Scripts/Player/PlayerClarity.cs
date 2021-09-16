@@ -11,20 +11,20 @@ public class PlayerClarity : MonoBehaviour
     [SerializeField] private GameObject availableClarity;
     [SerializeField] private GameObject unavailableClarity;
 
-    private List<GameObject> claritySlots = new List<GameObject>();
+    private readonly List<GameObject> claritySlots = new List<GameObject>();
 
     public void UpdateClarity(int currentClarity, int currentMaxClarity)
     {
-        // ESTO AHORA MISMO ES UN CODIGO DE MIERDA, EN EL FUTURO BUSCARÉ LA MANERA DE MEJORAR LA EFICIENCIA DE ESTA MIERDA
+        DestroyPreviousClarity();
 
-        DestroyPreviousClaritySlots();
-
+        // Creates the available clarity items
         for (int i = 0; i < currentClarity; i++)
         {
             GameObject go = Instantiate(availableClarity, clarityPanelParent);
             claritySlots.Add(go);
         }
 
+        // Creates the unavailable clarity items
         for (int i = 0; i < currentMaxClarity - currentClarity; i++)
         {
             GameObject go = Instantiate(unavailableClarity, clarityPanelParent);
@@ -32,14 +32,14 @@ public class PlayerClarity : MonoBehaviour
         }
     }
 
-    private void DestroyPreviousClaritySlots()
+    private void DestroyPreviousClarity()
     {
         if (claritySlots.Count == 0)
             return;
 
-        foreach (GameObject go in claritySlots)
+        foreach(GameObject g in claritySlots)
         {
-            Destroy(go);
+            Destroy(g);
         }
     }
 }

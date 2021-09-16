@@ -400,7 +400,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &2984691167234270574
 BoxCollider2D:
@@ -472,6 +472,10 @@ MonoBehaviour:
   weaponTransform: {fileID: 9200384582147479607}
   animator: {fileID: 9200384582083607026}
   ps: {fileID: 9200384582610188846}
+  playerCollider: {fileID: 2984691167234270574}
+  dashTime: 0.5
+  dashSpeedUpperLimit: 20
+  dashDropRate: 30
 --- !u!114 &3795138208701771452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,7 +794,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9200384583458647656

@@ -38,11 +38,6 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
     [SerializeField] private PlayerStatsUI psui;
     [SerializeField] private PlayerClarity pc;
 
-    private void Awake()
-    {
-        //EnemyBase.OnEnemyDead += HealHealth;
-    }
-
     private void Start()
     {
         psui.ModifyDamageText(bulletDamage);
@@ -69,7 +64,7 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
     public void TakeDamage(int damage)
     {
         currentClarity -= damage;
-        if (currentClarity < 0)
+        if (currentClarity <= 0)
             Die();
 
         pc.UpdateClarity(currentClarity, maxCurrentClarity);

@@ -332,7 +332,7 @@ public class DungeonGeneration : MonoBehaviour
     /// </summary>
     private void RestartDungeonGeneration()
     {
-        Debug.Log("Restarting dungeon");
+        //Debug.Log("Restarting dungeon");
         numRooms = Random.Range(minNumRooms, maxNumRooms);
         numRoomsCounter = 0;
 

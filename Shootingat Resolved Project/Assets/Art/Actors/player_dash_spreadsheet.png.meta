@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 0e91b874012a40645b47d35e46feefd4
+guid: edc75df045f88f94d89e5e8f6cf7b3f8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3235293935922193537
-    second: main_character_test_1_0
+      213: -5006989503082127765
+    second: player_dash_spreadsheet_0
   - first:
-      213: 3234236132347738909
-    second: main_character_test_1_1
+      213: -3977070674117310200
+    second: player_dash_spreadsheet_1
+  - first:
+      213: 3325229314531974870
+    second: player_dash_spreadsheet_2
+  - first:
+      213: 6277033337739416988
+    second: player_dash_spreadsheet_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -74,7 +80,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -86,7 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: main_character_test_1_0
+      name: player_dash_spreadsheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 4
-        width: 4
-        height: 4
+        x: 0
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1842e9281b216ec20800000000000000
-      internalID: 3235293935922193537
+      spriteID: b6e1eaa3399938ab0800000000000000
+      internalID: -5006989503082127765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: main_character_test_1_1
+      name: player_dash_spreadsheet_1
       rect:
         serializedVersion: 2
-        x: 7
-        y: 0
-        width: 17
-        height: 24
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,8 +150,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1bf15c60a052ec20800000000000000
-      internalID: 3234236132347738909
+      spriteID: 8094d961b4b9ec8c0800000000000000
+      internalID: -3977070674117310200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dash_spreadsheet_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ded4699176952e20800000000000000
+      internalID: 3325229314531974870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dash_spreadsheet_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c951e3340908c1750800000000000000
+      internalID: 6277033337739416988
       vertices: []
       indices: 
       edges: []
