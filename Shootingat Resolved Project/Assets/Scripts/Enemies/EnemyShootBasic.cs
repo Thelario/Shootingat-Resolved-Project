@@ -44,10 +44,6 @@ public class EnemyShootBasic : EnemyBase
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Rotates the shootPoint towards the target
-    /// </summary>
-    /// <param name="target"> Target to look at </param>
     private void Rotate(Vector3 target)
     {
         dir = target - transform.position;
@@ -56,9 +52,6 @@ public class EnemyShootBasic : EnemyBase
         animator.SetFloat("Vertical", dir.normalized.y);
     }
 
-    /// <summary>
-    /// Shoots a bullet in the shootPoint direction
-    /// </summary>
     private void Shoot()
     {
         shootTimeCounter = 0f;

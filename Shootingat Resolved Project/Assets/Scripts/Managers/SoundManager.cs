@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : Singleton<SoundManager>
@@ -7,28 +8,65 @@ public class SoundManager : Singleton<SoundManager>
 
     private AudioSource source; // Private reference of the audioSource where we are going to play our SFX
 
+    private Dictionary<SoundType, float> soundTimerDictionary;
+
     protected override void Awake()
     {
         base.Awake();
 
         source = GetComponent<AudioSource>();
+
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        soundTimerDictionary = new Dictionary<SoundType, float>
+        {
+            [SoundType.PlayerWalk] = 0f
+        };
     }
 
     public void PlaySound(SoundType st)
     {
-        source.PlayOneShot(SearchSound(st), volume * volume);
+        if (CanPlaySound(st))
+        {
+            source.PlayOneShot(SearchSound(st), volume * volume);
+        }
     }
 
     public void PlaySound(SoundType st, float newVolume)
     {
-        source.PlayOneShot(SearchSound(st), volume * newVolume);
+        if (CanPlaySound(st))
+        {
+            source.PlayOneShot(SearchSound(st), volume * newVolume);
+        }
     }
 
-    /// <summary>
-    /// Looks through all the sounds in the array and returns the audioClip associated to the sound
-    /// </summary>
-    /// <param name="st"> It is the sound type of the sound we are looking for </param>
-    /// <returns> Returns the AudioClip corresponding to the soundType passed as parameter </returns>
+    private bool CanPlaySound(SoundType sound)
+    {
+        switch(sound)
+        {
+            default:
+                return true;
+            case SoundType.PlayerWalk:
+                if (soundTimerDictionary.ContainsKey(sound))
+                {
+                    float lastTimePlayed = soundTimerDictionary[sound];
+                    float playerMoveTimerMax = .475f;
+                    if (lastTimePlayed + playerMoveTimerMax < Time.time)
+                    {
+                        soundTimerDictionary[sound] = Time.time;
+                        return true;
+                    }
+                    else 
+                        return false;
+                }
+                else 
+                    return true;
+        }
+    }
+
     private AudioClip SearchSound(SoundType st)
     {
         foreach (SoundAudioClip sac in Assets.Instance.soundAudioClipArray)

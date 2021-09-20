@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+// using Random = UnityEngine.Random; // Un-comment in case I add using System
 
 #pragma warning disable CS0414 // Quitar miembros privados no leídos
 
@@ -13,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerStats ps;
     [SerializeField] private BoxCollider2D playerCollider;
+    [SerializeField] private GameObject walkParticles;
 
     [Header("Fields")]
     [SerializeField] private float dashTime;
@@ -29,6 +29,15 @@ public class PlayerController : MonoBehaviour
     private Vector2 dir;
     private float dashSpeedSmoothed;
 
+    private Camera _camera;
+    private Transform _transform;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+        _transform = transform;
+    }
+
     private void Start()
     {
         fireRateCounter = ps.fireRate;
@@ -38,15 +47,12 @@ public class PlayerController : MonoBehaviour
     {
         fireRateCounter += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (dashTimeCounter <= 0f)
-                Dash();
-        }
+        CheckDash();
 
+        // TODO: Refactor this into its own method
         if (dashTimeCounter > 0f)
         {
-            transform.position += new Vector3(horizontal, vertical) * dashSpeedSmoothed * Time.deltaTime;
+            _transform.position += new Vector3(horizontal, vertical).normalized * dashSpeedSmoothed * Time.deltaTime;
             dashTimeCounter -= Time.deltaTime;
             dashSpeedSmoothed -= ps.moveSpeed/dashDropRate;
             dashSpeedSmoothed = Mathf.Clamp(dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
@@ -57,13 +63,7 @@ public class PlayerController : MonoBehaviour
 
         Rotate();
 
-        if (Input.GetMouseButton(0))
-        {
-            if (fireRateCounter < ps.fireRate)
-                return;
-
-            Shoot();
-        }
+        CheckShoot();
 
         if (fireRateCounter >= ps.fireRate)
         {
@@ -71,41 +71,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Moves the player in horizontal and vertical axis according to input
-    /// </summary>
     private void Move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         
         if (horizontal != 0f || vertical != 0f)
+        {
             moving = true;
+            ActivateWalkParticles();
+            SoundManager.Instance.PlaySound(SoundType.PlayerWalk, 1.5f);
+        }
         else
+        {
             moving = false;
+            DeactivateWalkParticles();
+        }
 
-        transform.position += new Vector3(horizontal, vertical) * ps.moveSpeed * Time.deltaTime;
+        _transform.position += new Vector3(horizontal, vertical).normalized * ps.moveSpeed * Time.deltaTime;
     }
 
-    /// <summary>
-    /// Rotates the player so that it faces the mouse position
-    /// </summary>
     private void Rotate()
     {
-        // Code for constant rotation
-        // transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
-
-        // Code for rotating towards the mouse position
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         dir = mousePos - transform.position;
         weaponTransform.up = dir;
 
         Animate(dir);
     }
 
-    /// <summary>
-    /// Shoots a bullet in the shootPoint direction
-    /// </summary>
+    private void CheckShoot()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (fireRateCounter < ps.fireRate)
+                return;
+
+            Shoot();
+        }
+    }
+
     private void Shoot()
     {
         shooting = true;
@@ -129,23 +134,41 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
     }
 
+    private void CheckDash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (dashTimeCounter > 0f)
+                return;
+            
+            Dash();
+        }
+    }
+
     private void Dash()
     {
+        SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
         dashTimeCounter = dashTime;
         animator.SetTrigger("Dashing");
         dashSpeedSmoothed = dashSpeedUpperLimit;
     }
 
-    /// <summary>
-    /// Animates the player according to where the mouse is pointing at and whether he is moving or not
-    /// </summary>
-    /// <param name="dir"> Direction where player is looking at </param>
     private void Animate(Vector2 dir)
     {
         animator.SetBool("Moving", moving);
         animator.SetFloat("Horizontal", dir.x);
         animator.SetFloat("Vertical", dir.y);
         //animator.SetBool("Shooting", shooting);
+    }
+
+    private void ActivateWalkParticles()
+    {
+        walkParticles.SetActive(true);
+    }
+
+    private void DeactivateWalkParticles()
+    {
+        walkParticles.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

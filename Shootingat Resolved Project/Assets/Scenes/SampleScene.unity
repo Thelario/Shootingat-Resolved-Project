@@ -1233,7 +1233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5c633e8b9a46c42b724426d60b4a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0.01
+  volume: 0.05
+  playerWalkTimer: 0.475
 --- !u!82 &841850825
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1410,6 +1411,10 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: b35303bdd337f1146a950cd4aeeb0e59, type: 3}
   - sound: 2
     audioClip: {fileID: 8300000, guid: 98cb683a842443b4bb8440e1204ecaf3, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 8fa0059aff3ea7d4aad7642adae5b764, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 4bd4636e38d0e2d4eac5f8e35a10a3dc, type: 3}
   particlesArray:
   - type: 0
     particlePrefab: {fileID: 7791509615102547665, guid: 8521ed6103a31af4b89f3ac62dda2876, type: 3}
@@ -2270,6 +2275,54 @@ PrefabInstance:
       propertyPath: clarityPanelParent
       value: 
       objectReference: {fileID: 1074283202}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
+      value: 0.51428604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: -0.51428604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: -0.51428604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: -0.51428604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: -0.51428604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: clarityText
       value: 

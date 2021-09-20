@@ -9,6 +9,13 @@ public class CameraController : MonoBehaviour
 
     private float screenShakeTimeCounter;
 
+    private Camera _camera;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
+
     private void Update()
     {
         CalculateCamPos();
@@ -24,7 +31,7 @@ public class CameraController : MonoBehaviour
         // which means that it doesn't need to be that clear, as long as it saves resources from the system.
 
         Vector2 playerPos = Assets.Instance.playerTransform.position;
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
 
         Vector2 dir = mousePos - playerPos;
         Vector2 newPos = playerPos + dir / 2;

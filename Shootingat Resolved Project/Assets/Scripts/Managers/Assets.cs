@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Enumeration used for saving every sound in the game.
@@ -7,7 +5,9 @@ public enum SoundType
 {
     PlayerShoot,
     EnemyHit,
-    PickPowerup
+    PickPowerup,
+    PlayerWalk,
+    PlayerDash
 }
 
 // Enumeration used for saving every particleType in the game.
