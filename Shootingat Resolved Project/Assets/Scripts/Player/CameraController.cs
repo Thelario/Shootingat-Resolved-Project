@@ -21,9 +21,6 @@ public class CameraController : MonoBehaviour
         CalculateCamPos();
     }
 
-    /// <summary>
-    /// Calculates the camera position according to the player position and the mouse position.
-    /// </summary>
     private void CalculateCamPos()
     {
         // I don't know if I should keep all the vector variables, because it is going to waste memory,
@@ -39,9 +36,6 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(smoothPos.x, smoothPos.y, zOffset);
     }
 
-    /// <summary>
-    /// Makes the camera to shake for a few miliseconds
-    /// </summary>
     public IEnumerator ScreenShake()
     {
         screenShakeTimeCounter = screenShakeTime;
