@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
     [SerializeField] private float smoothSpeed = 5;
     [SerializeField] private float zOffset = -10;
@@ -11,9 +11,17 @@ public class CameraController : MonoBehaviour
 
     private Camera _camera;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _camera = Camera.main;
+    }
+
+    private void Start()
+    {
+        if (_camera == null)
+            _camera = Camera.main;
     }
 
     private void Update()
@@ -23,9 +31,8 @@ public class CameraController : MonoBehaviour
 
     private void CalculateCamPos()
     {
-        // I don't know if I should keep all the vector variables, because it is going to waste memory,
-        // but the code is mucho more clear in this way. I guess that I am not going to change this code,
-        // which means that it doesn't need to be that clear, as long as it saves resources from the system.
+        if (Assets.Instance.playerTransform == null)
+            Assets.Instance.playerTransform = FindObjectOfType<PlayerController>().transform;
 
         Vector2 playerPos = Assets.Instance.playerTransform.position;
         Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);

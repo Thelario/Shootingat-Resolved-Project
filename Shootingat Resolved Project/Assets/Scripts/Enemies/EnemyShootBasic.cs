@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShootBasic : EnemyBase
+public class EnemyShootBasic : EnemyFollow
 {
     [Header("Enemy Shoot Fields")]
     [SerializeField] private Transform shootPoint;
@@ -10,12 +10,12 @@ public class EnemyShootBasic : EnemyBase
     [SerializeField] private float shootTime;
     [SerializeField] private Transform weapon;
     [SerializeField] private Animator animator;
+    [SerializeField] private float minDistanceAwayFromPlayer;
+    [SerializeField] private float shootDst;
 
     private float shootTimeCounter;
     private Vector2 dir;
-
-    public bool playerOnZone = false;
-    public Transform target;
+    private bool moving = true;
 
     protected override void Start()
     {
@@ -25,34 +25,35 @@ public class EnemyShootBasic : EnemyBase
 
     private void LateUpdate()
     {
-        if (playerOnZone)
-        {
-            Rotate(target.position);
+        if (!PlayerOnZone())
+            return;
 
-            shootTimeCounter += Time.deltaTime;
-            if (shootTimeCounter - shootTime >= 0f)
-                Shoot();
+        shootTimeCounter += Time.deltaTime;
+
+        if (shootTimeCounter - shootTime >= 0f)
+        {
+            StartCoroutine(Shoot());
+        }
+        else if (shootTimeCounter - shootTime >= shootTime / 5f)
+        {
+            moving = false;
         }
     }
 
-    public override void Die()
+    protected override void Move()
     {
-        //OnEnemyDead(clarityToGiveToPlayerWhenDied);
-        RoomAssociatedTo.ReduceEnemyCounter();
-        Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
-        Destroy(Instantiate(Assets.Instance.bloodSplash_1, transform.position, transform.rotation), 10f);
-        Destroy(gameObject);
+        if (!moving)
+            return;
+
+        Vector3 dir = a.playerTransform.position - transform.position;
+        if (dir.magnitude < minDistanceAwayFromPlayer)
+            return;
+
+        this.dir = dir.normalized;
+        base.Move();
     }
 
-    private void Rotate(Vector3 target)
-    {
-        dir = target - transform.position;
-        weapon.up = dir;
-        animator.SetFloat("Horizontal", dir.normalized.x);
-        animator.SetFloat("Vertical", dir.normalized.y);
-    }
-
-    private void Shoot()
+    private IEnumerator Shoot()
     {
         shootTimeCounter = 0f;
 
@@ -60,14 +61,22 @@ public class EnemyShootBasic : EnemyBase
         go.transform.position = shootPoint.position;
         go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f));
 
-        // Shooting bullets without Unity Physics System
         Bullet b = go.GetComponent<Bullet>();
         b.SetDir(dir);
 
-        // Shooting bullets with Unity Physics System
-        // Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
-        // rb.AddForce(go.transform.up * bulletSpeed, ForceMode2D.Impulse);
-
         ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
+
+        yield return new WaitForSeconds(1f);
+        moving = true;
+    }
+
+    private bool PlayerOnZone()
+    {
+        Vector3 dir = a.playerTransform.position - transform.position;
+
+        if (dir.magnitude < shootDst)
+            return true;
+        else
+            return false;
     }
 }

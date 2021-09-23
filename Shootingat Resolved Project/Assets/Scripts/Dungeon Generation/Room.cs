@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,28 +18,13 @@ public class Room : MonoBehaviour
     private bool[] spawnPointsCreated;
     private int enemyCounter = 0;
 
-    private void Awake()
-    {
-        AssignRoomToDoors();
-    }
-
     private void Start()
     {
         enemyCounter = enemyCount;
+
+        AssignRoomToDoors();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            foreach (Door d in roomDoors)
-                d.OpenDoor();
-        }
-    }
-
-    /// <summary>
-    /// Method called when a player enters a room that hasn't entered yet
-    /// </summary>
     public void StartEncounter()
     {
         switch (oldType)
@@ -70,14 +56,22 @@ public class Room : MonoBehaviour
         for (int i = 0; i < spawnPointsCreated.Length; i++)
             spawnPointsCreated[i] = false;
 
-        // Spawnning enemies
+        StartCoroutine(SpawnRoomEnemies());
+    }
+
+    private IEnumerator SpawnRoomEnemies()
+    {
         for (int i = 0; i < enemyCount; i++)
         {
-            // For not allowing two enemies to spawn in the same spawpoint
-            Vector3 pos = GetRandomSpawnPoint();
+            Vector3 pos = GetRandomSpawnPoint(); // For not allowing two enemies to spawn in the same spawpoint
+
+            yield return new WaitForSeconds(.4f);
+
+            ParticlesManager.Instance.CreateParticle(ParticleType.EnemySpawn, pos, 1f);
+
+            yield return new WaitForSeconds(.1f);
 
             // Creating the enemies in the pos calculated position
-            ParticlesManager.Instance.CreateParticle(ParticleType.EnemySpawn, pos, 1f);
             GameObject go = Instantiate(EnemyManager.Instance.GetRandomEnemy(), pos, Quaternion.identity);
             enemies.Add(go);
         }
@@ -99,10 +93,6 @@ public class Room : MonoBehaviour
             d.OpenDoor();
     }
 
-    /// <summary>
-    /// Returns the next spawpoint that is available for spawnning an enemy
-    /// </summary>
-    /// <returns> SpawnPoint where instantiating an enemy </returns>
     private Vector3 GetRandomSpawnPoint()
     {
         int s;
@@ -145,9 +135,6 @@ public class Room : MonoBehaviour
         // at the beginning of the lvel generation.
     }
 
-    /// <summary>
-    /// Makes each door of this room to have a reference to this room
-    /// </summary>
     private void AssignRoomToDoors()
     {
         foreach (Door d in roomDoors)
@@ -157,7 +144,7 @@ public class Room : MonoBehaviour
     private void AssignRoomToEnemies()
     {
         foreach (GameObject e in enemies)
-            e.GetComponent<EnemyBase>().RoomAssociatedTo = this;
+            e.GetComponent<Enemy>().RoomAssociatedTo = this;
     }
 
     public void ReduceEnemyCounter()

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-#pragma warning disable CS0114
-
 public class PlayerStats : Singleton<PlayerStats>, IDamageable
 {
     [Header("Player Stats")]
-
     [Header("Clarity")]
     public int currentClarity;
     [SerializeField] private int maxCurrentClarity;
@@ -37,6 +34,12 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
     [Header("References")]
     [SerializeField] private PlayerStatsUI psui;
     [SerializeField] private PlayerClarity pc;
+    [SerializeField] protected SpriteRenderer agentRenderer;
+
+    [Header("Color Change when Hit")]
+    [SerializeField] protected Color agentColor;
+    [SerializeField] protected Color hitColor;
+    [SerializeField] protected float timeToWaitForColorChange;
 
     private void Start()
     {
@@ -49,18 +52,11 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
         pc.UpdateClarity(currentClarity, maxCurrentClarity);
     }
 
-    /// <summary>
-    /// All necessary actions to happen when an enemy dies
-    /// </summary>
     public void Die()
     {
         SceneManager.LoadScene(0);
     }
 
-    /// <summary>
-    /// Deals x amount of damage to player
-    /// </summary>
-    /// <param name="damage"> Amount of damage to deal </param>
     public void TakeDamage(int damage)
     {
         currentClarity -= damage;
@@ -69,29 +65,18 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
 
         pc.UpdateClarity(currentClarity, maxCurrentClarity);
 
-        UpdateColorWithHealth();
+        StartCoroutine(Co_HitColorChange());
     }
 
-    /// <summary>
-    /// Changes player sprite color according to his health (is whiter if health is higher and darker if health is lower)
-    /// </summary>
-    private void UpdateColorWithHealth()
+    private IEnumerator Co_HitColorChange()
     {
-        float c = (float)currentClarity / maxCurrentClarity;
-        if (c < 0.2f) c = 0.2f;
+        agentRenderer.color = hitColor;
 
-        Color nc = new Color(c, c, c);
-        //agentColor = nc;
-        //agentRenderer.color = nc;
+        yield return new WaitForSeconds(timeToWaitForColorChange);
 
-        //healthSliderColor = new Color(0f, nc.g, nc.b);
-        //fillImage.color = healthSliderColor;
+        agentRenderer.color = agentColor;
     }
 
-    /// <summary>
-    /// Heals x amount of health
-    /// </summary>
-    /// <param name="health"> Amount of health to be healed </param>
     public void HealHealth(int clarity)
     {
         currentClarity += clarity;
@@ -99,8 +84,6 @@ public class PlayerStats : Singleton<PlayerStats>, IDamageable
             currentClarity = maxCurrentClarity;
 
         pc.UpdateClarity(currentClarity, maxCurrentClarity);
-
-        UpdateColorWithHealth();
     }
 
     #region POWERUPS

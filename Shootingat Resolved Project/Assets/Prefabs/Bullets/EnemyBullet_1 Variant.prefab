@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3656608677930125479, guid: c0f8c652b3730484388fae69e1071424, type: 3}
       propertyPath: enemyBulletMoveSpeed
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0f8c652b3730484388fae69e1071424, type: 3}

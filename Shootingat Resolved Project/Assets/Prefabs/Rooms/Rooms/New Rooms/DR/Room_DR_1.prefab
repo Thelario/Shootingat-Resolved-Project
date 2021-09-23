@@ -54,7 +54,9 @@ MonoBehaviour:
   - {fileID: 889797730757410570}
   type: 8
   oldType: 0
-  roomDoors: []
+  roomDoors:
+  - {fileID: 3727338301615280659}
+  - {fileID: 6497244219987878720}
   spawnPoints: []
   enemyCount: 4
 --- !u!1 &889797729779054981
@@ -6721,6 +6723,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6071963660183883523, guid: a9bdd87307a1a5a4ca821e6d998adc9b, type: 3}
   m_PrefabInstance: {fileID: 1214171688271412487}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3727338301615280659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2550076257102229268, guid: a9bdd87307a1a5a4ca821e6d998adc9b, type: 3}
+  m_PrefabInstance: {fileID: 1214171688271412487}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce28085de05ba646a515f9fd5a751b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1256855205306197795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9825,6 +9838,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6071963660183883523, guid: a9bdd87307a1a5a4ca821e6d998adc9b, type: 3}
   m_PrefabInstance: {fileID: 8739633005530319956}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6497244219987878720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2550076257102229268, guid: a9bdd87307a1a5a4ca821e6d998adc9b, type: 3}
+  m_PrefabInstance: {fileID: 8739633005530319956}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce28085de05ba646a515f9fd5a751b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8777276301051744854
 PrefabInstance:
   m_ObjectHideFlags: 0

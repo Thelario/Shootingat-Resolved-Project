@@ -41,6 +41,15 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         fireRateCounter = ps.fireRate;
+
+        if (_camera == null)
+            _camera = Camera.main;
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        camController = FindObjectOfType<CameraController>();
+        transform.position = Vector3.zero;
     }
 
     private void Update()
@@ -120,13 +129,8 @@ public class PlayerController : MonoBehaviour
         go.transform.position = shootPoint.position;
         go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/);
 
-        // Shooting bullets without Unity Physics System
         Bullet b = go.GetComponent<Bullet>();
         b.SetDir(dir);
-
-        // Shooting bullets with Unity Physics System
-        // Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
-        // rb.AddForce(go.transform.up * bulletSpeed, ForceMode2D.Impulse);
 
         StartCoroutine(camController.ScreenShake());
 

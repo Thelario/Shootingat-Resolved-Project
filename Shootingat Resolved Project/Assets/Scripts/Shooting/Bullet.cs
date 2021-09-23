@@ -39,10 +39,6 @@ public class Bullet : MonoBehaviour
     }
     */
 
-    /// <summary>
-    /// Method for handling the collision of a bullet with enemies.
-    /// </summary>
-    /// <param name="collision"> Collision2D component of the object the bullet has collided with </param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (type == BulletType.enemyBullet && collision.CompareTag("Enemy"))
@@ -64,10 +60,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Method for Deactivating the bullet according to the time passed as parameter.
-    /// </summary>
-    /// <param name="time"> Maximum time the bullet can be travelling activated </param>
     private IEnumerator DisableBullet(float time)
     {
         yield return new WaitForSeconds(time);
@@ -79,9 +71,6 @@ public class Bullet : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Moves bullet with a certain speed in the dir direction
-    /// </summary>
     private void Move()
     {
         // Check if the bullet has moved its maximum range
@@ -106,15 +95,7 @@ public class Bullet : MonoBehaviour
         Rotate(dir);
     }
 
-    /// <summary>
-    /// Rotates bullet so that it points to dir
-    /// </summary>
-    /// <param name="dir"> Direction to point to </param>
     private void Rotate(Vector3 dir) { transform.up = dir; }
 
-    /// <summary>
-    /// Sets the bullet direction to rotate and move to dir
-    /// </summary>
-    /// <param name="dir"> Direction to point to </param>
     public void SetDir(Vector2 dir) { this.dir = dir; }
 }
