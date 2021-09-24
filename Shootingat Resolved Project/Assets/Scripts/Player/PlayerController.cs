@@ -74,10 +74,7 @@ public class PlayerController : MonoBehaviour
 
         CheckShoot();
 
-        if (fireRateCounter >= ps.fireRate)
-        {
-            shooting = false;
-        }
+        CheckShootFinish();
     }
 
     private void Move()
@@ -136,6 +133,14 @@ public class PlayerController : MonoBehaviour
 
         ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
         SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
+    }
+
+    private void CheckShootFinish()
+    {
+        if (fireRateCounter >= ps.fireRate)
+        {
+            shooting = false;
+        }
     }
 
     private void CheckDash()

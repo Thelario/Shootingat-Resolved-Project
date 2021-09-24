@@ -65,11 +65,9 @@ public class Room : MonoBehaviour
         {
             Vector3 pos = GetRandomSpawnPoint(); // For not allowing two enemies to spawn in the same spawpoint
 
-            yield return new WaitForSeconds(.4f);
+            ParticlesManager.Instance.CreateParticle(ParticleType.EnemySpawn, pos, .5f);
 
-            ParticlesManager.Instance.CreateParticle(ParticleType.EnemySpawn, pos, 1f);
-
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.5f);
 
             // Creating the enemies in the pos calculated position
             GameObject go = Instantiate(EnemyManager.Instance.GetRandomEnemy(), pos, Quaternion.identity);

@@ -5128,7 +5128,7 @@ MonoBehaviour:
   walkParticles: {fileID: 1099566229}
   dashTime: 0.5
   dashSpeedUpperLimit: 21.5
-  dashDropRate: 30
+  dashDropRate: 25
 --- !u!114 &9200384582610188846
 MonoBehaviour:
   m_ObjectHideFlags: 0

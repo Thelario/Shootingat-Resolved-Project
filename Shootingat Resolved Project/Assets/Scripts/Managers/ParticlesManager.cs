@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ParticlesManager : Singleton<ParticlesManager>
 {
-    /// <summary>
-    /// GetParticles searchs for the correct particlePrefab and returns it
-    /// </summary>
-    /// <param name="pt"> The ParticleType that we want to get </param>
-    /// <returns> Particle prefab that we want to get </returns>
     public GameObject GetParticles(ParticleType pt)
     {
         foreach (Particle p in Assets.Instance.particlesArray)
