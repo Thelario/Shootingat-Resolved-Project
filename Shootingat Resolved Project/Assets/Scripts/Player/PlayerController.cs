@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 // using Random = UnityEngine.Random; // Un-comment in case I add using System
 
 #pragma warning disable CS0414 // Quitar miembros privados no leídos
@@ -46,7 +47,17 @@ public class PlayerController : MonoBehaviour
             _camera = Camera.main;
     }
 
-    private void OnLevelWasLoaded(int level)
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoaded;
+    }
+
+    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
     {
         camController = FindObjectOfType<CameraController>();
         transform.position = Vector3.zero;

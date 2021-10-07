@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Enumeration used for saving every sound in the game.
 public enum SoundType
 {
     PlayerShoot,
@@ -10,7 +9,6 @@ public enum SoundType
     PlayerDash
 }
 
-// Enumeration used for saving every particleType in the game.
 public enum ParticleType
 {
     PlayerShoot,
@@ -20,7 +18,6 @@ public enum ParticleType
     PickPowerup
 }
 
-// Enumeration used for saving all bullets according to their types.
 public enum BulletType
 {
     playerBullet,
@@ -48,11 +45,21 @@ public class Bullets
     public GameObject bulletPrefab;
 }
 
+[System.Serializable]
+public class Items
+{
+    public string itemName;
+    public GameObject itemPrefab;
+}
+
 public class Assets : Singleton<Assets>
 {
     // I am thinking on changing the arrays with dictionaries, but I assume they are 
     // not going to be Serializable, which is going to be a problem for assigning the
     // resources in the inspector.
+
+    // I might be able to have dictionaries if I use arrays or list for serialization and
+    // load all the objects into a dictionary when the game starts.
 
     [Header("SFX")]
     public SoundAudioClip[] soundAudioClipArray;
@@ -69,4 +76,7 @@ public class Assets : Singleton<Assets>
     [Header("Splash Images")]
     public GameObject bulletSplash_1;
     public GameObject bloodSplash_1;
+
+    [Header("Items")]
+    public Items[] itemsArray;
 }

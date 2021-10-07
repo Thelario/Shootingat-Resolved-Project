@@ -31,7 +31,9 @@ public class Door : MonoBehaviour
     {
         // I don't call CloseDoor from here because I don't always need to close the doors.
         // This is why we do it from Room.
-        if (RoomAssociatedWith == null) Debug.LogError("Room association is wrong");
+        if (RoomAssociatedWith == null) 
+            Debug.LogError("Room association is wrong");
+
         RoomAssociatedWith.StartEncounter();
     }
 }

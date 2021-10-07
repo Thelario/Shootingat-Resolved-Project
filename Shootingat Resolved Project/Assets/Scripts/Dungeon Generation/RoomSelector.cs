@@ -15,6 +15,7 @@ public class RoomSerializable
 public class RoomSelector : MonoBehaviour
 {
     [SerializeField] private List<RoomSerializable> roomPrefabs = new List<RoomSerializable>();
+    [SerializeField] private List<RoomSerializable> treasureRoomPrefabs = new List<RoomSerializable>();
 
     private RoomType[] left = new RoomType[] {
         RoomType.URD,
@@ -52,11 +53,6 @@ public class RoomSelector : MonoBehaviour
         RoomType.LUDR
     };
 
-    /// <summary>
-    /// Function that returns a valid room according to the room next to it
-    /// </summary>
-    /// <param name="rt"> rt value can only be U, D, L or R for correct functioning </param>
-    /// <returns> The prefab of the room to be created </returns>
     public GameObject GetCorrectRoom(RoomType rt)
     {
         // We assume that the parameter passed to this function will always be either L, R, U or D, meaning it to be the new position
@@ -64,7 +60,6 @@ public class RoomSelector : MonoBehaviour
 
         // If rt = L, it means that the new room is going to be placed in the left side, which means that only a few rooms will be able to be placed:
         RoomType roomTypeSol = RoomType.LUDR;
-        //Debug.Log(roomTypeSol);
 
         // We switch between the possible cases of the room
         switch (rt)
@@ -85,8 +80,6 @@ public class RoomSelector : MonoBehaviour
                 roomTypeSol = RoomType.LUDR;
                 break;
         }
-
-        //Debug.Log(roomTypeSol);
 
         // Iterate through the list in order to find the correct room
         foreach (RoomSerializable rs in roomPrefabs)
@@ -109,15 +102,25 @@ public class RoomSelector : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// Gets a random room from the ones available
-    /// </summary>
-    /// <returns></returns>
+    public GameObject GetTreasureRoomFromVariants(RoomType rt)
+    {
+        foreach (RoomSerializable rs in treasureRoomPrefabs)
+        {
+            if (rs.roomType == rt)
+                return rs.GetRandomVariant();
+        }
+
+        return null;
+    }
+
+    public GameObject GetBossRoomFromVariants(RoomType rt)
+    {
+        // TODO: program the spawnning of boss rooms
+        return null;
+    }
+
     public GameObject GetRandomRoom() { return roomPrefabs[Random.Range(0, roomPrefabs.Count)].GetRandomVariant(); }
 
-    /// <summary>
-    /// Function used to get the opposite side type room from a given one
-    /// </summary>
     public RoomType GetInverseRoomType(RoomType rt)
     {
         switch (rt)

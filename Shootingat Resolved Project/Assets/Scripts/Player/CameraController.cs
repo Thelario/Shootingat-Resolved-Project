@@ -36,10 +36,10 @@ public class CameraController : Singleton<CameraController>
 
         Vector2 playerPos = Assets.Instance.playerTransform.position;
         Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
-
         Vector2 dir = mousePos - playerPos;
         Vector2 newPos = playerPos + dir / 2;
         Vector2 smoothPos = Vector2.Lerp(transform.position, newPos, smoothSpeed * Time.deltaTime);
+
         transform.position = new Vector3(smoothPos.x, smoothPos.y, zOffset);
     }
 
@@ -51,8 +51,10 @@ public class CameraController : Singleton<CameraController>
         {
             float newRandomX = Random.Range(-0.05f, 0.05f);
             float newRandomY = Random.Range(-0.05f, 0.05f);
+
             transform.position += new Vector3(newRandomX, newRandomY, zOffset);
             screenShakeTimeCounter -= Time.deltaTime;
+
             yield return null;
         }
     }

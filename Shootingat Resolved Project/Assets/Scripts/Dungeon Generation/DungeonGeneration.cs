@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class DungeonGeneration : MonoBehaviour
 {
+    #region DELEGATES
+
+    public delegate void DungeonGenerationEnded();
+    public static event DungeonGenerationEnded OnDungeonGenerationEnded;
+
+    #endregion
+
     #region FIELDS, REFERENCES AND VARIABLES
 
     [SerializeField] private List<GameObject> rooms = new List<GameObject>();
@@ -35,10 +42,6 @@ public class DungeonGeneration : MonoBehaviour
 
     #region MY METHODS
 
-    /// <summary>
-    /// Function used everytime we want to generate a dungeon. It will be based on the level (making it bigger according to the level).
-    /// </summary>
-    /// <param name="dungeonLevel"> Level of the dungeon we want to generate </param>
     public void GenerateDungeon(int dungeonLevel)
     {
         // For now I will omit the logic of levels
@@ -48,18 +51,8 @@ public class DungeonGeneration : MonoBehaviour
         numRoomsCounter = 0;
 
         StartCoroutine(CreateRoom(Vector2.zero));
-
-        // All rooms are going to be equal size (all rectangular like in the binding of isaac).
-        // There are not going to be connections between rooms, all rooms will connect between them.
-        // 1. We generate the initial room in the center position of the grid.
-        // 2. From there, we generate a valid room in each side.
-        // 3. We repeat this for each new room created until we have created all the rooms
     }
 
-    /// <summary>
-    /// Given a position, we create a random room in that position and start the dungeon generation
-    /// </summary>
-    /// <param name="pos"> Position to create the room </param>
     public IEnumerator CreateRoom(Vector3 pos)
     {
         // Before creating the room, I need to check whether there is already a room created in that position.
@@ -88,11 +81,6 @@ public class DungeonGeneration : MonoBehaviour
         CheckDungeon();
     }
 
-    /// <summary>
-    /// Given a position, we create a room according to the type passed as a parameter
-    /// </summary>
-    /// <param name="pos"> Position to create the room </param>
-    /// <param name="rt"> Type of room we want to create </param>
     public IEnumerator CreateRoom(Vector3 pos, RoomType rt)
     {
         // Before creating the room, I need to check whether there is already a room created in that position.
@@ -122,25 +110,18 @@ public class DungeonGeneration : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// We create the room but we don't keep on generating the rest of the dungeon, only this room
-    /// </summary>
-    /// <param name="pos"> Position to place the room </param>
-    /// <param name="rt"> Type of room to create </param>
-    public void CreateRoom(Vector3 pos, RoomType rt, bool b)
+    public void CreateRoomEnd(Vector3 pos, RoomType rt, bool treasureRoom, bool bossRoom)
     {
         roomCreatedPositions.Add(pos);
 
-        GameObject roomToBeCreated = roomSelector.GetRoomFromVariants(rt);
-        /*GameObject roomToBeCreated = null;
-        foreach (GameObject go in rooms)
-        {
-            if (rt == go.GetComponent<Room>().type)
-            {
-                roomToBeCreated = go;
-                break;
-            }
-        }*/
+        GameObject roomToBeCreated;
+
+        if (treasureRoom)
+            roomToBeCreated = roomSelector.GetTreasureRoomFromVariants(rt);
+        else if (bossRoom)
+            roomToBeCreated = roomSelector.GetTreasureRoomFromVariants(rt); // TODO: CreateBossRoomFromVariants(rt);
+        else
+            roomToBeCreated = roomSelector.GetRoomFromVariants(rt);
 
         GameObject g = Instantiate(roomToBeCreated, pos, Quaternion.identity, transform);
         Room r = g.GetComponent<Room>();
@@ -148,11 +129,6 @@ public class DungeonGeneration : MonoBehaviour
         auxRoomsCreated.Add(r);
     }
 
-    /// <summary>
-    /// Function called whenever we want to check wheter there is already a room created in the pos position
-    /// </summary>
-    /// <param name="pos"> Position to check if there is a room or not </param>
-    /// <returns> True if a room can be placed, false o.w. </returns>
     private bool CanPlaceRoom(Vector2 pos)
     {
         foreach(Vector2 v2 in roomCreatedPositions)
@@ -164,20 +140,11 @@ public class DungeonGeneration : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Gets a random room from the ones in the rooms list
-    /// </summary>
-    /// <returns> A random rooms </returns>
     private GameObject GetRandomRoom() 
     { 
         return rooms[Random.Range(0, rooms.Count)]; 
     }
 
-    /// <summary>
-    /// Function used to get a valid room between all the possible rooms that exist.
-    /// </summary>
-    /// <param name="pos"> Position where the room will be created </param>
-    /// <returns></returns>
     private GameObject GetValidRoom(Vector3 pos, RoomType rt)
     {
         GameObject go;
@@ -186,7 +153,7 @@ public class DungeonGeneration : MonoBehaviour
 
         // We can only return a room as a valid room if it connects with the previous room and if for each side, we will be able to place another room.
         int i = 0;
-        while (true /* i < 100*/)
+        while (true)
         {
             go = roomSelector.GetCorrectRoom(rt);
             g = Instantiate(go, pos, Quaternion.identity, transform);
@@ -203,22 +170,12 @@ public class DungeonGeneration : MonoBehaviour
         }
 
         return go;
-
-        //return roomSelector.GetCorrectRoom(rt);
     }
 
-    /// <summary>
-    /// For every side of a room, we check if it is possible to place another room in that side or if there is already a room.
-    /// </summary>
-    /// <param name="r"> Room to check </param>
-    /// <returns> Boolean indicating whether there is a room or not </returns>
     private bool CheckRoomPoints(Room r, RoomType rt)
     {
         foreach(Transform p in r.points)
         {
-            //Debug.Log("Type of Point from room: " + p.GetComponent<Point>().type);
-            //Debug.Log("Type of Point not to check: " + rt);
-
             if (p.GetComponent<Point>().type == rt) continue;
 
             if (!CanPlaceRoom(p.position))
@@ -230,14 +187,8 @@ public class DungeonGeneration : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Function called after having generated a dungeon, when we want to check if the dungeon is correctly generated
-    /// </summary>
     private void CheckDungeon()
     {
-        // Debug.Log("This happens after dungeon generation");
-        // Debug.Log("Number of rooms created: " + numRoomsCounter);
-
         if (numRoomsCounter < minNumRooms)
         {
             RestartDungeonGeneration();
@@ -248,28 +199,42 @@ public class DungeonGeneration : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Function called when we want to discover if all the rooms are well generated and have not empty connections or wrong placed ones
-    /// </summary>
     private void CheckRoomConnections()
     {
-        // We make a first check
+        bool createBossRoom = true;
+        int treasureRooms = 0;
+
+        // We create the rooms to complete the empty endings
         foreach (Room r in roomsCreated)
         {
             foreach (Transform p in r.points)
             {
-                if (CanPlaceRoom(p.position))
+                if (CanPlaceRoom(p.position)) // We have found a room that has empty connections
                 {
-                    // We have found a room that has empty connections
-
                     RoomType rt = roomSelector.GetInverseRoomType(p.GetComponent<Point>().type);
-                    CreateRoom(p.position, rt, true);
+
+                    if (createBossRoom) // If haven't created a boss room, then create it
+                    {
+                        createBossRoom = false;
+                        CreateRoomEnd(p.position, rt, false, true);
+                        continue;
+                    }
+
+                    treasureRooms++;
+                    CreateRoomEnd(p.position, rt, true, false);
                 }
             }
         }
 
+        if (createBossRoom == true || treasureRooms == 0)
+        {
+            RestartDungeonGeneration();
+            return;
+        }
+
         // We add to the list the new rooms created
-        foreach (Room r in auxRoomsCreated) { roomsCreated.Add(r); }
+        foreach (Room r in auxRoomsCreated) 
+            roomsCreated.Add(r); 
 
         // We delete the auxiliary list
         auxRoomsCreated.Clear();
@@ -324,12 +289,10 @@ public class DungeonGeneration : MonoBehaviour
                 return;
             }
         }
+
+        OnDungeonGenerationEnded();
     }
 
-    /// <summary>
-    /// Method called when the generation of a dungeon has finnished but not enough rooms have been created.
-    /// All the dungeon will be deleted and started again, until a correct dungeon is generated.
-    /// </summary>
     private void RestartDungeonGeneration()
     {
         //Debug.Log("Restarting dungeon");

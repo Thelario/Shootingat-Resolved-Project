@@ -13,6 +13,7 @@ public class Room : MonoBehaviour
     [SerializeField] private List<Door> roomDoors;              // Doors associated to the room
     [SerializeField] private List<Transform> spawnPoints;       // Points to spawn enemies
     [SerializeField] private int enemyCount;
+    [SerializeField] private Transform roomCenter;
 
     private List<GameObject> enemies = new List<GameObject>();
     private bool[] spawnPointsCreated;
@@ -48,7 +49,7 @@ public class Room : MonoBehaviour
     {
         // In the future, this function will change, because enemies need to be taken randomly
         // according to the current level of the dungeon an so on.
-
+        
         CloseDoors();
 
         // Initializing the spawnPointsCreated array
@@ -106,13 +107,13 @@ public class Room : MonoBehaviour
 
     private void HandleTreasureRoom()
     {
-        // Spawn in the center of the room a random item or whathever I decide.
+        SpawnItem();
+        OpenDoors();
+    }
 
-        // DIFFERENT IDEAS FOR THIS:
-        //  - I dunno what this is going to be, because I could create a room for managing
-        //    level points, and allowing the player to decide which levels they want to upgrade.
-        //  - I could also try to make lots of items with different stats each (like Isaac).
-        //  - I could also give points to player that can only be spent in certain stats.
+    private void SpawnItem()
+    {
+        Instantiate(ItemsManager.Instance.GetRandomItemPrefab(), roomCenter.position, Quaternion.identity);
     }
 
     private void HandleBossRoom()
