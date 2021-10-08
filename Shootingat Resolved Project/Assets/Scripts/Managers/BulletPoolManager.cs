@@ -17,11 +17,6 @@ public class BulletPoolManager : Singleton<BulletPoolManager>
         enemyBulletsPool = GenerateEnemyBullets(initialEnemyBullets);
     }
 
-    /// <summary>
-    /// Method for generating some bullets and add them into the bulletPool for later use
-    /// </summary>
-    /// <param name="amountOfBullets"> Amount of bullets to generate </param>
-    /// <returns> The list of all the bullets created </returns>
     private List<GameObject> GeneratePlayerBullets(int amountOfBullets)
     {
         for (int i = 0; i < amountOfBullets; i++)
@@ -34,10 +29,6 @@ public class BulletPoolManager : Singleton<BulletPoolManager>
         return playerBulletsPool;
     }
 
-    /// <summary>
-    /// Method for searching a bullet to be shot
-    /// </summary>
-    /// <returns> The bullet to be shot </returns>
     public GameObject RequestPlayerBullet()
     {
         // Search for an active bullet (one that is not being used)
@@ -55,11 +46,6 @@ public class BulletPoolManager : Singleton<BulletPoolManager>
         return RequestPlayerBullet();
     }
 
-    /// <summary>
-    /// Method for generating some bullets and add them into the bulletPool for later use
-    /// </summary>
-    /// <param name="amountOfBullets"> Amount of bullets to generate </param>
-    /// <returns> The list of all the bullets created </returns>
     private List<GameObject> GenerateEnemyBullets(int amountOfBullets)
     {
         for (int i = 0; i < amountOfBullets; i++)
@@ -72,10 +58,6 @@ public class BulletPoolManager : Singleton<BulletPoolManager>
         return enemyBulletsPool;
     }
 
-    /// <summary>
-    /// Method for searching a bullet to be shot
-    /// </summary>
-    /// <returns> The bullet to be shot </returns>
     public GameObject RequestEnemyBullet()
     {
         // Search for an active bullet (one that is not being used)

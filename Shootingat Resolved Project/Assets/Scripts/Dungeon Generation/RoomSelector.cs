@@ -16,6 +16,7 @@ public class RoomSelector : MonoBehaviour
 {
     [SerializeField] private List<RoomSerializable> roomPrefabs = new List<RoomSerializable>();
     [SerializeField] private List<RoomSerializable> treasureRoomPrefabs = new List<RoomSerializable>();
+    [SerializeField] private List<RoomSerializable> bossRoomPrefabs = new List<RoomSerializable>();
 
     private RoomType[] left = new RoomType[] {
         RoomType.URD,
@@ -115,11 +116,19 @@ public class RoomSelector : MonoBehaviour
 
     public GameObject GetBossRoomFromVariants(RoomType rt)
     {
-        // TODO: program the spawnning of boss rooms
+        foreach (RoomSerializable rs in bossRoomPrefabs)
+        {
+            if (rs.roomType == rt)
+                return rs.GetRandomVariant();
+        }
+
         return null;
     }
 
-    public GameObject GetRandomRoom() { return roomPrefabs[Random.Range(0, roomPrefabs.Count)].GetRandomVariant(); }
+    public GameObject GetRandomRoom() 
+    { 
+        return roomPrefabs[Random.Range(0, roomPrefabs.Count)].GetRandomVariant(); 
+    }
 
     public RoomType GetInverseRoomType(RoomType rt)
     {
