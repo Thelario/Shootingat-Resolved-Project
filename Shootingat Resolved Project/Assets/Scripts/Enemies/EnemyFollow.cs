@@ -44,7 +44,7 @@ public class EnemyFollow : Enemy
     public override void Die()
     {
         //OnEnemyDead(clarityToGiveToPlayerWhenDied);
-        RoomAssociatedTo.ReduceEnemyCounter();
+        _roomAssociatedTo.ReduceEnemyCounter();
         Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
         Destroy(Instantiate(a.bloodSplash_1, transform.position, transform.rotation), 10f);
         Destroy(gameObject);

@@ -290,7 +290,7 @@ public class DungeonGeneration : MonoBehaviour
             }
         }
 
-        OnDungeonGenerationEnded();
+        OnDungeonGenerationEnded?.Invoke();
     }
 
     private void RestartDungeonGeneration()

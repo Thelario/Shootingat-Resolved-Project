@@ -143,7 +143,7 @@ public class Room : MonoBehaviour
     private void AssignRoomToEnemies()
     {
         foreach (GameObject e in enemies)
-            e.GetComponent<Enemy>().RoomAssociatedTo = this;
+            e.GetComponent<IRoomAssignable>().AssignRoom(this);
     }
 
     public void ReduceEnemyCounter()
