@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class ItemsManager : Singleton<ItemsManager>
+namespace PabloLario.Managers
 {
-    Assets a;
-
-    private void Start()
+    public class ItemsManager : Singleton<ItemsManager>
     {
-        a = Assets.Instance;
-    }
+        Assets a;
 
-    public GameObject GetRandomItemPrefab()
-    {
-        int random = Random.Range(0, a.itemsArray.Length);
-        return a.itemsArray[random].itemPrefab;
-    }
-
-    public GameObject GetItemFromName(string name)
-    {
-        foreach (Items i in a.itemsArray)
+        private void Start()
         {
-            if (i.itemName == name)
-                return i.itemPrefab;
+            a = Assets.Instance;
         }
 
-        Debug.LogError("Item " + name + "Not Found! There might not be any item in the Assets.");
-        return null;
+        public GameObject GetRandomItemPrefab()
+        {
+            int random = Random.Range(0, a.itemsArray.Length);
+            return a.itemsArray[random].itemPrefab;
+        }
+
+        public GameObject GetItemFromName(string name)
+        {
+            foreach (Items i in a.itemsArray)
+            {
+                if (i.itemName == name)
+                    return i.itemPrefab;
+            }
+
+            Debug.LogError("Item " + name + "Not Found! There might not be any item in the Assets.");
+            return null;
+        }
     }
 }

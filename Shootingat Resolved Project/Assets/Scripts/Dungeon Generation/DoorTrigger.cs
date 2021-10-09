@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class DoorTrigger : MonoBehaviour
+namespace PabloLario.DungeonGeneration
 {
-    [SerializeField] private Door doorAssociatedWith;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class DoorTrigger : MonoBehaviour
     {
-        // A player has entered a new room not visited before
-        if (collision.CompareTag("Player"))
+        [SerializeField] private Door doorAssociatedWith;
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            doorAssociatedWith.PlayerCrossedDoor();
+            // A player has entered a new room not visited before
+            if (collision.CompareTag("Player"))
+            {
+                doorAssociatedWith.PlayerCrossedDoor();
+            }
         }
     }
 }

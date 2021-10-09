@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : Singleton<EnemyManager>
+namespace PabloLario.Managers
 {
-    [SerializeField] private List<GameObject> enemies;
-
-    public GameObject GetRandomEnemy()
+    public class EnemyManager : Singleton<EnemyManager>
     {
-        int r = Random.Range(0, enemies.Count);
-        return enemies[r];
+        [SerializeField] private List<GameObject> enemies;
+
+        public GameObject GetRandomEnemy()
+        {
+            int r = Random.Range(0, enemies.Count);
+            return enemies[r];
+        }
     }
 }

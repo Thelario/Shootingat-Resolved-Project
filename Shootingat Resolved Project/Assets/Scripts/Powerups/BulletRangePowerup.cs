@@ -1,18 +1,23 @@
+using PabloLario.Managers;
+using PabloLario.Player;
 using UnityEngine;
 
-public class BulletRangePowerup : Powerup
+namespace PabloLario.Powerups
 {
-    [SerializeField] private float addedRange;
-
-    public override void ApplyPowerup()
+    public class BulletRangePowerup : Powerup
     {
-        if (goodPowerup)
-            PlayerStats.Instance.ModifyBulletRange(addedRange);
-        else
-            PlayerStats.Instance.ModifyBulletRange(-addedRange);
+        [SerializeField] private float addedRange;
 
-        ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
-        SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
-        Destroy(gameObject);
+        public override void ApplyPowerup()
+        {
+            if (goodPowerup)
+                PlayerStats.Instance.ModifyBulletRange(addedRange);
+            else
+                PlayerStats.Instance.ModifyBulletRange(-addedRange);
+
+            ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
+            SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
+            Destroy(gameObject);
+        }
     }
 }

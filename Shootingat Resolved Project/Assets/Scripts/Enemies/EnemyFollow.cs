@@ -1,52 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
+using PabloLario.Managers;
+using PabloLario.Shooting;
 using UnityEngine;
 
-public class EnemyFollow : Enemy
+namespace PabloLario.Enemies
 {
-    [Header("Enemy Stats")]
-    [SerializeField] private float enemyMoveSpeed;
-
-    protected Assets a;
-
-    protected virtual void Awake()
+    public class EnemyFollow : Enemy
     {
-        a = Assets.Instance;
-    }
+        [Header("Enemy Stats")]
+        [SerializeField] private float enemyMoveSpeed;
 
-    private void Update()
-    {
-        Move();
+        protected Assets a;
 
-        Rotate();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.TryGetComponent(out IDamageable id) && collision.collider.CompareTag("Enemy") == false)
+        protected virtual void Awake()
         {
-            id.TakeDamage(1);
+            a = Assets.Instance;
         }
-    }
 
-    protected virtual void Move()
-    {
-        Vector3 dir = a.playerTransform.position - transform.position;
-        transform.position = transform.position + dir.normalized * enemyMoveSpeed * Time.deltaTime;
-    }
+        private void Update()
+        {
+            Move();
 
-    protected virtual void Rotate()
-    {
-        Vector3 dir = a.playerTransform.position - transform.position;
-        transform.up = dir.normalized;
-    }
+            Rotate();
+        }
 
-    public override void Die()
-    {
-        //OnEnemyDead(clarityToGiveToPlayerWhenDied);
-        _roomAssociatedTo.ReduceEnemyCounter();
-        Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
-        Destroy(Instantiate(a.bloodSplash_1, transform.position, transform.rotation), 10f);
-        Destroy(gameObject);
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.TryGetComponent(out IDamageable id) && collision.collider.CompareTag("Enemy") == false)
+            {
+                id.TakeDamage(1);
+            }
+        }
+
+        protected virtual void Move()
+        {
+            Vector3 dir = a.playerTransform.position - transform.position;
+            transform.position = transform.position + dir.normalized * enemyMoveSpeed * Time.deltaTime;
+        }
+
+        protected virtual void Rotate()
+        {
+            Vector3 dir = a.playerTransform.position - transform.position;
+            transform.up = dir.normalized;
+        }
+
+        public override void Die()
+        {
+            //OnEnemyDead(clarityToGiveToPlayerWhenDied);
+            _roomAssociatedTo.ReduceEnemyCounter();
+            Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
+            Destroy(Instantiate(a.bloodSplash_1, transform.position, transform.rotation), 10f);
+            Destroy(gameObject);
+        }
     }
 }

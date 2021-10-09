@@ -1,6 +1,6 @@
 {
     "name": "DungeonGeneration",
-    "rootNamespace": "",
+    "rootNamespace": "PabloLario.DungeonGeneration",
     "references": [
         "GUID:ced91b8077bc8304290856a870e5bc14"
     ],

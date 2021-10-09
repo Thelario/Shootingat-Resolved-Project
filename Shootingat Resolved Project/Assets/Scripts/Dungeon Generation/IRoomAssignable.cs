@@ -1,4 +1,7 @@
-public interface IRoomAssignable
+namespace PabloLario.DungeonGeneration
 {
-    public void AssignRoom(Room room);
+    public interface IRoomAssignable
+    {
+        public void AssignRoom(Room room);
+    }
 }

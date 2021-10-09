@@ -1,45 +1,47 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerClarity : MonoBehaviour
+namespace PabloLario.Player
 {
-    [Header("References")]
-    [SerializeField] private RectTransform clarityPanelParent;
-
-    [Header("Prefabs")]
-    [SerializeField] private GameObject availableClarity;
-    [SerializeField] private GameObject unavailableClarity;
-
-    private readonly List<GameObject> claritySlots = new List<GameObject>();
-
-    public void UpdateClarity(int currentClarity, int currentMaxClarity)
+    public class PlayerClarity : MonoBehaviour
     {
-        DestroyPreviousClarity();
+        [Header("References")]
+        [SerializeField] private RectTransform clarityPanelParent;
 
-        // Creates the available clarity items
-        for (int i = 0; i < currentClarity; i++)
+        [Header("Prefabs")]
+        [SerializeField] private GameObject availableClarity;
+        [SerializeField] private GameObject unavailableClarity;
+
+        private readonly List<GameObject> claritySlots = new List<GameObject>();
+
+        public void UpdateClarity(int currentClarity, int currentMaxClarity)
         {
-            GameObject go = Instantiate(availableClarity, clarityPanelParent);
-            claritySlots.Add(go);
+            DestroyPreviousClarity();
+
+            // Creates the available clarity items
+            for (int i = 0; i < currentClarity; i++)
+            {
+                GameObject go = Instantiate(availableClarity, clarityPanelParent);
+                claritySlots.Add(go);
+            }
+
+            // Creates the unavailable clarity items
+            for (int i = 0; i < currentMaxClarity - currentClarity; i++)
+            {
+                GameObject go = Instantiate(unavailableClarity, clarityPanelParent);
+                claritySlots.Add(go);
+            }
         }
 
-        // Creates the unavailable clarity items
-        for (int i = 0; i < currentMaxClarity - currentClarity; i++)
+        private void DestroyPreviousClarity()
         {
-            GameObject go = Instantiate(unavailableClarity, clarityPanelParent);
-            claritySlots.Add(go);
-        }
-    }
+            if (claritySlots.Count == 0)
+                return;
 
-    private void DestroyPreviousClarity()
-    {
-        if (claritySlots.Count == 0)
-            return;
-
-        foreach(GameObject g in claritySlots)
-        {
-            Destroy(g);
+            foreach (GameObject g in claritySlots)
+            {
+                Destroy(g);
+            }
         }
     }
 }

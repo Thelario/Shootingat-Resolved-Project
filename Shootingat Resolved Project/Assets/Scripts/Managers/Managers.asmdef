@@ -1,6 +1,6 @@
 {
     "name": "Managers",
-    "rootNamespace": "",
+    "rootNamespace": "PabloLario.Managers",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

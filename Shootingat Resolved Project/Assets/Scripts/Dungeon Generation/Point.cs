@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class Point : MonoBehaviour
+namespace PabloLario.DungeonGeneration
 {
-    public RoomType type;
+    public class Point : MonoBehaviour
+    {
+        public RoomType type;
+    }
 }
