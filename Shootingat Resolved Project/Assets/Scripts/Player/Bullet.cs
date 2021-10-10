@@ -14,12 +14,8 @@ namespace PabloLario.Shooting
         private Vector2 dir = Vector2.zero; // Direction to point to
         private Vector2 initialPos = Vector2.zero;
 
-        private PlayerStats ps;
+        public PlayerStats ps {get; set;}
 
-        private void Awake()
-        {
-            ps = PlayerStats.Instance;
-        }
 
         private void LateUpdate()
         {
@@ -80,7 +76,7 @@ namespace PabloLario.Shooting
             // Check if the bullet has moved its maximum range
             Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
 
-            // Refactorizar toda la lógica de las balas, porque esto es una chapuza
+            // Refactorizar toda la lï¿½gica de las balas, porque esto es una chapuza
             if (type == BulletType.playerBullet)
             {
                 if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= ps.bulletRange)

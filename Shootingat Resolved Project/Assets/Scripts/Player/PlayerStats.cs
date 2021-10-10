@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace PabloLario.Player
 {
-    public class PlayerStats : Singleton<PlayerStats>, IDamageable
+    public class PlayerStats : MonoBehaviour, IDamageable
     {
         [Header("Player Stats")]
         [Header("Clarity")]

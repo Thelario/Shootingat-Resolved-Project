@@ -144,6 +144,7 @@ namespace PabloLario.Player
 
             Bullet b = go.GetComponent<Bullet>();
             b.SetDir(dir);
+            b.ps = ps;
 
             StartCoroutine(camController.ScreenShake());
 
