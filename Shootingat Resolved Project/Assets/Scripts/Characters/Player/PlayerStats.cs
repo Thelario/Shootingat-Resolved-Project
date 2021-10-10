@@ -1,4 +1,5 @@
 using System.Collections;
+using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,14 +17,9 @@ namespace PabloLario.Characters.Player
         public UpgradableFloatStat moveSpeed;
 
 
-        [Header("References")]
         [SerializeField] private PlayerClarity pc;
-        [SerializeField] protected SpriteRenderer agentRenderer;
 
-        [Header("Color Change when Hit")]
-        [SerializeField] protected Color agentColor;
-        [SerializeField] protected Color hitColor;
-        [SerializeField] protected float timeToWaitForColorChange;
+        [SerializeField] private HitColorChangeAnimation hitAnimation;
 
         private void Start()
         {
@@ -50,7 +46,7 @@ namespace PabloLario.Characters.Player
 
             if (nextClarity.Value < previousClarity.Value)
             {
-                StartCoroutine(Co_HitColorChange());
+                StartCoroutine(hitAnimation.Co_HitColorChange());
             }
 
         }
@@ -58,15 +54,6 @@ namespace PabloLario.Characters.Player
         private void Die()
         {
             SceneManager.LoadScene(0);
-        }
-
-        private IEnumerator Co_HitColorChange()
-        {
-            agentRenderer.color = hitColor;
-
-            yield return new WaitForSeconds(timeToWaitForColorChange);
-
-            agentRenderer.color = agentColor;
         }
 
         public void TakeDamage(int damage)

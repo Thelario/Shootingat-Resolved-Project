@@ -263,11 +263,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a9ed79af543ec46b788d7dfa8949bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentColor: {r: 1, g: 1, b: 1, a: 1}
-  hitColor: {r: 0, g: 0, b: 0, a: 1}
   maxHealth: 10
-  timeToWaitForColorChange: 0.05
-  agentRenderer: {fileID: 6028875060185082106}
+  hitAnimation:
+    agentRenderer: {fileID: 6028875060185082106}
+    agentColor: {r: 1, g: 1, b: 1, a: 1}
+    hitColor: {r: 1, g: 0, b: 0, a: 1}
+    timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 2
   enemyMoveSpeed: 1.25
   shootPoint: {fileID: 6028875059809245740}
