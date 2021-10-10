@@ -1,18 +1,23 @@
+using PabloLario.Managers;
+using PabloLario.Player;
 using UnityEngine;
 
-public class DamagePowerup : Powerup
+namespace PabloLario.Powerups
 {
-    [SerializeField] private int addedDamage;
-
-    public override void ApplyPowerup()
+    public class DamagePowerup : Powerup
     {
-        if (goodPowerup)
-            PlayerStats.Instance.ModifyDamage(addedDamage);
-        else
-            PlayerStats.Instance.ModifyDamage(-addedDamage);
+        [SerializeField] private int addedDamage;
 
-        ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
-        SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
-        Destroy(gameObject);
+        public override void ApplyPowerup()
+        {
+            if (goodPowerup)
+                PlayerStats.Instance.ModifyDamage(addedDamage);
+            else
+                PlayerStats.Instance.ModifyDamage(-addedDamage);
+
+            ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
+            SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
+            Destroy(gameObject);
+        }
     }
 }

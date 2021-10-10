@@ -1,82 +1,85 @@
 using UnityEngine;
 
-public enum SoundType
+namespace PabloLario.Managers
 {
-    PlayerShoot,
-    EnemyHit,
-    PickPowerup,
-    PlayerWalk,
-    PlayerDash
-}
+    public enum SoundType
+    {
+        PlayerShoot,
+        EnemyHit,
+        PickPowerup,
+        PlayerWalk,
+        PlayerDash
+    }
 
-public enum ParticleType
-{
-    PlayerShoot,
-    PlayerHit,
-    EnemyDead,
-    EnemySpawn,
-    PickPowerup
-}
+    public enum ParticleType
+    {
+        PlayerShoot,
+        PlayerHit,
+        EnemyDead,
+        EnemySpawn,
+        PickPowerup
+    }
 
-public enum BulletType
-{
-    playerBullet,
-    enemyBullet
-}
+    public enum BulletType
+    {
+        playerBullet,
+        enemyBullet
+    }
 
-[System.Serializable]
-public class SoundAudioClip
-{
-    public SoundType sound;
-    public AudioClip audioClip;
-}
+    [System.Serializable]
+    public class SoundAudioClip
+    {
+        public SoundType sound;
+        public AudioClip audioClip;
+    }
 
-[System.Serializable]
-public class Particle
-{
-    public ParticleType type;
-    public GameObject particlePrefab;
-}
+    [System.Serializable]
+    public class Particle
+    {
+        public ParticleType type;
+        public GameObject particlePrefab;
+    }
 
-[System.Serializable]
-public class Bullets
-{
-    public BulletType type;
-    public GameObject bulletPrefab;
-}
+    [System.Serializable]
+    public class Bullets
+    {
+        public BulletType type;
+        public GameObject bulletPrefab;
+    }
 
-[System.Serializable]
-public class Items
-{
-    public string itemName;
-    public GameObject itemPrefab;
-}
+    [System.Serializable]
+    public class Items
+    {
+        public string itemName;
+        public GameObject itemPrefab;
+    }
 
-public class Assets : Singleton<Assets>
-{
-    // I am thinking on changing the arrays with dictionaries, but I assume they are 
-    // not going to be Serializable, which is going to be a problem for assigning the
-    // resources in the inspector.
+    public class Assets : Singleton<Assets>
+    {
+        // I am thinking on changing the arrays with dictionaries, but I assume they are 
+        // not going to be Serializable, which is going to be a problem for assigning the
+        // resources in the inspector.
 
-    // I might be able to have dictionaries if I use arrays or list for serialization and
-    // load all the objects into a dictionary when the game starts.
+        // I might be able to have dictionaries if I use arrays or list for serialization and
+        // load all the objects into a dictionary when the game starts.
 
-    [Header("SFX")]
-    public SoundAudioClip[] soundAudioClipArray;
+        [Header("SFX")]
+        public SoundAudioClip[] soundAudioClipArray;
 
-    [Header("Particles")]
-    public Particle[] particlesArray;
+        [Header("Particles")]
+        public Particle[] particlesArray;
 
-    [Header("Bullets")]
-    public Bullets[] bulletsArray;
+        [Header("Bullets")]
+        public Bullets[] bulletsArray;
 
-    [Header("Player Reference")]
-    public Transform playerTransform;
+        [Header("Player Reference")]
+        public Transform playerTransform;
 
-    [Header("Splash Images")]
-    public GameObject bulletSplash_1;
-    public GameObject bloodSplash_1;
+        [Header("Splash Images")]
+        public GameObject bulletSplash_1;
+        public GameObject bloodSplash_1;
 
-    [Header("Items")]
-    public Items[] itemsArray;
+        [Header("Items")]
+        public Items[] itemsArray;
+    }
 }

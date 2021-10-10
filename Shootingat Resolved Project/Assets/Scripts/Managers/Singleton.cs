@@ -1,45 +1,48 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+namespace PabloLario.Managers
 {
-    private static T _instance;
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : Component
     {
-        get
+        private static T _instance;
+        public static T Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<T>();
+                    if (_instance == null)
+                    {
+                        GameObject obj = new GameObject();
+                        obj.name = typeof(T).Name;
+                        _instance = obj.AddComponent<T>();
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        /* In order to use Awake, do it the next way
+        * protected override void Awake()
+        * {
+        *     base.Awake();
+        *     //Your code goes here
+        * }
+        * */
+
+        protected virtual void Awake()
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<T>();
-                if (_instance == null)
-                {
-                    GameObject obj = new GameObject();
-                    obj.name = typeof(T).Name;
-                    _instance = obj.AddComponent<T>();
-                }
+                _instance = this as T;
+                DontDestroyOnLoad(gameObject);
             }
-            return _instance;
+            else if (_instance != this as T)
+            {
+                Destroy(gameObject);
+            }
+            else { DontDestroyOnLoad(gameObject); }
         }
-    }
-
-    /* In order to use Awake, do it the next way
-    * protected override void Awake()
-    * {
-    *     base.Awake();
-    *     //Your code goes here
-    * }
-    * */
-
-    protected virtual void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this as T;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this as T)
-        {
-            Destroy(gameObject);
-        }
-        else { DontDestroyOnLoad(gameObject); }
     }
 }

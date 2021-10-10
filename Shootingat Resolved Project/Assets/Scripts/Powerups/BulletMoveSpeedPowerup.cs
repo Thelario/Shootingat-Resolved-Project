@@ -1,18 +1,23 @@
+using PabloLario.Managers;
+using PabloLario.Player;
 using UnityEngine;
 
-public class BulletMoveSpeedPowerup : Powerup
+namespace PabloLario.Powerups
 {
-    [SerializeField] private float bulletMoveSpeedIncrease;
-
-    public override void ApplyPowerup()
+    public class BulletMoveSpeedPowerup : Powerup
     {
-        if (goodPowerup)
-            PlayerStats.Instance.ModifyBulletSpeed(bulletMoveSpeedIncrease);
-        else
-            PlayerStats.Instance.ModifyBulletSpeed(-bulletMoveSpeedIncrease);
+        [SerializeField] private float bulletMoveSpeedIncrease;
 
-        ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
-        SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
-        Destroy(gameObject);
+        public override void ApplyPowerup()
+        {
+            if (goodPowerup)
+                PlayerStats.Instance.ModifyBulletSpeed(bulletMoveSpeedIncrease);
+            else
+                PlayerStats.Instance.ModifyBulletSpeed(-bulletMoveSpeedIncrease);
+
+            ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
+            SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
+            Destroy(gameObject);
+        }
     }
 }

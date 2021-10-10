@@ -1,82 +1,86 @@
+using PabloLario.Managers;
+using PabloLario.Shooting;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShootBasic : EnemyFollow
+namespace PabloLario.Enemies
 {
-    [Header("Enemy Shoot Fields")]
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float shootTime;
-    [SerializeField] private Transform weapon;
-    [SerializeField] private Animator animator;
-    [SerializeField] private float minDistanceAwayFromPlayer;
-    [SerializeField] private float shootDst;
-
-    private float shootTimeCounter;
-    private Vector2 dir;
-    private bool moving = true;
-
-    protected override void Start()
+    public class EnemyShootBasic : EnemyFollow
     {
-        base.Start();
-        shootTimeCounter = 0f;
-    }
+        [Header("Enemy Shoot Fields")]
+        [SerializeField] private Transform shootPoint;
+        [SerializeField] private float bulletSpeed;
+        [SerializeField] private float shootTime;
+        [SerializeField] private Transform weapon;
+        [SerializeField] private Animator animator;
+        [SerializeField] private float minDistanceAwayFromPlayer;
+        [SerializeField] private float shootDst;
 
-    private void LateUpdate()
-    {
-        if (!PlayerOnZone())
-            return;
+        private float shootTimeCounter;
+        private Vector2 dir;
+        private bool moving = true;
 
-        shootTimeCounter += Time.deltaTime;
-
-        if (shootTimeCounter - shootTime >= 0f)
+        protected override void Start()
         {
-            StartCoroutine(Shoot());
+            base.Start();
+            shootTimeCounter = 0f;
         }
-        else if (shootTimeCounter - shootTime >= shootTime / 5f)
+
+        private void LateUpdate()
         {
-            moving = false;
+            if (!PlayerOnZone())
+                return;
+
+            shootTimeCounter += Time.deltaTime;
+
+            if (shootTimeCounter - shootTime >= 0f)
+            {
+                StartCoroutine(Shoot());
+            }
+            else if (shootTimeCounter - shootTime >= shootTime / 5f)
+            {
+                moving = false;
+            }
         }
-    }
 
-    protected override void Move()
-    {
-        if (!moving)
-            return;
+        protected override void Move()
+        {
+            if (!moving)
+                return;
 
-        Vector3 dir = a.playerTransform.position - transform.position;
-        if (dir.magnitude < minDistanceAwayFromPlayer)
-            return;
+            Vector3 dir = a.playerTransform.position - transform.position;
+            if (dir.magnitude < minDistanceAwayFromPlayer)
+                return;
 
-        this.dir = dir.normalized;
-        base.Move();
-    }
+            this.dir = dir.normalized;
+            base.Move();
+        }
 
-    private IEnumerator Shoot()
-    {
-        shootTimeCounter = 0f;
+        private IEnumerator Shoot()
+        {
+            shootTimeCounter = 0f;
 
-        GameObject go = BulletPoolManager.Instance.RequestEnemyBullet();
-        go.transform.position = shootPoint.position;
-        go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f));
+            GameObject go = BulletPoolManager.Instance.RequestEnemyBullet();
+            go.transform.position = shootPoint.position;
+            go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f));
 
-        Bullet b = go.GetComponent<Bullet>();
-        b.SetDir(dir);
+            Bullet b = go.GetComponent<Bullet>();
+            b.SetDir(dir);
 
-        ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
+            ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
 
-        yield return new WaitForSeconds(1f);
-        moving = true;
-    }
+            yield return new WaitForSeconds(1f);
+            moving = true;
+        }
 
-    private bool PlayerOnZone()
-    {
-        Vector3 dir = a.playerTransform.position - transform.position;
+        private bool PlayerOnZone()
+        {
+            Vector3 dir = a.playerTransform.position - transform.position;
 
-        if (dir.magnitude < shootDst)
-            return true;
-        else
-            return false;
+            if (dir.magnitude < shootDst)
+                return true;
+            else
+                return false;
+        }
     }
 }

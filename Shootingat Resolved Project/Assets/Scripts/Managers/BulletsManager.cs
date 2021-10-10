@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class BulletsManager : Singleton<BulletsManager>
+namespace PabloLario.Managers
 {
-    public GameObject GetBullets(BulletType bt)
+    public class BulletsManager : Singleton<BulletsManager>
     {
-        foreach (Bullets b in Assets.Instance.bulletsArray)
+        public GameObject GetBullets(BulletType bt)
         {
-            if (b.type == bt)
-                return b.bulletPrefab;
-        }
+            foreach (Bullets b in Assets.Instance.bulletsArray)
+            {
+                if (b.type == bt)
+                    return b.bulletPrefab;
+            }
 
-        Debug.LogError("Bullet Prefab Not Found");
-        return null;
+            Debug.LogError("Bullet Prefab Not Found");
+            return null;
+        }
     }
 }

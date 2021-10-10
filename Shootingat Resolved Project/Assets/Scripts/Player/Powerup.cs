@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public abstract class Powerup : MonoBehaviour
+namespace PabloLario.Powerups
 {
-    [SerializeField] protected bool goodPowerup = true;
+    public abstract class Powerup : MonoBehaviour
+    {
+        [SerializeField] protected bool goodPowerup = true;
 
-    public abstract void ApplyPowerup();
+        public abstract void ApplyPowerup();
+    }
 }

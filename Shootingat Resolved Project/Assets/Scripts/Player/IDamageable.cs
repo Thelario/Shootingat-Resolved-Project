@@ -1,4 +1,7 @@
-public interface IDamageable
+namespace PabloLario.Shooting
 {
-    public abstract void TakeDamage(int damage);
+    public interface IDamageable
+    {
+        public abstract void TakeDamage(int damage);
+    }
 }
