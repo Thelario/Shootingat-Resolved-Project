@@ -7,17 +7,13 @@ namespace PabloLario.Characters.Player
 {
     public class PlayerStats : MonoBehaviour, IDamageable
     {
-        public IntStatOverridableLimits clarity;
+        public UpgradableIntStatOverridableLimits clarity;
 
-        public FloatStat bulletSpeed;
+        public PlayerBulletStats bulletStats;
 
-        public FloatStat fireRate;
+        public UpgradableFloatStat fireRate;
 
-        public IntStat bulletDamage;
-
-        public FloatStat bulletRange;
-
-        public FloatStat moveSpeed;
+        public UpgradableFloatStat moveSpeed;
 
 
         [Header("References")]
@@ -38,16 +34,14 @@ namespace PabloLario.Characters.Player
 
         private void UpdateUI()
         {
+            bulletStats.RefreshValues();
             clarity.RefreshValue();
-            bulletSpeed.RefreshValue();
             fireRate.RefreshValue();
-            bulletDamage.RefreshValue();
-            bulletRange.RefreshValue();
             moveSpeed.RefreshValue();
             pc.UpdateClarity(clarity.Value, clarity.LimitValue);
         }
 
-        private void OnClarityUpdate(Stat<int> previousClarity, Stat<int> nextClarity)
+        private void OnClarityUpdate(UpgradableStat<int> previousClarity, UpgradableStat<int> nextClarity)
         {
             pc.UpdateClarity(nextClarity.Value, nextClarity.LimitValue);
 

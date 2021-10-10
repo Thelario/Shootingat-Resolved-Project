@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PabloLario.Characters.Core.Stats
 {
     [System.Serializable]
-    public class IntStatOverridableLimits : IntStat
+    public class UpgradableIntStatOverridableLimits : UpgradableIntStat
     {
 
         [SerializeField]

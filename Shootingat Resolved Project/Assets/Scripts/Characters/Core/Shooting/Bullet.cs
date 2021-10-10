@@ -1,6 +1,6 @@
-using PabloLario.Managers;
 using System.Collections;
 using PabloLario.Characters.Core.Stats;
+using PabloLario.Managers;
 using UnityEngine;
 
 namespace PabloLario.Characters.Core.Shooting
@@ -14,12 +14,10 @@ namespace PabloLario.Characters.Core.Shooting
         private Vector2 dir = Vector2.zero; // Direction to point to
         private Vector2 initialPos = Vector2.zero;
 
-        public int damage {get; set;}
-        public float range {get; set;}
-        public float speed {get; set;}
+        private BulletStats stats;
 
 
-        private void LateUpdate()
+        private void Update()
         {
             // Move bullet only if the direction has already been set
             if (dir != Vector2.zero)
@@ -33,14 +31,6 @@ namespace PabloLario.Characters.Core.Shooting
             }
         }
 
-        /*
-        private void OnEnable()
-        {
-            // When a bullet is activated, it needs to start counting for the time to deactivate again
-            StartCoroutine(DisableBullet(ps.bulletRange));
-        }
-        */
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (type == BulletType.enemyBullet && collision.CompareTag("Enemy"))
@@ -50,7 +40,7 @@ namespace PabloLario.Characters.Core.Shooting
             {
                 if (collision.TryGetComponent(out IDamageable id))
                 {
-                    id.TakeDamage(damage);
+                    id.TakeDamage(stats.Damage);
                     SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
                 }
                 else
@@ -78,13 +68,13 @@ namespace PabloLario.Characters.Core.Shooting
             // Check if the bullet has moved its maximum range
             Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
 
-            // Refactorizar toda la l�gica de las balas, porque esto es una chapuza
+            // Refactorizar toda la lógica de las balas, porque esto es una chapuza
             if (type == BulletType.playerBullet)
             {
-                if (Mathf.Abs(Mathf.Abs(l.magnitude)) >=range)
+                if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= stats.Range)
                     StartCoroutine(Co_DisableBullet(0f));
 
-                transform.position += new Vector3(dir.normalized.x, dir.normalized.y) * speed * Time.deltaTime;
+                transform.position += new Vector3(dir.normalized.x, dir.normalized.y) * stats.Speed * Time.deltaTime;
             }
             else if (type == BulletType.enemyBullet)
             {
@@ -99,6 +89,10 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void Rotate(Vector3 dir) { transform.up = dir; }
 
-        public void SetDir(Vector2 dir) { this.dir = dir; }
+        public void SetDirAndStats(Vector2 dir, BulletStats stats)
+        {
+            this.dir = dir;
+            this.stats = stats;
+        }
     }
 }

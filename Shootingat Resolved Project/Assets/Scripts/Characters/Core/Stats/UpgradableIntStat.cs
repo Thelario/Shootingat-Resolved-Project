@@ -3,12 +3,12 @@ using UnityEngine;
 namespace PabloLario.Characters.Core.Stats
 {
     [System.Serializable]
-    public class FloatStat : Stat<float>
+    public class UpgradableIntStat : UpgradableStat<int>
     {
         [SerializeField]
-        private float _value;
+        private int _value;
 
-        public override float Value
+        public override int Value
         {
             get { return _value; }
             set
@@ -22,7 +22,6 @@ namespace PabloLario.Characters.Core.Stats
                     _value = limitValue;
                 }
                 onUpdateValue?.Invoke(previous, this);
-
                 UpdateText();
             }
         }
@@ -37,8 +36,9 @@ namespace PabloLario.Characters.Core.Stats
             Value = _value;
         }
 
-        public override void UpgradeValue(float amount)
+        public override void UpgradeValue(int amount)
         {
+            
             if (improvingIncreasesValue)
             {
                 Value = Value + amount;
@@ -49,18 +49,17 @@ namespace PabloLario.Characters.Core.Stats
             }
         }
 
-        public override void DowngradeValue(float amount)
+        public override void DowngradeValue(int amount)
         {
             UpgradeValue(-amount);
         }
 
-        protected override Stat<float> Clone()
+        protected override UpgradableStat<int> Clone()
         {
-            FloatStat stat = new FloatStat();
+            UpgradableIntStat stat = new UpgradableIntStat();
             stat._value = Value;
             stat.limitValue = limitValue;
             return stat;
         }
-
     }
 }

@@ -3012,5 +3012,25 @@ PrefabInstance:
       propertyPath: bulletDamage.textUiFormatter
       value: 
       objectReference: {fileID: 2116144732}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.speedUpgradable._value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.speedUpgradable.limitValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.rangeUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 564134156}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.speedUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 328835617}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.damageUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 2116144732}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}

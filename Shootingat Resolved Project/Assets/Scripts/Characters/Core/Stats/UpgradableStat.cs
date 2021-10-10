@@ -1,6 +1,4 @@
-using System;
 using PabloLario.UI;
-using TMPro;
 using UnityEngine;
 
 namespace PabloLario.Characters.Core.Stats
@@ -10,7 +8,7 @@ namespace PabloLario.Characters.Core.Stats
     // Remove FlaotStat and intStat then
     //https://stackoverflow.com/a/68736791/14559140
     [System.Serializable]
-    public abstract class Stat<T>
+    public abstract class UpgradableStat<T>
     {
 
 
@@ -28,7 +26,7 @@ namespace PabloLario.Characters.Core.Stats
         private UIFormatter textUiFormatter;
 
 
-        public delegate void OnUpdate(Stat<T> previous, Stat<T> after);
+        public delegate void OnUpdate(UpgradableStat<T> previous, UpgradableStat<T> after);
         public OnUpdate onUpdateValue;
 
 
@@ -48,7 +46,7 @@ namespace PabloLario.Characters.Core.Stats
 
         public abstract void DowngradeValue(T amount);
 
-        protected abstract Stat<T> Clone();
+        protected abstract UpgradableStat<T> Clone();
 
 
     }

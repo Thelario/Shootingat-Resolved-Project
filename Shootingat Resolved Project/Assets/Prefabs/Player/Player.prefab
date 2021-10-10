@@ -5143,39 +5143,34 @@ MonoBehaviour:
   clarity:
     limitValue: 5
     improvingIncreasesValue: 1
-    textUi: {fileID: 0}
-    textFixture: 'Clarity '
+    textUiFormatter: {fileID: 0}
     _value: 5
     maxLimit: 20
-  bulletSpeed:
-    limitValue: 20
-    improvingIncreasesValue: 1
-    textUi: {fileID: 0}
-    textFixture: 'Bullet Speed '
-    _value: 10
+  bulletStats:
+    damageUpgradable:
+      limitValue: 9999
+      improvingIncreasesValue: 1
+      textUiFormatter: {fileID: 0}
+      _value: 1
+    rangeUpgradable:
+      limitValue: 7.5
+      improvingIncreasesValue: 1
+      textUiFormatter: {fileID: 0}
+      _value: 30
+    speedUpgradable:
+      limitValue: 20
+      improvingIncreasesValue: 1
+      textUiFormatter: {fileID: 0}
+      _value: 10
   fireRate:
     limitValue: 0.1
     improvingIncreasesValue: 0
-    textUi: {fileID: 0}
-    textFixture: 'FireRate '
+    textUiFormatter: {fileID: 0}
     _value: 0.5
-  bulletDamage:
-    limitValue: 5
-    improvingIncreasesValue: 1
-    textUi: {fileID: 0}
-    textFixture: 'Damage '
-    _value: 1
-  bulletRange:
-    limitValue: 30
-    improvingIncreasesValue: 1
-    textUi: {fileID: 0}
-    textFixture: 'Bullet Range '
-    _value: 7.5
   moveSpeed:
     limitValue: 7
     improvingIncreasesValue: 1
-    textUi: {fileID: 0}
-    textFixture: 'Player Speed '
+    textUiFormatter: {fileID: 0}
     _value: 4
   pc: {fileID: 304192961}
   agentRenderer: {fileID: 9200384582083607024}

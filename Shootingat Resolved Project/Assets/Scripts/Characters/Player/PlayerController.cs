@@ -144,10 +144,7 @@ namespace PabloLario.Characters.Player
             go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/);
 
             Bullet b = go.GetComponent<Bullet>();
-            b.damage = ps.bulletDamage.Value;
-            b.range = ps.bulletRange.Value;
-            b.speed = ps.bulletSpeed.Value;
-            b.SetDir(dir);
+            b.SetDirAndStats(dir, ps.bulletStats);
 
             StartCoroutine(camController.ScreenShake());
 

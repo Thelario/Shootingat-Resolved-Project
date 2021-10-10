@@ -271,14 +271,15 @@ MonoBehaviour:
   clarityToGiveToPlayerWhenDied: 2
   enemyMoveSpeed: 1.25
   shootPoint: {fileID: 6028875059809245740}
-  bulletSpeed: 5
+  bulletStats:
+    _damage: 1
+    _range: 7.5
+    _speed: 10
   shootTime: 1.5
   weapon: {fileID: 5356413482398852920}
   animator: {fileID: 2288940242306263683}
   minDistanceAwayFromPlayer: 2
   shootDst: 20
-  bulletDamage: 1
-  bulletRange: 7.5
 --- !u!58 &6028875060605162008
 CircleCollider2D:
   m_ObjectHideFlags: 0

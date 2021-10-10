@@ -9,15 +9,13 @@ namespace PabloLario.Characters.Enemies
     {
         [Header("Enemy Shoot Fields")]
         [SerializeField] private Transform shootPoint;
-        [SerializeField] private float bulletSpeed;
+        [SerializeField] private EnemyBulletStats bulletStats;
         [SerializeField] private float shootTime;
         [SerializeField] private Transform weapon;
         [SerializeField] private Animator animator;
         [SerializeField] private float minDistanceAwayFromPlayer;
         [SerializeField] private float shootDst;
 
-        [SerializeField] private int bulletDamage;
-        [SerializeField] private float bulletRange;
 
         private float shootTimeCounter;
         private Vector2 dir;
@@ -68,10 +66,8 @@ namespace PabloLario.Characters.Enemies
             go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDir(dir);
-            b.damage = bulletDamage;
-            b.range = bulletRange;
-            b.speed = bulletSpeed;
+            b.SetDirAndStats(dir, bulletStats);
+
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
 
