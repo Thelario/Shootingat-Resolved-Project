@@ -277,6 +277,8 @@ MonoBehaviour:
   animator: {fileID: 2288940242306263683}
   minDistanceAwayFromPlayer: 2
   shootDst: 20
+  bulletDamage: 1
+  bulletRange: 7.5
 --- !u!58 &6028875060605162008
 CircleCollider2D:
   m_ObjectHideFlags: 0

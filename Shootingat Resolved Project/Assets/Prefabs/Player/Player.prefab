@@ -5034,7 +5034,6 @@ GameObject:
   - component: {fileID: 2984691167234270574}
   - component: {fileID: 9200384582610188845}
   - component: {fileID: 9200384582610188846}
-  - component: {fileID: 3795138208701771452}
   - component: {fileID: 304192961}
   m_Layer: 0
   m_Name: Player
@@ -5141,43 +5140,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46777d57afafdc84288cd6d261502aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentClarity: 5
-  maxCurrentClarity: 5
-  lastMaxClarity: 20
-  bulletSpeed: 10
-  maxBulletSpeed: 20
-  fireRate: 0.5
-  minFireRate: 0.1
-  bulletDamage: 1
-  maxBulletDamage: 5
-  bulletRange: 7.5
-  maxBulletRange: 30
-  moveSpeed: 4
-  maxMoveSpeed: 7
-  psui: {fileID: 3795138208701771452}
+  clarity:
+    limitValue: 5
+    improvingIncreasesValue: 1
+    textUi: {fileID: 0}
+    textFixture: 'Clarity '
+    _value: 5
+    maxLimit: 20
+  bulletSpeed:
+    limitValue: 20
+    improvingIncreasesValue: 1
+    textUi: {fileID: 0}
+    textFixture: 'Bullet Speed '
+    _value: 10
+  fireRate:
+    limitValue: 0.1
+    improvingIncreasesValue: 0
+    textUi: {fileID: 0}
+    textFixture: 'FireRate '
+    _value: 0.5
+  bulletDamage:
+    limitValue: 5
+    improvingIncreasesValue: 1
+    textUi: {fileID: 0}
+    textFixture: 'Damage '
+    _value: 1
+  bulletRange:
+    limitValue: 30
+    improvingIncreasesValue: 1
+    textUi: {fileID: 0}
+    textFixture: 'Bullet Range '
+    _value: 7.5
+  moveSpeed:
+    limitValue: 7
+    improvingIncreasesValue: 1
+    textUi: {fileID: 0}
+    textFixture: 'Player Speed '
+    _value: 4
   pc: {fileID: 304192961}
   agentRenderer: {fileID: 9200384582083607024}
   agentColor: {r: 1, g: 1, b: 1, a: 1}
   hitColor: {r: 1, g: 0, b: 0.015625, a: 1}
   timeToWaitForColorChange: 0.05
---- !u!114 &3795138208701771452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200384582610188843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a44e5568cb492b641b3395f52301f385, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clarityText: {fileID: 0}
-  bulletSpeedText: {fileID: 0}
-  fireRateText: {fileID: 0}
-  bulletDamageText: {fileID: 0}
-  bulletRangeText: {fileID: 0}
-  moveSpeedText: {fileID: 0}
 --- !u!114 &304192961
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2380,30 +2380,6 @@ PrefabInstance:
       propertyPath: clarityPanelParent
       value: 
       objectReference: {fileID: 1074283202}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: clarityText
-      value: 
-      objectReference: {fileID: 272506607}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: fireRateText
-      value: 
-      objectReference: {fileID: 1296945915}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: moveSpeedText
-      value: 
-      objectReference: {fileID: 328835615}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletRangeText
-      value: 
-      objectReference: {fileID: 564134154}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletSpeedText
-      value: 
-      objectReference: {fileID: 134269695}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletDamageText
-      value: 
-      objectReference: {fileID: 2116144730}
     - target: {fileID: 9200384582610188843, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2456,5 +2432,61 @@ PrefabInstance:
       propertyPath: camController
       value: 
       objectReference: {fileID: 519420030}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: _fireRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: _bulletDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: clarity.textUi
+      value: 
+      objectReference: {fileID: 272506607}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: fireRate.textUi
+      value: 
+      objectReference: {fileID: 1296945915}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: moveSpeed.textUi
+      value: 
+      objectReference: {fileID: 328835615}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletRange.textUi
+      value: 
+      objectReference: {fileID: 564134154}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletSpeed.textUi
+      value: 
+      objectReference: {fileID: 134269695}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletDamage.textUi
+      value: 
+      objectReference: {fileID: 2116144730}
+    - target: {fileID: 0}
+      propertyPath: clarityText
+      value: 
+      objectReference: {fileID: 272506607}
+    - target: {fileID: 0}
+      propertyPath: fireRateText
+      value: 
+      objectReference: {fileID: 1296945915}
+    - target: {fileID: 0}
+      propertyPath: moveSpeedText
+      value: 
+      objectReference: {fileID: 328835615}
+    - target: {fileID: 0}
+      propertyPath: bulletRangeText
+      value: 
+      objectReference: {fileID: 564134154}
+    - target: {fileID: 0}
+      propertyPath: bulletSpeedText
+      value: 
+      objectReference: {fileID: 134269695}
+    - target: {fileID: 0}
+      propertyPath: bulletDamageText
+      value: 
+      objectReference: {fileID: 2116144730}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
