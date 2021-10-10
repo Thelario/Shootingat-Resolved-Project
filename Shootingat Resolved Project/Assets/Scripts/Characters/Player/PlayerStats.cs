@@ -31,6 +31,13 @@ namespace PabloLario.Characters.Player
 
         private void Start()
         {
+            UpdateUI();
+
+            clarity.onUpdateValue += OnClarityUpdate;
+        }
+
+        private void UpdateUI()
+        {
             clarity.RefreshValue();
             bulletSpeed.RefreshValue();
             fireRate.RefreshValue();
@@ -38,30 +45,25 @@ namespace PabloLario.Characters.Player
             bulletRange.RefreshValue();
             moveSpeed.RefreshValue();
             pc.UpdateClarity(clarity.Value, clarity.LimitValue);
-
-            clarity.onUpdateValue += OnClarityUpdate;
         }
 
-        private void OnClarityUpdate(Stat<int> previousClarity, Stat<int> nextClarity){
+        private void OnClarityUpdate(Stat<int> previousClarity, Stat<int> nextClarity)
+        {
             pc.UpdateClarity(nextClarity.Value, nextClarity.LimitValue);
 
             if (nextClarity.Value <= 0)
                 Die();
 
-            if(nextClarity.Value < previousClarity.Value){
+            if (nextClarity.Value < previousClarity.Value)
+            {
                 StartCoroutine(Co_HitColorChange());
             }
 
         }
 
-        public void Die()
+        private void Die()
         {
             SceneManager.LoadScene(0);
-        }
-
-        public void TakeDamage(int damage)
-        {
-            clarity.DowngradeValue(damage);
         }
 
         private IEnumerator Co_HitColorChange()
@@ -72,6 +74,12 @@ namespace PabloLario.Characters.Player
 
             agentRenderer.color = agentColor;
         }
+
+        public void TakeDamage(int damage)
+        {
+            clarity.DowngradeValue(damage);
+        }
+
 
     }
 }

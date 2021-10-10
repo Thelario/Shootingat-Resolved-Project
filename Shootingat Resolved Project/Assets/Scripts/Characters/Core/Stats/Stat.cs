@@ -1,4 +1,5 @@
 using System;
+using PabloLario.UI;
 using TMPro;
 using UnityEngine;
 
@@ -24,10 +25,8 @@ namespace PabloLario.Characters.Core.Stats
         protected bool improvingIncreasesValue = true;
 
         [SerializeField]
-        private TMP_Text textUi;
+        private UIFormatter textUiFormatter;
 
-        [SerializeField]
-        private string textFixture;
 
         public delegate void OnUpdate(Stat<T> previous, Stat<T> after);
         public OnUpdate onUpdateValue;
@@ -35,12 +34,12 @@ namespace PabloLario.Characters.Core.Stats
 
         protected void UpdateText()
         {
-            textUi.text = GetMessageToDisplay();
+            textUiFormatter.UpdateText(GetArgumentsToDisplay());
         }
 
-        protected virtual String GetMessageToDisplay()
+        protected virtual object[] GetArgumentsToDisplay()
         {
-            return textFixture + Value;
+            return new object[] {Value};
         }
 
         public abstract void RefreshValue();

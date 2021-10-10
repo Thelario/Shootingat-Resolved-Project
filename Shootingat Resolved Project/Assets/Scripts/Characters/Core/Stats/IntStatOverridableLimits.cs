@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace PabloLario.Characters.Core.Stats
@@ -22,9 +23,9 @@ namespace PabloLario.Characters.Core.Stats
             UpgradeMaxLimit(-value);
         }
 
-        protected override string GetMessageToDisplay()
+        protected override object[] GetArgumentsToDisplay()
         {
-            return base.GetMessageToDisplay() + "/" + limitValue;
+            return base.GetArgumentsToDisplay().Concat(new object[] { limitValue}).ToArray();
         }
 
 

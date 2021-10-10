@@ -1,11 +1,8 @@
 {
-    "name": "Player",
+    "name": "UI",
     "rootNamespace": "",
     "references": [
-        "GUID:ced91b8077bc8304290856a870e5bc14",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:649a8a223ef4e2244a7be9f5a5baa106",
-        "GUID:f57af6fdd57ba654087d7abb31a94ad2"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
