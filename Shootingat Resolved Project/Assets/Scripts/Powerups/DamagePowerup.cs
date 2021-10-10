@@ -8,12 +8,12 @@ namespace PabloLario.Powerups
     {
         [SerializeField] private int addedDamage;
 
-        public override void ApplyPowerup()
+        public override void ApplyPowerup(PlayerStats ps)
         {
             if (goodPowerup)
-                PlayerStats.Instance.ModifyDamage(addedDamage);
+                ps.ModifyDamage(addedDamage);
             else
-                PlayerStats.Instance.ModifyDamage(-addedDamage);
+                ps.ModifyDamage(-addedDamage);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
             SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);

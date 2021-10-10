@@ -1,3 +1,4 @@
+using PabloLario.Player;
 using UnityEngine;
 
 namespace PabloLario.Powerups
@@ -6,6 +7,6 @@ namespace PabloLario.Powerups
     {
         [SerializeField] protected bool goodPowerup = true;
 
-        public abstract void ApplyPowerup();
+        public abstract void ApplyPowerup(PlayerStats playerStats);
     }
 }

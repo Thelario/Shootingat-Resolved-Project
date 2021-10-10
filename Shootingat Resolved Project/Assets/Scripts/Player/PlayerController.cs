@@ -5,7 +5,7 @@ using PabloLario.Shooting;
 using PabloLario.Managers;
 // using Random = UnityEngine.Random; // Un-comment in case I add using System
 
-#pragma warning disable CS0414 // Quitar miembros privados no leídos
+#pragma warning disable CS0414 // Quitar miembros privados no leï¿½dos
 
 namespace PabloLario.Player
 {
@@ -201,7 +201,7 @@ namespace PabloLario.Player
             // If collided with a powerup, then take it
             if (collision.gameObject.TryGetComponent(out Powerup p))
             {
-                p.ApplyPowerup();
+                p.ApplyPowerup(ps);
             }
         }
     }

@@ -8,12 +8,12 @@ namespace PabloLario.Powerups
     {
         [SerializeField] private float bulletMoveSpeedIncrease;
 
-        public override void ApplyPowerup()
+        public override void ApplyPowerup(PlayerStats ps)
         {
             if (goodPowerup)
-                PlayerStats.Instance.ModifyBulletSpeed(bulletMoveSpeedIncrease);
+                ps.ModifyBulletSpeed(bulletMoveSpeedIncrease);
             else
-                PlayerStats.Instance.ModifyBulletSpeed(-bulletMoveSpeedIncrease);
+                ps.ModifyBulletSpeed(-bulletMoveSpeedIncrease);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PickPowerup, transform.position, 0.5f, Quaternion.Euler(90f, 0f, 0f));
             SoundManager.Instance.PlaySound(SoundType.PickPowerup, 0.5f);
