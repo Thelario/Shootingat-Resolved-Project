@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4247421394170993621}
   - component: {fileID: 4247421394170993620}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Blood_Splash_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

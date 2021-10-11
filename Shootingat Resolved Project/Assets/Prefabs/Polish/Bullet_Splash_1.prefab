@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5826383548311485502}
   - component: {fileID: 5826383548311485503}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet_Splash_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
