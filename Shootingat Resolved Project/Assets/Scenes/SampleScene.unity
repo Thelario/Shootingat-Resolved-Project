@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 134269694}
   - component: {fileID: 134269696}
   - component: {fileID: 134269695}
+  - component: {fileID: 134269697}
   m_Layer: 5
   m_Name: Bullet Speed Text
   m_TagString: Untagged
@@ -348,7 +349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bullet Speed 10/10
+  m_text: Bullet Speed 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -425,6 +426,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134269693}
   m_CullTransparentMesh: 1
+--- !u!114 &134269697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134269693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Bullet Speed {0}
 --- !u!1 &231873858
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +579,7 @@ GameObject:
   - component: {fileID: 272506606}
   - component: {fileID: 272506608}
   - component: {fileID: 272506607}
+  - component: {fileID: 272506609}
   m_Layer: 5
   m_Name: ClarityText
   m_TagString: Untagged
@@ -611,7 +626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Clarity 10/10
+  m_text: Clarity 5/5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -688,6 +703,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272506605}
   m_CullTransparentMesh: 1
+--- !u!114 &272506609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272506605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Clarity {0}/{1}
 --- !u!4 &280246452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9200384582610188844, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
@@ -704,6 +732,7 @@ GameObject:
   - component: {fileID: 328835614}
   - component: {fileID: 328835616}
   - component: {fileID: 328835615}
+  - component: {fileID: 328835617}
   m_Layer: 5
   m_Name: MoveSpeed Text
   m_TagString: Untagged
@@ -750,7 +779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player Speed 10/10
+  m_text: Move Speed 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -827,6 +856,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328835613}
   m_CullTransparentMesh: 1
+--- !u!114 &328835617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328835613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Move Speed {0}
 --- !u!1 &415727342
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,7 +1035,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f0604dac8ae3b479b572556e8f11c8, type: 3}
+  m_Script: {fileID: 11500000, guid: d3d2ae1de1f2c674899fb6137c647066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   smoothSpeed: 5
@@ -1099,6 +1141,7 @@ GameObject:
   - component: {fileID: 564134153}
   - component: {fileID: 564134155}
   - component: {fileID: 564134154}
+  - component: {fileID: 564134156}
   m_Layer: 5
   m_Name: Bullet Range Text
   m_TagString: Untagged
@@ -1145,7 +1188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bullet Range 10/10
+  m_text: Bullet Range 7.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1222,6 +1265,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564134152}
   m_CullTransparentMesh: 1
+--- !u!114 &564134156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564134152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Bullet Range {0}
 --- !u!1 &627621247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,6 +2142,7 @@ GameObject:
   - component: {fileID: 1296945914}
   - component: {fileID: 1296945916}
   - component: {fileID: 1296945915}
+  - component: {fileID: 1296945917}
   m_Layer: 5
   m_Name: FireRate Text
   m_TagString: Untagged
@@ -2132,7 +2189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FireRate 10/10
+  m_text: Fire Rate 0.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2209,6 +2266,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296945913}
   m_CullTransparentMesh: 1
+--- !u!114 &1296945917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296945913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Fire Rate {0}
 --- !u!1 &1311367083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,6 +2609,7 @@ GameObject:
   - component: {fileID: 2116144729}
   - component: {fileID: 2116144731}
   - component: {fileID: 2116144730}
+  - component: {fileID: 2116144732}
   m_Layer: 5
   m_Name: Damage Text
   m_TagString: Untagged
@@ -2585,7 +2656,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damage 10/10
+  m_text: Damage 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2662,6 +2733,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116144728}
   m_CullTransparentMesh: 1
+--- !u!114 &2116144732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116144728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a288d83584e7b994ea4bb4298e707114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatter: Damage {0}
 --- !u!1001 &9200384582346719896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2673,30 +2757,6 @@ PrefabInstance:
       propertyPath: clarityPanelParent
       value: 
       objectReference: {fileID: 1074283202}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: clarityText
-      value: 
-      objectReference: {fileID: 272506607}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: fireRateText
-      value: 
-      objectReference: {fileID: 1296945915}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: moveSpeedText
-      value: 
-      objectReference: {fileID: 328835615}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletRangeText
-      value: 
-      objectReference: {fileID: 564134154}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletSpeedText
-      value: 
-      objectReference: {fileID: 134269695}
-    - target: {fileID: 3795138208701771452, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletDamageText
-      value: 
-      objectReference: {fileID: 2116144730}
     - target: {fileID: 9200384582610188843, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2749,5 +2809,37 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: clarity._value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: clarity.textUiFormatter
+      value: 
+      objectReference: {fileID: 272506609}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: fireRate.textUiFormatter
+      value: 
+      objectReference: {fileID: 1296945917}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: moveSpeed.textUiFormatter
+      value: 
+      objectReference: {fileID: 328835617}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.damageUpgradable._value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.rangeUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 564134156}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.speedUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 134269697}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: bulletStats.damageUpgradable.textUiFormatter
+      value: 
+      objectReference: {fileID: 2116144732}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}

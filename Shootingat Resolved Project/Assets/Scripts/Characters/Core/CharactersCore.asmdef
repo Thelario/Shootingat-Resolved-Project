@@ -1,0 +1,17 @@
+{
+    "name": "CharactersCore",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ced91b8077bc8304290856a870e5bc14",
+        "GUID:f57af6fdd57ba654087d7abb31a94ad2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

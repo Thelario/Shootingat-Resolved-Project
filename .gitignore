@@ -58,5 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Vscode
+*.Vscode
+
 # Directory used for all files I don't want to save in GitHub and are external but related to the project
 Non Shareable Files/
