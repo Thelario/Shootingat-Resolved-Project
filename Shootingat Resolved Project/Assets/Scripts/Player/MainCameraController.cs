@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PabloLario.Player
 {
-    public class CameraController : Singleton<CameraController>
+    public class MainCameraController : Singleton<MainCameraController>
     {
         [SerializeField] private float smoothSpeed = 5;
         [SerializeField] private float zOffset = -10;

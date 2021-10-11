@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using PabloLario.Powerups;
 using PabloLario.Shooting;
 using PabloLario.Managers;
-// using Random = UnityEngine.Random; // Un-comment in case I add using System
 
 #pragma warning disable CS0414 // Quitar miembros privados no leídos
 
@@ -13,7 +12,7 @@ namespace PabloLario.Player
     {
         [Header("References")]
         [SerializeField] private Transform shootPoint;
-        [SerializeField] private CameraController camController;
+        [SerializeField] private MainCameraController camController;
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerStats ps;
@@ -25,15 +24,15 @@ namespace PabloLario.Player
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
 
-        private float dashTimeCounter;
-        private float horizontal;
-        private float vertical;
-        private float fireRateCounter;
-        private Vector3 mousePos;
-        private bool moving;
-        private bool shooting;
-        private Vector2 dir;
-        private float dashSpeedSmoothed;
+        private float _dashTimeCounter;
+        private float _horizontal;
+        private float _vertical;
+        private float _fireRateCounter;
+        private Vector3 _mousePos;
+        private bool _moving;
+        private bool _shooting;
+        private Vector2 _dir;
+        private float _dashSpeedSmoothed;
 
         private Camera _camera;
         private Transform _transform;
@@ -46,7 +45,7 @@ namespace PabloLario.Player
 
         private void Start()
         {
-            fireRateCounter = ps.fireRate;
+            _fireRateCounter = ps.fireRate;
 
             if (_camera == null)
                 _camera = Camera.main;
@@ -64,23 +63,23 @@ namespace PabloLario.Player
 
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
         {
-            camController = FindObjectOfType<CameraController>();
+            camController = FindObjectOfType<MainCameraController>();
             transform.position = Vector3.zero;
         }
 
         private void Update()
         {
-            fireRateCounter += Time.deltaTime;
+            _fireRateCounter += Time.deltaTime;
 
             CheckDash();
 
             // TODO: Refactor this into its own method
-            if (dashTimeCounter > 0f)
+            if (_dashTimeCounter > 0f)
             {
-                _transform.position += new Vector3(horizontal, vertical).normalized * dashSpeedSmoothed * Time.deltaTime;
-                dashTimeCounter -= Time.deltaTime;
-                dashSpeedSmoothed -= ps.moveSpeed / dashDropRate;
-                dashSpeedSmoothed = Mathf.Clamp(dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
+                _transform.position += new Vector3(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.deltaTime;
+                _dashTimeCounter -= Time.deltaTime;
+                _dashSpeedSmoothed -= ps.moveSpeed / dashDropRate;
+                _dashSpeedSmoothed = Mathf.Clamp(_dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
                 return;
             }
 
@@ -95,38 +94,38 @@ namespace PabloLario.Player
 
         private void Move()
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            vertical = Input.GetAxisRaw("Vertical");
+            _horizontal = Input.GetAxisRaw("Horizontal");
+            _vertical = Input.GetAxisRaw("Vertical");
 
-            if (horizontal != 0f || vertical != 0f)
+            if (_horizontal != 0f || _vertical != 0f)
             {
-                moving = true;
+                _moving = true;
                 ActivateWalkParticles();
                 SoundManager.Instance.PlaySound(SoundType.PlayerWalk, 1.5f);
             }
             else
             {
-                moving = false;
+                _moving = false;
                 DeactivateWalkParticles();
             }
 
-            _transform.position += new Vector3(horizontal, vertical).normalized * ps.moveSpeed * Time.deltaTime;
+            _transform.position += new Vector3(_horizontal, _vertical).normalized * ps.moveSpeed * Time.deltaTime;
         }
 
         private void Rotate()
         {
-            mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
-            dir = mousePos - transform.position;
-            weaponTransform.up = dir;
+            _mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+            _dir = _mousePos - transform.position;
+            weaponTransform.up = _dir;
 
-            Animate(dir);
+            Animate(_dir);
         }
 
         private void CheckShoot()
         {
             if (Input.GetMouseButton(0))
             {
-                if (fireRateCounter < ps.fireRate)
+                if (_fireRateCounter < ps.fireRate)
                     return;
 
                 Shoot();
@@ -135,15 +134,15 @@ namespace PabloLario.Player
 
         private void Shoot()
         {
-            shooting = true;
-            fireRateCounter = 0f;
+            _shooting = true;
+            _fireRateCounter = 0f;
 
             GameObject go = BulletPoolManager.Instance.RequestPlayerBullet();
             go.transform.position = shootPoint.position;
             go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/);
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDir(dir);
+            b.SetDir(_dir);
 
             StartCoroutine(camController.ScreenShake());
 
@@ -153,9 +152,9 @@ namespace PabloLario.Player
 
         private void CheckShootFinish()
         {
-            if (fireRateCounter >= ps.fireRate)
+            if (_fireRateCounter >= ps.fireRate)
             {
-                shooting = false;
+                _shooting = false;
             }
         }
 
@@ -163,7 +162,7 @@ namespace PabloLario.Player
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (dashTimeCounter > 0f)
+                if (_dashTimeCounter > 0f)
                     return;
 
                 Dash();
@@ -173,14 +172,14 @@ namespace PabloLario.Player
         private void Dash()
         {
             SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
-            dashTimeCounter = dashTime;
+            _dashTimeCounter = dashTime;
             animator.SetTrigger("Dashing");
-            dashSpeedSmoothed = dashSpeedUpperLimit;
+            _dashSpeedSmoothed = dashSpeedUpperLimit;
         }
 
         private void Animate(Vector2 dir)
         {
-            animator.SetBool("Moving", moving);
+            animator.SetBool("Moving", _moving);
             animator.SetFloat("Horizontal", dir.x);
             animator.SetFloat("Vertical", dir.y);
             //animator.SetBool("Shooting", shooting);
