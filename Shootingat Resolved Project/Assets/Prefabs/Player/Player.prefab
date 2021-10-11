@@ -5256,10 +5256,11 @@ MonoBehaviour:
     textUiFormatter: {fileID: 0}
     _value: 4
   pc: {fileID: 304192961}
-  agentRenderer: {fileID: 9200384582083607024}
-  agentColor: {r: 1, g: 1, b: 1, a: 1}
-  hitColor: {r: 1, g: 0, b: 0.015625, a: 1}
-  timeToWaitForColorChange: 0.05
+  hitAnimation:
+    agentRenderer: {fileID: 9200384582083607024}
+    agentColor: {r: 1, g: 1, b: 1, a: 1}
+    hitColor: {r: 1, g: 0, b: 0, a: 1}
+    timeToWaitForColorChange: 0.05
 --- !u!114 &304192961
 MonoBehaviour:
   m_ObjectHideFlags: 0

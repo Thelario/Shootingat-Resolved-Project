@@ -13,7 +13,7 @@ namespace PabloLario.UI
 
         private TMP_Text textUi;
 
-        private void Start()
+        private void Awake()
         {
             textUi = GetComponent<TMP_Text>();
 

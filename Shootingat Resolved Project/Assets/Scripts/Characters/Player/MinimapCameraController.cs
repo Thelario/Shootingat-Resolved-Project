@@ -1,7 +1,7 @@
 using UnityEngine;
 using PabloLario.Managers;
 
-namespace PabloLario.Player
+namespace PabloLario.Characters.Player
 {
     public class MinimapCameraController : MonoBehaviour
     {

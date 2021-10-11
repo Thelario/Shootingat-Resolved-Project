@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PabloLario.Powerups;
+using PabloLario.Characters.Player.Powerups;
 using PabloLario.Characters.Core.Shooting;
 using PabloLario.Managers;
 

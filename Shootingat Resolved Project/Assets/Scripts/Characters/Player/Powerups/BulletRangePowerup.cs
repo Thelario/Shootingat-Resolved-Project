@@ -2,7 +2,7 @@ using PabloLario.Managers;
 using PabloLario.Characters.Player;
 using UnityEngine;
 
-namespace PabloLario.Powerups
+namespace PabloLario.Characters.Player.Powerups
 {
     public class BulletRangePowerup : Powerup
     {

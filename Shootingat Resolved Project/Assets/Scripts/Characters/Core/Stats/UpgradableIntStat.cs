@@ -21,8 +21,9 @@ namespace PabloLario.Characters.Core.Stats
                 {
                     _value = limitValue;
                 }
-                onUpdateValue?.Invoke(previous, this);
                 UpdateText();
+                
+                onUpdateValue?.Invoke(previous, this);
             }
         }
 

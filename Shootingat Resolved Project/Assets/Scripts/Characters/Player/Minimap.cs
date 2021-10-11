@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PabloLario.Player
+namespace PabloLario.Characters.Player
 {
     public class Minimap : MonoBehaviour
     {
