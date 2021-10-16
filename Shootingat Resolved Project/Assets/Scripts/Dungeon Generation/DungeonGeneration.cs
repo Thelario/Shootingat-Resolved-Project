@@ -247,6 +247,9 @@ namespace PabloLario.DungeonGeneration
             {
                 foreach (Transform p in r.points)
                 {
+                    if (p == null)
+                        continue;
+
                     if (CanPlaceRoom(p.position)) // There is an empty space there
                     {
                         RestartDungeonGeneration();

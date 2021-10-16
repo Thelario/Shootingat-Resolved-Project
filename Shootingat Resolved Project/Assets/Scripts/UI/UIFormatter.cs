@@ -6,27 +6,19 @@ namespace PabloLario.UI
 {
     public class UIFormatter : MonoBehaviour
     {
+        [SerializeField, Tooltip("Text to be formatted, each argument will be applied with {0}, {1},etc.")]
+        private string _formatter;
 
-        [SerializeField,
-         Tooltip("Text to be formatted, each argument will be applied with {0}, {1},etc.")]
-        private string formatter;
-
-        private TMP_Text textUi;
+        private TMP_Text _textUi;
 
         private void Awake()
         {
-            textUi = GetComponent<TMP_Text>();
-
+            _textUi = GetComponent<TMP_Text>();
         }
-
 
         public void UpdateText(params object[] arguments)
         {
-            textUi.text = String.Format(formatter, arguments);
+            _textUi.text = String.Format(_formatter, arguments);
         }
-
-
     }
 }
-
-

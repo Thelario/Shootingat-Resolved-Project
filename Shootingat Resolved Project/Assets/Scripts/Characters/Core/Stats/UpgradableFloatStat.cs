@@ -5,8 +5,7 @@ namespace PabloLario.Characters.Core.Stats
     [System.Serializable]
     public class UpgradableFloatStat : UpgradableStat<float>
     {
-        [SerializeField]
-        private float _value;
+        [SerializeField] private float _value;
 
         public override float Value
         {
@@ -21,10 +20,10 @@ namespace PabloLario.Characters.Core.Stats
                 {
                     _value = limitValue;
                 }
+
                 UpdateText();
                 
                 onUpdateValue?.Invoke(previous, this);
-
             }
         }
 
@@ -62,6 +61,5 @@ namespace PabloLario.Characters.Core.Stats
             stat.limitValue = limitValue;
             return stat;
         }
-
     }
 }

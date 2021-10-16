@@ -48,7 +48,7 @@ namespace PabloLario.Characters.Enemies
             //OnEnemyDead(clarityToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
             Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
-            Destroy(Instantiate(a.bloodSplash_1, transform.position, transform.rotation), 10f);
+            Instantiate(a.bloodSplash_1, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

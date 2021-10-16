@@ -45,7 +45,7 @@ namespace PabloLario.Characters.Core.Shooting
                 }
                 else
                 {
-                    Destroy(Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity), 2f);
+                    Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
                 }
 
                 StartCoroutine(Co_DisableBullet(0f));

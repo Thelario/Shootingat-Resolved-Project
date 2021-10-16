@@ -6,10 +6,8 @@ namespace PabloLario.Characters.Core.Stats
     [System.Serializable]
     public class UpgradableIntStatOverridableLimits : UpgradableIntStat
     {
-
         [SerializeField]
         private int maxLimit;
-
 
         public void UpgradeMaxLimit(int value)
         {
@@ -27,7 +25,5 @@ namespace PabloLario.Characters.Core.Stats
         {
             return base.GetArgumentsToDisplay().Concat(new object[] { limitValue}).ToArray();
         }
-
-
     }
 }

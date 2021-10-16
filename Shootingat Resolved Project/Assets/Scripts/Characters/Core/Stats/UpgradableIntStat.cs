@@ -5,8 +5,7 @@ namespace PabloLario.Characters.Core.Stats
     [System.Serializable]
     public class UpgradableIntStat : UpgradableStat<int>
     {
-        [SerializeField]
-        private int _value;
+        [SerializeField] private int _value;
 
         public override int Value
         {
@@ -21,6 +20,7 @@ namespace PabloLario.Characters.Core.Stats
                 {
                     _value = limitValue;
                 }
+
                 UpdateText();
                 
                 onUpdateValue?.Invoke(previous, this);
@@ -39,7 +39,6 @@ namespace PabloLario.Characters.Core.Stats
 
         public override void UpgradeValue(int amount)
         {
-            
             if (improvingIncreasesValue)
             {
                 Value = Value + amount;

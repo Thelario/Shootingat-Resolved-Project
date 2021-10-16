@@ -48,7 +48,6 @@ namespace PabloLario.Characters.Player
             {
                 StartCoroutine(hitAnimation.Co_HitColorChange());
             }
-
         }
 
         private void Die()
@@ -60,7 +59,5 @@ namespace PabloLario.Characters.Player
         {
             clarity.DowngradeValue(damage);
         }
-
-
     }
 }

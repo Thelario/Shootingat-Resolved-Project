@@ -147,6 +147,7 @@ namespace PabloLario.Characters.Player
 
             StartCoroutine(camController.ScreenShake());
 
+            animator.SetTrigger("Shooting");
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
             SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
         }
@@ -183,7 +184,6 @@ namespace PabloLario.Characters.Player
             animator.SetBool("Moving", _moving);
             animator.SetFloat("Horizontal", dir.x);
             animator.SetFloat("Vertical", dir.y);
-            //animator.SetBool("Shooting", shooting);
         }
 
         private void ActivateWalkParticles()
@@ -198,10 +198,21 @@ namespace PabloLario.Characters.Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            // If collided with a powerup, then take it
-            if (collision.gameObject.TryGetComponent(out Powerup p))
+            if (collision.CompareTag("Portal"))
+            {
+                TeleportManager.Instance.PlayerOnTeleport = true;
+            }
+            else if (collision.gameObject.TryGetComponent(out Powerup p))
             {
                 p.ApplyPowerup(ps);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Portal"))
+            {
+                TeleportManager.Instance.PlayerOnTeleport = false;
             }
         }
     }

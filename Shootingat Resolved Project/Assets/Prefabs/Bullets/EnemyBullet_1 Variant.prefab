@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBullet_1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 715189581830604452, guid: c0f8c652b3730484388fae69e1071424, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 715189581830604453, guid: c0f8c652b3730484388fae69e1071424, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -67,6 +71,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6751327911787171234, guid: 9066f225d01d8ee4188983949f5ec7f9, type: 3}
+    - target: {fileID: 715189582558966442, guid: c0f8c652b3730484388fae69e1071424, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3656608677930125479, guid: c0f8c652b3730484388fae69e1071424, type: 3}
       propertyPath: type
       value: 1
