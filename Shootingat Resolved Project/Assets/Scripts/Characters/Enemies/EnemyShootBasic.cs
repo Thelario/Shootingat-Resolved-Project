@@ -44,17 +44,17 @@ namespace PabloLario.Characters.Enemies
             }
         }
 
-        protected override void Move()
+        protected override IEnumerator Co_Move()
         {
             if (!moving)
-                return;
+                yield break;
 
             Vector3 dir = a.playerTransform.position - transform.position;
             if (dir.magnitude < minDistanceAwayFromPlayer)
-                return;
+                yield break; ;
 
             this.dir = dir.normalized;
-            base.Move();
+            StartCoroutine(base.Co_Move());
         }
 
         private IEnumerator Shoot()

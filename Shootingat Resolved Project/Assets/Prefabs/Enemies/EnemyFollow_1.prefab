@@ -156,7 +156,7 @@ MonoBehaviour:
     hitColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 1
-  enemyMoveSpeed: 2.5
+  enemyMoveSpeed: 2
 --- !u!61 &388338677628858165
 BoxCollider2D:
   m_ObjectHideFlags: 0

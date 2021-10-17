@@ -2,6 +2,7 @@ using PabloLario.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PabloLario.Astar;
 
 namespace PabloLario.DungeonGeneration
 {
@@ -17,20 +18,41 @@ namespace PabloLario.DungeonGeneration
         [SerializeField] private List<Transform> spawnPoints;       // Points to spawn enemies
         [SerializeField] private int enemyCount;
         [SerializeField] private Transform roomCenter;
+        [SerializeField] private bool showInMinimapFromBeginning = false;
 
         private List<GameObject> enemies = new List<GameObject>();
         private bool[] spawnPointsCreated;
         private int enemyCounter = 0;
+        private GameObject backgroundTilemap;
+        private GameObject foregroundTilemap;
+
+        private void Awake()
+        {
+            Transform grid = transform.Find("Grid");
+            backgroundTilemap = grid.GetChild(0).gameObject;
+            foregroundTilemap = grid.GetChild(1).gameObject;
+        }
 
         private void Start()
         {
             enemyCounter = enemyCount;
 
+            if (!showInMinimapFromBeginning)
+                SetLayermasks("RoomUnexplored");
+
             AssignRoomToDoors();
+        }
+
+        public void SetLayermasks(string lm)
+        {
+            backgroundTilemap.layer = LayerMask.NameToLayer(lm);
+            foregroundTilemap.layer = LayerMask.NameToLayer(lm);
         }
 
         public void StartEncounter()
         {
+            SetLayermasks("RoomExplored");
+
             switch (oldType)
             {
                 case RoomTypeOld.NormalRoom:
@@ -73,12 +95,10 @@ namespace PabloLario.DungeonGeneration
 
                 yield return new WaitForSeconds(.5f);
 
-                // Creating the enemies in the pos calculated position
                 GameObject go = Instantiate(EnemyManager.Instance.GetRandomEnemy(), pos, Quaternion.identity);
                 enemies.Add(go);
+                go.GetComponent<IRoomAssignable>().AssignRoom(this);
             }
-
-            AssignRoomToEnemies();
         }
 
         private void CloseDoors()
@@ -148,22 +168,15 @@ namespace PabloLario.DungeonGeneration
                 d.RoomAssociatedWith = this;
         }
 
-        private void AssignRoomToEnemies()
-        {
-            foreach (GameObject e in enemies)
-                e.GetComponent<IRoomAssignable>().AssignRoom(this);
-        }
-
         public void ReduceEnemyCounter()
         {
             enemyCounter -= 1;
 
-            if (enemyCounter <= 0)// All enemies from the room have been defeated
+            if (enemyCounter <= 0)
             {
                 OpenDoors();
-                // Play small victory sound
+                // TODO: Play small victory sound
             }
         }
     }
-
 }

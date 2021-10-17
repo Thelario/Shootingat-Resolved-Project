@@ -22,9 +22,9 @@ TagManager:
   - Enemies
   - Particles
   - Polish
-  - 
-  - 
-  - 
+  - Unwalkable
+  - RoomUnexplored
+  - RoomExplored
   - 
   - 
   - 

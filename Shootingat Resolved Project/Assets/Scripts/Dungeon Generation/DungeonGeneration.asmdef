@@ -2,7 +2,8 @@
     "name": "DungeonGeneration",
     "rootNamespace": "PabloLario.DungeonGeneration",
     "references": [
-        "GUID:ced91b8077bc8304290856a870e5bc14"
+        "GUID:ced91b8077bc8304290856a870e5bc14",
+        "GUID:3411aa5e63ecfc949a17ea32ff72e6c7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

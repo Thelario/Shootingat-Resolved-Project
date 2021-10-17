@@ -12795,6 +12795,13 @@ MonoBehaviour:
   spawnPoints: []
   enemyCount: 0
   roomCenter: {fileID: 0}
+  layerToShowInMinimap:
+    serializedVersion: 2
+    m_Bits: 0
+  layerNotToShowInMinimap:
+    serializedVersion: 2
+    m_Bits: 0
+  showInMinimapFromBeginning: 1
 --- !u!1 &2125925173200579632
 GameObject:
   m_ObjectHideFlags: 0
