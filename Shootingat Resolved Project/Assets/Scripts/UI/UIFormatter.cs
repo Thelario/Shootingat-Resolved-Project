@@ -18,7 +18,8 @@ namespace PabloLario.UI
 
         public void UpdateText(params object[] arguments)
         {
-            _textUi.text = String.Format(_formatter, arguments);
+            if (_textUi != null)
+                _textUi.text = String.Format(_formatter, arguments);
         }
     }
 }

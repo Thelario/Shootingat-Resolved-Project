@@ -1,4 +1,4 @@
-namespace PabloLario
+namespace PabloLario.Managers
 { 
     public static class GameManager
     {

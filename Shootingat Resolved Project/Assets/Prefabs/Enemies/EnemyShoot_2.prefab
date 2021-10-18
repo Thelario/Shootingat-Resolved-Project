@@ -354,6 +354,7 @@ MonoBehaviour:
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 2
   enemyMoveSpeed: 1
+  lookAtPlayer: 1
   shootPoint: {fileID: 6028875059809245740}
   bulletStats:
     _damage: 1
@@ -364,6 +365,7 @@ MonoBehaviour:
   animator: {fileID: 2288940242306263683}
   minDistanceAwayFromPlayer: 2
   shootDst: 20
+  enemyShootType: 1
 --- !u!58 &6028875060605162008
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace PabloLario.Characters.Enemies
     {
         [Header("Enemy Stats")]
         [SerializeField] private float enemyMoveSpeed;
+		[SerializeField] private bool lookAtPlayer;
 
 		protected Vector3[] path;
 		protected int targetIndex;
@@ -33,23 +34,6 @@ namespace PabloLario.Characters.Enemies
 			StartCoroutine(Co_Move());
         }
 
-		/*
-        private void Update()
-        {
-			
-			if (timeBetweenMovesCounter <= 0f)
-			{
-				Co_Move();
-				timeBetweenMovesCounter = timeBetweenMoves;
-			}
-			else
-				timeBetweenMovesCounter -= Time.deltaTime;
-			
-
-		//Rotate();
-		}
-		*/
-
 		private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.TryGetComponent(out IDamageable id) && collision.collider.CompareTag("Enemy") == false)
@@ -60,34 +44,12 @@ namespace PabloLario.Characters.Enemies
 
         protected virtual IEnumerator Co_Move()
         {
-			/* CODE BEOFRE ASTAR IMPLEMENTATION
-            Vector3 dir = a.playerTransform.position - transform.position;
-            transform.position = transform.position + dir.normalized * enemyMoveSpeed * Time.deltaTime;
-			
-
-			if (Time.timeSinceLevelLoad < .3f)
-			{
-				yield return new WaitForSeconds(.3f);
-			}
-			*/
-
-			//while (_roomAssociatedTo.pathRequestManager == null)
-			//yield return new WaitForSeconds(.1f);
-
 			PathRequestManager.Instance.RequestPath(transform.position, a.playerTransform.position, OnPathFound);
 
 			yield return new WaitForSeconds(.1f);
 
 			yield return Co_Move();
 		}
-
-		/* CODE BEOFRE ASTAR IMPLEMENTATION
-        protected virtual void Rotate()
-        {
-            Vector3 dir = a.playerTransform.position - transform.position;
-            transform.up = dir.normalized;
-        }
-		*/
 
         public override void Die()
         {
@@ -102,16 +64,11 @@ namespace PabloLario.Characters.Enemies
 		{
 			if (pathSuccessful)
 			{
-				//print("Path sucessfull");
 				path = newPath;
 				targetIndex = 0;
 				StopCoroutine(nameof(Co_FollowPath));
 				StartCoroutine(nameof(Co_FollowPath));
 			}
-			else
-            {
-				//print("Path unsucessfull");
-            }
 		}
 
 		IEnumerator Co_FollowPath()
@@ -137,8 +94,12 @@ namespace PabloLario.Characters.Enemies
 					}
 
 					transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, enemyMoveSpeed * Time.deltaTime);
-					//transform.up = (currentWaypoint - transform.position).normalized; // Rotate towards the next waypoint
-					transform.up = (Assets.Instance.playerTransform.position - transform.position).normalized; // Rotate towards player
+
+					if (!lookAtPlayer)
+						transform.up = (currentWaypoint - transform.position).normalized; // Rotate towards the next waypoint
+					else
+						transform.up = (Assets.Instance.playerTransform.position - transform.position).normalized; // Rotate towards player
+
 					yield return null;
 				}
 			}

@@ -354,6 +354,7 @@ MonoBehaviour:
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 2
   enemyMoveSpeed: 0.75
+  lookAtPlayer: 1
   shootPoint: {fileID: 6028875059809245740}
   bulletStats:
     _damage: 1

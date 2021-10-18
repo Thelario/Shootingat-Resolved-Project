@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using PabloLario.Managers;
 
 namespace PabloLario.Astar
 {

@@ -5260,9 +5260,9 @@ MonoBehaviour:
   ps: {fileID: 9200384582610188846}
   playerCollider: {fileID: 2984691167234270574}
   walkParticles: {fileID: 1099566229}
-  dashTime: 0.175
-  dashSpeedUpperLimit: 21.5
-  dashDropRate: 25
+  dashTime: 0.5
+  dashSpeedUpperLimit: 26
+  dashDropRate: 10
 --- !u!114 &9200384582610188846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5291,7 +5291,7 @@ MonoBehaviour:
       limitValue: 7.5
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 2.5
+      _value: 3.5
     speedUpgradable:
       limitValue: 20
       improvingIncreasesValue: 1
