@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.9803922, b: 0.9960785, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -665,7 +665,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: -0.5, z: 0}
+    m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 90, z: 0}
     m_Scale: {x: 0, y: 0, z: 0}
     placementMode: 0
@@ -865,7 +865,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1480,7 +1480,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 8330ac3fc5a733d469d76bae06c6104f, type: 3}
+    - sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4820,7 +4820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2645952899486639663
 Transform:
   m_ObjectHideFlags: 0
@@ -4830,7 +4830,7 @@ Transform:
   m_GameObject: {fileID: 5609402034069902490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 9200384582610188844}
   m_RootOrder: 3
@@ -4875,8 +4875,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1194254176102759185, guid: bc357c1ec6f4c1044a38c15d61a56517, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0, g: 0.9816513, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4896,7 +4896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9200384581738244620}
   - component: {fileID: 9200384581738244621}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5040,8 +5040,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8033111299860039546, guid: 0b66b635486bbab47bf06623dd890462, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0, g: 0.9816513, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5059,7 +5059,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9200384582083607039}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8eda046f8b6bdfc489677a96b0ddc721, type: 2}
   m_CullingMode: 0
@@ -5080,7 +5080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9200384582147479607}
   - component: {fileID: 8096831196879129772}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5111,7 +5111,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9200384582147479606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5169,6 +5169,7 @@ GameObject:
   - component: {fileID: 9200384582610188845}
   - component: {fileID: 9200384582610188846}
   - component: {fileID: 304192961}
+  - component: {fileID: 6607096218962583076}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5260,9 +5261,12 @@ MonoBehaviour:
   ps: {fileID: 9200384582610188846}
   playerCollider: {fileID: 2984691167234270574}
   walkParticles: {fileID: 1099566229}
+  weaponPopup: {fileID: 160393134}
+  abilityImage: {fileID: 0}
   dashTime: 0.5
   dashSpeedUpperLimit: 26
   dashDropRate: 10
+  _currentAbility: {fileID: 0}
 --- !u!114 &9200384582610188846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5307,12 +5311,19 @@ MonoBehaviour:
     improvingIncreasesValue: 1
     textUiFormatter: {fileID: 0}
     _value: 4
+  abilityPoints:
+    limitValue: 5
+    improvingIncreasesValue: 1
+    textUiFormatter: {fileID: 0}
+    _value: 5
+    maxLimit: 20
   pc: {fileID: 304192961}
+  pap: {fileID: 6607096218962583076}
   hitAnimation:
     agentRenderer: {fileID: 9200384582083607024}
-    agentColor: {r: 1, g: 1, b: 1, a: 1}
-    hitColor: {r: 1, g: 0, b: 0, a: 1}
-    timeToWaitForColorChange: 0.05
+    agentColor: {r: 0.058823533, g: 1, b: 1, a: 1}
+    hitColor: {r: 1, g: 1, b: 1, a: 1}
+    timeToWaitForColorChange: 0.075
 --- !u!114 &304192961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5328,6 +5339,21 @@ MonoBehaviour:
   clarityPanelParent: {fileID: 0}
   availableClarity: {fileID: 8361529106395587015, guid: 0e654dda309934949a4b09742de3b5c2, type: 3}
   unavailableClarity: {fileID: 9210652142005964909, guid: 78f8a012ee7177143b427d290ab67a61, type: 3}
+--- !u!114 &6607096218962583076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582610188843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cfe1f2b689b904dbc12a7478f2b08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityPanelParent: {fileID: 0}
+  availableAbility: {fileID: 8908303903779177459, guid: 9da9206022e78894b983e0cb274f7339, type: 3}
+  unavailableAbility: {fileID: 6929309954437135944, guid: 2e988e14e2c1bb341b2f1c291bd385a5, type: 3}
 --- !u!1 &9200384582755046441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,7 +5363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9200384582755046442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5369,13 +5395,14 @@ GameObject:
   m_Component:
   - component: {fileID: 9200384582960456922}
   - component: {fileID: 9200384582960456923}
-  m_Layer: 0
-  m_Name: Square
+  - component: {fileID: 160393134}
+  m_Layer: 7
+  m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9200384582960456922
 Transform:
   m_ObjectHideFlags: 0
@@ -5385,7 +5412,7 @@ Transform:
   m_GameObject: {fileID: 9200384582960456921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 9200384582147479607}
   m_RootOrder: 0
@@ -5429,18 +5456,33 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 3235293935922193537, guid: 0e91b874012a40645b47d35e46feefd4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0, g: 0.9803922, b: 0.9960785, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &160393134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582960456921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed093109f5d1204389d0cd4d15e8197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupScale: {x: 0.75, y: 0.75, z: 1}
+  defaultScale: {x: 0.25, y: 0.25, z: 1}
+  popupTime: 0.1
 --- !u!1 &9200384583571283404
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,7 +5492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9200384583571283405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5482,7 +5524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9200384583638990086}
   - component: {fileID: 9200384583638990087}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

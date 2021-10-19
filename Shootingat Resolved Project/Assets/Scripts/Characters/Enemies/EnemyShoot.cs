@@ -23,6 +23,7 @@ namespace PabloLario.Characters.Enemies
         [SerializeField] private float minDistanceAwayFromPlayer;
         [SerializeField] private float shootDst;
         [SerializeField] private EnemyShootType enemyShootType;
+        [SerializeField] private SpriteRenderer sr;
 
         private float _shootTimeCounter;
         private Vector2 _dir;
@@ -99,7 +100,7 @@ namespace PabloLario.Characters.Enemies
             go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f)));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDirAndStats(_dir, bulletStats);
+            b.SetDirStatsAndColor(_dir, bulletStats, hitAnimation.agentColor);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
         }

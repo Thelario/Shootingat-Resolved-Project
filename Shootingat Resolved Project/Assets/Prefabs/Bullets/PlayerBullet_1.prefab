@@ -96,6 +96,7 @@ MonoBehaviour:
   type: 0
   enemyBulletMoveSpeed: 0
   enemyBulletRange: 0
+  sr: {fileID: 715189582558966440}
 --- !u!1 &715189582558966442
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8249520083821489539, guid: 9066f225d01d8ee4188983949f5ec7f9, type: 3}
+  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

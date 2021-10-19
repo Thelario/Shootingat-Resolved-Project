@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using PabloLario.Characters.Player.Powerups;
 using PabloLario.Characters.Core.Shooting;
 using PabloLario.Managers;
+using PabloLario.UI;
 
 #pragma warning disable CS0414 // Quitar miembros privados no leídos
 
@@ -18,6 +20,8 @@ namespace PabloLario.Characters.Player
         [SerializeField] private PlayerStats ps;
         [SerializeField] private BoxCollider2D playerCollider;
         [SerializeField] private GameObject walkParticles;
+        [SerializeField] private Popup weaponPopup;
+        [SerializeField] private Image abilityImage;
 
         [Header("Fields")]
         [SerializeField] private float dashTime;
@@ -37,6 +41,8 @@ namespace PabloLario.Characters.Player
         private Camera _camera;
         private Transform _transform;
 
+        public Ability _currentAbility;
+
         private void Awake()
         {
             _camera = Camera.main;
@@ -45,11 +51,12 @@ namespace PabloLario.Characters.Player
 
         private void Start()
         {
-            // fireRateCounter = ps.FireRate;
             _fireRateCounter = ps.fireRate.Value;
 
             if (_camera == null)
                 _camera = Camera.main;
+
+            Time.timeScale = 1f;
         }
 
         private void OnEnable()
@@ -74,15 +81,10 @@ namespace PabloLario.Characters.Player
 
             CheckDash();
 
-            // TODO: Refactor this into its own method
-            if (_dashTimeCounter > 0f)
-            {
-                _transform.position += new Vector3(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.deltaTime;
-                _dashTimeCounter -= Time.deltaTime;
-                _dashSpeedSmoothed -= ps.moveSpeed.Value / dashDropRate;
-                _dashSpeedSmoothed = Mathf.Clamp(_dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
+            if (Dash())
                 return;
-            }
+
+            CheckAbilityUse();
 
             Move();
 
@@ -110,7 +112,7 @@ namespace PabloLario.Characters.Player
                 DeactivateWalkParticles();
             }
 
-            _transform.position += new Vector3(_horizontal, _vertical).normalized * ps.moveSpeed.Value * Time.deltaTime;
+            _transform.position += ps.moveSpeed.Value * Time.deltaTime * new Vector3(_horizontal, _vertical).normalized;
         }
 
         private void Rotate()
@@ -139,17 +141,26 @@ namespace PabloLario.Characters.Player
             _fireRateCounter = 0f;
 
             GameObject go = BulletPoolManager.Instance.RequestPlayerBullet();
-            go.transform.position = shootPoint.position;
-            go.transform.rotation = Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/);
+            go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDirAndStats(_dir, ps.bulletStats);
+            b.SetDirStatsAndColor(_dir, ps.bulletStats, ps.hitAnimation.agentColor);
 
+            weaponPopup.AnimateScorePopup();
             StartCoroutine(camController.ScreenShake());
 
             animator.SetTrigger("Shooting");
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
             SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
+        }
+
+        private void CheckAbilityUse()
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (_currentAbility != null)
+                    _currentAbility.UseAbility(ps, this);
+            }
         }
 
         private void CheckShootFinish()
@@ -167,23 +178,48 @@ namespace PabloLario.Characters.Player
                 if (_dashTimeCounter > 0f)
                     return;
 
-                Dash();
+                StartDash();
             }
         }
 
-        private void Dash()
+        private void StartDash()
         {
             SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
             _dashTimeCounter = dashTime;
-            animator.SetTrigger("Dashing");
+            AnimateDash();
             _dashSpeedSmoothed = dashSpeedUpperLimit;
+        }
+
+        private bool Dash()
+        {
+            if (_dashTimeCounter > 0f)
+            {
+                _transform.position += new Vector3(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.deltaTime;
+                _dashTimeCounter -= Time.deltaTime;
+                _dashSpeedSmoothed -= ps.moveSpeed.Value / dashDropRate;
+                _dashSpeedSmoothed = Mathf.Clamp(_dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
+                return true;
+            }
+
+            return false;
         }
 
         private void Animate(Vector2 dir)
         {
+            if (!animator.enabled)
+                return;
+
             animator.SetBool("Moving", _moving);
             animator.SetFloat("Horizontal", dir.x);
             animator.SetFloat("Vertical", dir.y);
+        }
+
+        private void AnimateDash()
+        {
+            if (!animator.enabled)
+                return;
+
+            animator.SetTrigger("Dashing");
         }
 
         private void ActivateWalkParticles()
@@ -196,6 +232,11 @@ namespace PabloLario.Characters.Player
             walkParticles.SetActive(false);
         }
 
+        public Transform GetShootPointTransform()
+        {
+            return shootPoint;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Portal"))
@@ -205,6 +246,19 @@ namespace PabloLario.Characters.Player
             else if (collision.gameObject.TryGetComponent(out Powerup p))
             {
                 p.ApplyPowerup(ps);
+            }
+            else if (collision.gameObject.TryGetComponent(out Ability a))
+            {
+                if (_currentAbility != null)
+                    Destroy(_currentAbility.gameObject);
+
+                _currentAbility = a;
+
+                // TODO: extract responsability from here and move it to somewhere, like a UI manager or smth
+                abilityImage.sprite = a.abilitySprite;
+                abilityImage.color = new Color(abilityImage.color.r, abilityImage.color.g, abilityImage.color.b, 1f);
+
+                a.gameObject.SetActive(false);
             }
         }
 

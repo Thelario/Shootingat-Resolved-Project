@@ -36,13 +36,13 @@ namespace PabloLario.Managers
             if (_instance == null)
             {
                 _instance = this as T;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
             else if (_instance != this as T)
             {
                 Destroy(gameObject);
             }
-            else { DontDestroyOnLoad(gameObject); }
+            //else { DontDestroyOnLoad(gameObject); }
         }
     }
 }

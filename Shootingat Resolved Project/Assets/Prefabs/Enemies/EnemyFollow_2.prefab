@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388338676640875035}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 388338677628858184}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &388338676640875013
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7663019080445198694, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1592707658215894054, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0.4412086, g: 1, b: 0.43921566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,14 +149,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e6b2cf4f465fb479e640c6d9a4dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 3
   hitAnimation:
     agentRenderer: {fileID: 388338676640875013}
-    agentColor: {r: 1, g: 1, b: 1, a: 1}
-    hitColor: {r: 1, g: 0, b: 0, a: 1}
+    agentColor: {r: 0.49411768, g: 1, b: 0.4901961, a: 1}
+    hitColor: {r: 1, g: 1, b: 1, a: 1}
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 3
+  lookAtPlayer: 0
 --- !u!61 &388338677628858165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,8 +276,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7663019080445198694, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1592707658215894054, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0.4412086, g: 1, b: 0.43921566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

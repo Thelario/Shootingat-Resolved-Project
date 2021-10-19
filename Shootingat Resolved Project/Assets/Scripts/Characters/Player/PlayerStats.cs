@@ -9,23 +9,22 @@ namespace PabloLario.Characters.Player
     public class PlayerStats : MonoBehaviour, IDamageable
     {
         public UpgradableIntStatOverridableLimits clarity;
-
         public PlayerBulletStats bulletStats;
-
         public UpgradableFloatStat fireRate;
-
         public UpgradableFloatStat moveSpeed;
-
+        public UpgradableIntStatOverridableLimits abilityPoints;
 
         [SerializeField] private PlayerClarity pc;
+        [SerializeField] private PlayerAbilityPoints pap;
 
-        [SerializeField] private HitColorChangeAnimation hitAnimation;
+        public HitColorChangeAnimation hitAnimation;
 
         private void Start()
         {
             UpdateUI();
 
             clarity.onUpdateValue += OnClarityUpdate;
+            abilityPoints.onUpdateValue += OnAbilityUpdate;
         }
 
         private void UpdateUI()
@@ -35,6 +34,12 @@ namespace PabloLario.Characters.Player
             fireRate.RefreshValue();
             moveSpeed.RefreshValue();
             pc.UpdateClarity(clarity.Value, clarity.LimitValue);
+            pap.UpdateAbility(abilityPoints.Value, abilityPoints.LimitValue);
+        }
+
+        private void OnAbilityUpdate(UpgradableStat<int> previousAbility, UpgradableStat<int> nextAbility)
+        {
+            pap.UpdateAbility(nextAbility.Value, nextAbility.LimitValue);
         }
 
         private void OnClarityUpdate(UpgradableStat<int> previousClarity, UpgradableStat<int> nextClarity)
@@ -58,6 +63,17 @@ namespace PabloLario.Characters.Player
         public void TakeDamage(int damage)
         {
             clarity.DowngradeValue(damage);
+
+            StartCoroutine(nameof(FreezeTime));
+        }
+
+        private IEnumerator FreezeTime()
+        {
+            Time.timeScale = 0f;
+
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            Time.timeScale = 1f;
         }
     }
 }

@@ -66,8 +66,16 @@ namespace PabloLario.Characters.Enemies
 			{
 				path = newPath;
 				targetIndex = 0;
-				StopCoroutine(nameof(Co_FollowPath));
-				StartCoroutine(nameof(Co_FollowPath));
+				
+				try
+                {
+					StopCoroutine(nameof(Co_FollowPath));
+					StartCoroutine(nameof(Co_FollowPath));
+				}
+				catch(MissingReferenceException mre)
+                {
+					Debug.Log(mre);
+                }
 			}
 		}
 

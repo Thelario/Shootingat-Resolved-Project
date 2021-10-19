@@ -102,8 +102,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3335891612519260913, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -545834709285098632, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0.33499146, g: 0.60300964, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -267,8 +267,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3335891612519260913, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -545834709285098632, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 0.33499146, g: 0.60300964, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -349,8 +349,8 @@ MonoBehaviour:
   maxHealth: 10
   hitAnimation:
     agentRenderer: {fileID: 6028875060185082106}
-    agentColor: {r: 1, g: 1, b: 1, a: 1}
-    hitColor: {r: 1, g: 0, b: 0, a: 1}
+    agentColor: {r: 0.33333334, g: 0.6039216, b: 0.9960785, a: 1}
+    hitColor: {r: 1, g: 1, b: 1, a: 1}
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 2
   enemyMoveSpeed: 1

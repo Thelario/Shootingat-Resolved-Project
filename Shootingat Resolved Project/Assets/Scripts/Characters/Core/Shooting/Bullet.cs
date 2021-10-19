@@ -10,21 +10,21 @@ namespace PabloLario.Characters.Core.Shooting
         [SerializeField] private BulletType type; // Type of the bullet
         [SerializeField] private float enemyBulletMoveSpeed;
         [SerializeField] private float enemyBulletRange;
+        [SerializeField] private SpriteRenderer sr;
 
-        private Vector2 dir = Vector2.zero; // Direction to point to
-        private Vector2 initialPos = Vector2.zero;
+        private Vector2 _dir = Vector2.zero; // Direction to point to
+        private Vector2 _initialPos = Vector2.zero;
 
-        private BulletStats stats;
-
+        private BulletStats _stats;
 
         private void Update()
         {
             // Move bullet only if the direction has already been set
-            if (dir != Vector2.zero)
+            if (_dir != Vector2.zero)
             {
-                if (initialPos == Vector2.zero)
+                if (_initialPos == Vector2.zero)
                 {
-                    initialPos = transform.position;
+                    _initialPos = transform.position;
                 }
 
                 Move();
@@ -33,14 +33,14 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (type == BulletType.enemyBullet && collision.CompareTag("Enemy"))
+            if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")))
                 return;
 
             if (!collision.CompareTag("Bullet") && !collision.CompareTag("EnemyTrigger") && !collision.CompareTag("Door"))
             {
                 if (collision.TryGetComponent(out IDamageable id))
                 {
-                    id.TakeDamage(stats.Damage);
+                    id.TakeDamage(_stats.Damage);
                     SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
                 }
                 else
@@ -57,7 +57,7 @@ namespace PabloLario.Characters.Core.Shooting
             yield return new WaitForSeconds(time);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerHit, transform.position, 0.5f, Quaternion.identity);
-            initialPos = Vector2.zero;
+            _initialPos = Vector2.zero;
 
             if (gameObject.activeInHierarchy)
                 gameObject.SetActive(false);
@@ -66,33 +66,34 @@ namespace PabloLario.Characters.Core.Shooting
         private void Move()
         {
             // Check if the bullet has moved its maximum range
-            Vector2 l = initialPos - new Vector2(transform.position.x, transform.position.y);
+            Vector2 l = _initialPos - new Vector2(transform.position.x, transform.position.y);
 
             // Refactorizar toda la lógica de las balas, porque esto es una chapuza
             if (type == BulletType.playerBullet)
             {
-                if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= stats.Range)
+                if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= _stats.Range)
                     StartCoroutine(Co_DisableBullet(0f));
 
-                transform.position += new Vector3(dir.normalized.x, dir.normalized.y) * stats.Speed * Time.deltaTime;
+                transform.position += _stats.Speed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
             }
             else if (type == BulletType.enemyBullet)
             {
                 if (l.magnitude >= enemyBulletRange)
                     StartCoroutine(Co_DisableBullet(0f));
 
-                transform.position += new Vector3(dir.normalized.x, dir.normalized.y) * enemyBulletMoveSpeed * Time.deltaTime;
+                transform.position += enemyBulletMoveSpeed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
             }
 
-            Rotate(dir);
+            Rotate(_dir);
         }
 
         private void Rotate(Vector3 dir) { transform.up = dir; }
 
-        public void SetDirAndStats(Vector2 dir, BulletStats stats)
+        public void SetDirStatsAndColor(Vector2 dir, BulletStats stats, Color color)
         {
-            this.dir = dir;
-            this.stats = stats;
+            _dir = dir;
+            _stats = stats;
+            sr.color = color;
         }
     }
 }

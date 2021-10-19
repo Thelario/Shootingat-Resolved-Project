@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1968870831017703977, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -260763724991734892, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 1, g: 0.45763296, b: 0.45763296, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,11 +152,12 @@ MonoBehaviour:
   maxHealth: 4
   hitAnimation:
     agentRenderer: {fileID: 388338676640875013}
-    agentColor: {r: 1, g: 1, b: 1, a: 1}
-    hitColor: {r: 1, g: 0, b: 0, a: 1}
+    agentColor: {r: 0.9960785, g: 0.45882356, b: 0.45882356, a: 1}
+    hitColor: {r: 1, g: 1, b: 1, a: 1}
     timeToWaitForColorChange: 0.05
   clarityToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 2
+  lookAtPlayer: 0
 --- !u!61 &388338677628858165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,7 +171,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.003911972, y: -0.0011228323}
+  m_Offset: {x: 0.006166145, y: -0.0011228323}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -181,7 +182,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5311756, y: 0.9631264}
+  m_Size: {x: 0.4184688, y: 0.9631264}
   m_EdgeRadius: 0
 --- !u!50 &388338677628858186
 Rigidbody2D:
@@ -275,8 +276,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1968870831017703977, guid: d073125f3ba963d4b8b39838c0159fe6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -260763724991734892, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Color: {r: 1, g: 0.45763296, b: 0.45763296, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

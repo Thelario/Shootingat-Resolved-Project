@@ -35,13 +35,16 @@ namespace PabloLario.Characters.Player
 
         private void DestroyPreviousClarity()
         {
-            if (claritySlots.Count == 0)
+            if (clarityPanelParent.childCount == 0)
                 return;
 
-            foreach (GameObject g in claritySlots)
+            foreach (Transform t in clarityPanelParent)
             {
-                Destroy(g);
+                Destroy(t.gameObject);
             }
+
+            claritySlots.Clear();
+            claritySlots.TrimExcess();
         }
     }
 }

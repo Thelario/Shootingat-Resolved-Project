@@ -3,14 +3,12 @@ using UnityEngine;
 
 namespace PabloLario.Animations
 {
-
     [System.Serializable]
     public class HitColorChangeAnimation
     {
-
         [SerializeField] private SpriteRenderer agentRenderer;
 
-        [SerializeField] private Color agentColor = new Color(1f,1f,1f);
+        public Color agentColor = new Color(1f,1f,1f);
         [SerializeField] private Color hitColor = new Color(1f,0,0);
 
         [SerializeField] private float timeToWaitForColorChange = 0.05f;
@@ -23,7 +21,6 @@ namespace PabloLario.Animations
 
             agentRenderer.color = agentColor;
         }
-
     }
 }
 

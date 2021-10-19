@@ -7,11 +7,9 @@ namespace PabloLario.Characters.Enemies
 {
     public abstract class HealthAgent : MonoBehaviour, IDamageable
     {
-
         [SerializeField] protected int maxHealth;
 
-
-        [SerializeField] private HitColorChangeAnimation hitAnimation;
+        public HitColorChangeAnimation hitAnimation;
 
         protected int currentHealth;
 

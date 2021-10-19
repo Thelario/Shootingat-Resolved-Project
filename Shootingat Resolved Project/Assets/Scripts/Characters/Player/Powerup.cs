@@ -1,4 +1,3 @@
-using PabloLario.Characters.Player;
 using UnityEngine;
 
 namespace PabloLario.Characters.Player.Powerups

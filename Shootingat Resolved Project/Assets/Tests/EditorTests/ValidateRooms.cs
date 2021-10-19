@@ -9,12 +9,8 @@ using PabloLario.DungeonGeneration;
 using UnityEditor;
 using UnityEngine;
 
-
-
 public class ValidateRooms
 {
-
-
     // private GetFieldValue(this object obj, string name)
     // {
     //     // Set the flags so that private and public fields from instances will be found
