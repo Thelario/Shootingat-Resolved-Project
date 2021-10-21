@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -260763724991734892, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: 7717832332542494574, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 1, g: 0.45763296, b: 0.45763296, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,13 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e6b2cf4f465fb479e640c6d9a4dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 12
   hitAnimation:
     agentRenderer: {fileID: 388338676640875013}
     agentColor: {r: 0.9960785, g: 0.45882356, b: 0.45882356, a: 1}
     hitColor: {r: 1, g: 1, b: 1, a: 1}
     timeToWaitForColorChange: 0.05
-  clarityToGiveToPlayerWhenDied: 1
+  abilityPointsToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 2
   lookAtPlayer: 0
 --- !u!61 &388338677628858165
@@ -276,7 +276,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -260763724991734892, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: 7717832332542494574, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 1, g: 0.45763296, b: 0.45763296, a: 1}
   m_FlipX: 0
   m_FlipY: 0

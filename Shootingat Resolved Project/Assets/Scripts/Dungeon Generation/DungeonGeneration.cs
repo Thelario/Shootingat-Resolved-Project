@@ -297,7 +297,7 @@ namespace PabloLario.DungeonGeneration
             }
 
             OnDungeonGenerationEnded?.Invoke();
-            GameManager.InvokeDelegate();
+            GameManager.InvokeDelegateDungeonGeneration();
         }
 
         private void RestartDungeonGeneration()

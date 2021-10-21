@@ -5,10 +5,10 @@ namespace PabloLario.Characters.Enemies
 {
     public abstract class Enemy : HealthAgent, IRoomAssignable
     {
-        public delegate void EnemyDead(int clarityEarned);
+        public delegate void EnemyDead(int abilityPointsearned);
         public static EnemyDead OnEnemyDead;
 
-        [SerializeField] protected int clarityToGiveToPlayerWhenDied;
+        [SerializeField] protected int abilityPointsToGiveToPlayerWhenDied;
 
         protected Room _roomAssociatedTo;
 

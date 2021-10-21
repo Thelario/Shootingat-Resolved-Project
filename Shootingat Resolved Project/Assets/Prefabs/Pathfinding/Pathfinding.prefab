@@ -49,7 +49,7 @@ MonoBehaviour:
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 6144
-  gridWorldSize: {x: 375, y: 375}
+  gridWorldSize: {x: 600, y: 600}
   nodeRadius: 0.5
 --- !u!114 &1021781768378630031
 MonoBehaviour:

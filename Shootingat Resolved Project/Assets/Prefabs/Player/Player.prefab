@@ -865,7 +865,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4875,7 +4875,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: -4907201984947825597, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 0, g: 0.9816513, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5040,7 +5040,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: -4907201984947825597, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 0, g: 0.9816513, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5267,6 +5267,7 @@ MonoBehaviour:
   dashSpeedUpperLimit: 26
   dashDropRate: 10
   _currentAbility: {fileID: 0}
+  dir: {x: 0, y: 0}
 --- !u!114 &9200384582610188846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5457,7 +5458,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8593800445563337300, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: -4907201984947825597, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 0, g: 0.9803922, b: 0.9960785, a: 1}
   m_FlipX: 0
   m_FlipY: 0

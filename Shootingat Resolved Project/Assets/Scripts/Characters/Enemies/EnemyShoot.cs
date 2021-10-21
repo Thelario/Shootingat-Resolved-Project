@@ -100,7 +100,7 @@ namespace PabloLario.Characters.Enemies
             go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f)));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDirStatsAndColor(_dir, bulletStats, hitAnimation.agentColor);
+            b.SetDirStatsColor(_dir, bulletStats, hitAnimation.agentColor);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
         }

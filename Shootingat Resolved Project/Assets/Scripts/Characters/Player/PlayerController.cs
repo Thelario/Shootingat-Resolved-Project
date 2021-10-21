@@ -35,13 +35,15 @@ namespace PabloLario.Characters.Player
         private Vector3 _mousePos;
         private bool _moving;
         private bool _shooting;
-        private Vector2 _dir;
+
         private float _dashSpeedSmoothed;
 
         private Camera _camera;
         private Transform _transform;
 
         public Ability _currentAbility;
+
+        public Vector2 dir;
 
         private void Awake()
         {
@@ -118,10 +120,10 @@ namespace PabloLario.Characters.Player
         private void Rotate()
         {
             _mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
-            _dir = _mousePos - transform.position;
-            weaponTransform.up = _dir;
+            dir = _mousePos - transform.position;
+            weaponTransform.up = dir;
 
-            Animate(_dir);
+            Animate(dir);
         }
 
         private void CheckShoot()
@@ -141,10 +143,10 @@ namespace PabloLario.Characters.Player
             _fireRateCounter = 0f;
 
             GameObject go = BulletPoolManager.Instance.RequestPlayerBullet();
-            go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z/* + Random.Range(-10f, 5f)*/));
+            go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-10f, 5f)));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDirStatsAndColor(_dir, ps.bulletStats, ps.hitAnimation.agentColor);
+            b.SetDirStatsColor(dir, ps.bulletStats, ps.hitAnimation.agentColor);
 
             weaponPopup.AnimateScorePopup();
             StartCoroutine(camController.ScreenShake());
@@ -229,12 +231,17 @@ namespace PabloLario.Characters.Player
 
         private void DeactivateWalkParticles()
         {
-            walkParticles.SetActive(false);
+            //walkParticles.SetActive(false);
         }
 
         public Transform GetShootPointTransform()
         {
             return shootPoint;
+        }
+
+        public Transform GetWeaponTransform()
+        {
+            return weaponTransform;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

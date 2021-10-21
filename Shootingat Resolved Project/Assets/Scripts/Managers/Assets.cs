@@ -8,7 +8,8 @@ namespace PabloLario.Managers
         EnemyHit,
         PickPowerup,
         PlayerWalk,
-        PlayerDash
+        PlayerDash,
+        EnemyDead
     }
 
     public enum ParticleType
@@ -23,7 +24,9 @@ namespace PabloLario.Managers
     public enum BulletType
     {
         playerBullet,
-        enemyBullet
+        enemyBullet,
+        giantBullet,
+        brimstoneLaser
     }
 
     [System.Serializable]
@@ -81,5 +84,8 @@ namespace PabloLario.Managers
 
         [Header("Items")]
         public Items[] itemsArray;
+
+        [Header("Score Floating Text")]
+        public GameObject damageFloatingText;
     }
 }

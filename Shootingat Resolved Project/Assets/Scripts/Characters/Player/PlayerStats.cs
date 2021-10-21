@@ -3,6 +3,7 @@ using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PabloLario.Managers;
 
 namespace PabloLario.Characters.Player
 {
@@ -25,6 +26,7 @@ namespace PabloLario.Characters.Player
 
             clarity.onUpdateValue += OnClarityUpdate;
             abilityPoints.onUpdateValue += OnAbilityUpdate;
+            GameManager.OnEnemyDead += UpdateAbilityAfterEnemyDie;
         }
 
         private void UpdateUI()
@@ -40,6 +42,11 @@ namespace PabloLario.Characters.Player
         private void OnAbilityUpdate(UpgradableStat<int> previousAbility, UpgradableStat<int> nextAbility)
         {
             pap.UpdateAbility(nextAbility.Value, nextAbility.LimitValue);
+        }
+
+        private void UpdateAbilityAfterEnemyDie(int abilityPoints)
+        {
+            this.abilityPoints.UpgradeValue(abilityPoints);
         }
 
         private void OnClarityUpdate(UpgradableStat<int> previousClarity, UpgradableStat<int> nextClarity)

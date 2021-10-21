@@ -5,6 +5,8 @@ using System.Collections;
 using PabloLario.DungeonGeneration;
 using PabloLario.Astar;
 
+#pragma warning disable CS0618 // startColor in ParticleSystem is obsolete
+
 namespace PabloLario.Characters.Enemies
 {
     public class EnemyFollow : Enemy
@@ -12,7 +14,7 @@ namespace PabloLario.Characters.Enemies
         [Header("Enemy Stats")]
         [SerializeField] private float enemyMoveSpeed;
 		[SerializeField] private bool lookAtPlayer;
-
+		
 		protected Vector3[] path;
 		protected int targetIndex;
 		protected float timeBetweenMoves = 2f;
@@ -53,10 +55,14 @@ namespace PabloLario.Characters.Enemies
 
         public override void Die()
         {
-            //OnEnemyDead(clarityToGiveToPlayerWhenDied);
+            GameManager.InvokeDelegateEnemyDead(abilityPointsToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
-            Destroy(Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, transform.rotation), 0.5f);
-            Instantiate(a.bloodSplash_1, transform.position, transform.rotation);
+
+			GameObject deadParticles = ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead);
+            deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
+            Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
+            
+			Instantiate(a.bloodSplash_1, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

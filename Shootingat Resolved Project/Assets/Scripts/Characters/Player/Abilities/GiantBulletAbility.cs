@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PabloLario.Managers;
+using PabloLario.Characters.Core.Shooting;
 
 namespace PabloLario.Characters.Player.Abilities
 {
@@ -12,10 +11,24 @@ namespace PabloLario.Characters.Player.Abilities
             if (ps.abilityPoints.Value >= useCost)
             {
                 ps.abilityPoints.DowngradeValue(useCost);
-                // TODO: Do the ability functionality
-                print("Using Giant Bullet Ability");
+                GameObject b = Instantiate(GetGiantBullet());
+                b.transform.SetPositionAndRotation(pc.GetShootPointTransform().position, pc.GetShootPointTransform().rotation);
+                b.GetComponent<Bullet>().SetDirStatsColor(pc.dir, ps.bulletStats, ps.hitAnimation.agentColor);
+                SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 2f);
+                Destroy(b, 15f);
             }
-            else print("Not enough abilityPoints to use");
+        }
+
+        private GameObject GetGiantBullet()
+        {
+            foreach (Bullets b in Assets.Instance.bulletsArray)
+            {
+                if (b.type == BulletType.giantBullet)
+                    return b.bulletPrefab;
+            }
+
+            Debug.LogError("Giant Bullet NOT FOUND!");
+            return null;
         }
     }
 }

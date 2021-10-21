@@ -7,6 +7,8 @@ namespace PabloLario.Managers
     public class SoundManager : Singleton<SoundManager>
     {
         [SerializeField] private float volume; // Volume of SFX
+        [SerializeField] private float defaultPitch = 1f;
+        [SerializeField] private float pitchRandomModifier = 0.1f;
 
         private AudioSource source; // Private reference of the audioSource where we are going to play our SFX
 
@@ -33,6 +35,7 @@ namespace PabloLario.Managers
         {
             if (CanPlaySound(st))
             {
+                source.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
                 source.PlayOneShot(SearchSound(st), volume * volume);
             }
         }
@@ -41,6 +44,7 @@ namespace PabloLario.Managers
         {
             if (CanPlaySound(st))
             {
+                source.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
                 source.PlayOneShot(SearchSound(st), volume * newVolume);
             }
         }

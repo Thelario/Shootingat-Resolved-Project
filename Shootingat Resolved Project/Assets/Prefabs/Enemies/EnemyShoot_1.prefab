@@ -102,7 +102,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6052892896175501295, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: 5942620462803825047, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 1, g: 0.6088674, b: 0.3161235, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -267,7 +267,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6052892896175501295, guid: c29bd8ab151dd9645870cda3dedbf028, type: 3}
+  m_Sprite: {fileID: 5942620462803825047, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
   m_Color: {r: 1, g: 0.6088674, b: 0.3161235, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -346,26 +346,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a9ed79af543ec46b788d7dfa8949bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 30
   hitAnimation:
     agentRenderer: {fileID: 6028875060185082106}
     agentColor: {r: 0.9960785, g: 0.60784316, b: 0.31764707, a: 1}
     hitColor: {r: 1, g: 1, b: 1, a: 1}
     timeToWaitForColorChange: 0.05
-  clarityToGiveToPlayerWhenDied: 2
+  abilityPointsToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 0.75
   lookAtPlayer: 1
   shootPoint: {fileID: 6028875059809245740}
   bulletStats:
     _damage: 1
     _range: 7.5
-    _speed: 10
+    _speed: 7
   shootTime: 2
   weapon: {fileID: 5356413482398852920}
   animator: {fileID: 2288940242306263683}
   minDistanceAwayFromPlayer: 2
   shootDst: 20
   enemyShootType: 0
+  sr: {fileID: 6028875060185082106}
 --- !u!58 &6028875060605162008
 CircleCollider2D:
   m_ObjectHideFlags: 0

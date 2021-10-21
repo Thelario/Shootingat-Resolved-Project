@@ -9,6 +9,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private float smoothSpeed = 5;
         [SerializeField] private float zOffset = -10;
         [SerializeField] private float screenShakeTime = 0.2f;
+        [SerializeField] private float cameraMaxMoveLimit = 0.05f;
 
         private float screenShakeTimeCounter;
 
@@ -52,8 +53,8 @@ namespace PabloLario.Characters.Player
 
             while (screenShakeTimeCounter > 0f)
             {
-                float newRandomX = Random.Range(-0.05f, 0.05f);
-                float newRandomY = Random.Range(-0.05f, 0.05f);
+                float newRandomX = Random.Range(-cameraMaxMoveLimit, cameraMaxMoveLimit);
+                float newRandomY = Random.Range(-cameraMaxMoveLimit, cameraMaxMoveLimit);
 
                 transform.position += new Vector3(newRandomX, newRandomY, zOffset);
                 screenShakeTimeCounter -= Time.deltaTime;

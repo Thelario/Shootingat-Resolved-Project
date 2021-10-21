@@ -2,22 +2,22 @@ using System.Collections;
 using PabloLario.Characters.Core.Stats;
 using PabloLario.Managers;
 using UnityEngine;
+using TMPro;
 
 namespace PabloLario.Characters.Core.Shooting
 {
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private BulletType type; // Type of the bullet
-        [SerializeField] private float enemyBulletMoveSpeed;
-        [SerializeField] private float enemyBulletRange;
         [SerializeField] private SpriteRenderer sr;
+        [SerializeField] private TrailRenderer tr;
 
         private Vector2 _dir = Vector2.zero; // Direction to point to
         private Vector2 _initialPos = Vector2.zero;
 
-        private BulletStats _stats;
+        protected BulletStats _stats;
 
-        private void Update()
+        protected virtual void Update()
         {
             // Move bullet only if the direction has already been set
             if (_dir != Vector2.zero)
@@ -33,29 +33,34 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")))
+            if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.giantBullet)
                 return;
 
-            if (!collision.CompareTag("Bullet") && !collision.CompareTag("EnemyTrigger") && !collision.CompareTag("Door"))
-            {
-                if (collision.TryGetComponent(out IDamageable id))
-                {
-                    id.TakeDamage(_stats.Damage);
-                    SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
-                }
-                else
-                {
-                    Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
-                }
+            if (collision.CompareTag("Bullet") || collision.CompareTag("EnemyTrigger") || collision.CompareTag("Door"))
+                return;
 
-                StartCoroutine(Co_DisableBullet(0f));
+            if (collision.TryGetComponent(out IDamageable id))
+            {
+                id.TakeDamage(_stats.Damage);
+                SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
+                GameObject damageFloatingText = Instantiate(Assets.Instance.damageFloatingText, collision.transform.position + Vector3.up, Quaternion.identity);
+                damageFloatingText.GetComponent<TMP_Text>().text = _stats.Damage.ToString();
+                Destroy(damageFloatingText, 2f);
             }
+            else
+            {
+                GameObject splash = Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
+                splash.GetComponent<SpriteRenderer>().color = sr.color;
+            }
+
+            StartCoroutine(Co_DisableBullet(0f));
         }
 
         private IEnumerator Co_DisableBullet(float time)
         {
             yield return new WaitForSeconds(time);
 
+            tr.Clear();
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerHit, transform.position, 0.5f, Quaternion.identity);
             _initialPos = Vector2.zero;
 
@@ -68,32 +73,42 @@ namespace PabloLario.Characters.Core.Shooting
             // Check if the bullet has moved its maximum range
             Vector2 l = _initialPos - new Vector2(transform.position.x, transform.position.y);
 
-            // Refactorizar toda la lógica de las balas, porque esto es una chapuza
-            if (type == BulletType.playerBullet)
-            {
-                if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= _stats.Range)
-                    StartCoroutine(Co_DisableBullet(0f));
+            if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= _stats.Range)
+                StartCoroutine(Co_DisableBullet(0f));
 
-                transform.position += _stats.Speed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
-            }
-            else if (type == BulletType.enemyBullet)
-            {
-                if (l.magnitude >= enemyBulletRange)
-                    StartCoroutine(Co_DisableBullet(0f));
-
-                transform.position += enemyBulletMoveSpeed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
-            }
+            transform.position += _stats.Speed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
 
             Rotate(_dir);
         }
 
         private void Rotate(Vector3 dir) { transform.up = dir; }
 
-        public void SetDirStatsAndColor(Vector2 dir, BulletStats stats, Color color)
+        public void SetDirStatsColor(Vector2 dir, BulletStats stats, Color color)
         {
             _dir = dir;
             _stats = stats;
+
+            if (type == BulletType.giantBullet)
+                _stats.Range *= 2;
+
             sr.color = color;
+            tr.colorGradient = SetTrailColor(color);
+        }
+
+        private Gradient SetTrailColor(Color c)
+        {
+            Gradient g = new Gradient();
+
+            GradientColorKey[] gcks = new GradientColorKey[2];
+            gcks[0] = new GradientColorKey(c, 10f);
+            gcks[1] = new GradientColorKey(c, 10f);
+
+            GradientAlphaKey[] gaks = new GradientAlphaKey[2];
+            gaks[0] = new GradientAlphaKey(1f, 10f);
+            gaks[1] = new GradientAlphaKey(1f, 10f);
+
+            g.SetKeys(gcks, gaks);
+            return g;
         }
     }
 }
