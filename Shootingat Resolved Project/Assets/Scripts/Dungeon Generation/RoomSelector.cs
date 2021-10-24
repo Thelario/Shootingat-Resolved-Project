@@ -1,9 +1,153 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
 {
     public enum RoomType { L, R, U, D, LR, LU, LD, RU, RD, UD, LUD, LUR, URD, LDR, LUDR }
+
+
+    public class RoomTypeBooleans
+    {
+
+        public bool Left { get; private set; }
+        public bool Right { get; private set; }
+        public bool Up { get; private set; }
+        public bool Down { get; private set; }
+
+        public RoomTypeBooleans(bool left, bool up, bool right, bool down)
+        {
+            this.Left = left;
+            this.Right = right;
+            this.Up = up;
+            this.Down = down;
+        }
+
+        public static List<RoomTypeBooleans> CandidateMatches(bool left, bool right, bool up, bool down)
+        {
+            return TYPES_ROOMS.Where(room => room.MatchesRoomWithAdjacent(left, right, up, down)).ToList();
+
+        }
+
+        public static List<RoomTypeBooleans> CandidateMatches(RoomTypeBooleans otherPositions)
+        {
+
+            return CandidateMatches(otherPositions.Left, otherPositions.Right, otherPositions.Up, otherPositions.Down);
+
+        }
+
+        public bool MatchesRoomWithAdjacent(bool left, bool right, bool up, bool down)
+        {
+            return (!left || left == Left) &&
+            (!right  || right == Right) &&
+            (!up || up == Up) &&
+            (!down || down == Down);
+        }
+
+        public bool MatchesRooms(RoomTypeBooleans otherPositions)
+        {
+            return MatchesRoomWithAdjacent(otherPositions.Left, otherPositions.Right, otherPositions.Up, otherPositions.Down);
+        }
+
+
+        private static readonly RoomTypeBooleans[] TYPES_ROOMS = new RoomTypeBooleans[]{
+            new RoomTypeBooleans(true,false,false, false),
+            new RoomTypeBooleans(false,true,false, false),
+            new RoomTypeBooleans(false,true,true, false),
+            new RoomTypeBooleans(false,false,false, true),
+            new RoomTypeBooleans(true,true,false, false),
+            new RoomTypeBooleans(true,false,true, false),
+            new RoomTypeBooleans(true,false,false, true),
+            new RoomTypeBooleans(false,true,true, false),
+            new RoomTypeBooleans(false,true,false, true),
+            new RoomTypeBooleans(false,false,true, true),
+            new RoomTypeBooleans(true,false,true, true),
+            new RoomTypeBooleans(true,true,true, false),
+            new RoomTypeBooleans(false,true,true, true),
+            new RoomTypeBooleans(true,true,false, true),
+            new RoomTypeBooleans(true,true,true, true),
+        };
+
+        public static RoomTypeBooleans FromRoomType(RoomType roomType)
+        {
+            switch (roomType)
+            {
+                case RoomType.L:
+                    return new RoomTypeBooleans(true, false, false, false);
+                case RoomType.R:
+                    return new RoomTypeBooleans(false, true, false, false);
+                case RoomType.U:
+                    return new RoomTypeBooleans(false, false, true, false);
+                case RoomType.D:
+                    return new RoomTypeBooleans(false, false, false, true);
+                case RoomType.LR:
+                    return new RoomTypeBooleans(true, true, false, false);
+                case RoomType.LU:
+                    return new RoomTypeBooleans(true, false, true, false);
+                case RoomType.LD:
+                    return new RoomTypeBooleans(true, false, false, true);
+                case RoomType.RU:
+                    return new RoomTypeBooleans(false, true, true, false);
+                case RoomType.RD:
+                    return new RoomTypeBooleans(false, true, false, true);
+                case RoomType.UD:
+                    return new RoomTypeBooleans(false, false, true, true);
+                case RoomType.LUD:
+                    return new RoomTypeBooleans(true, false, true, true);
+                case RoomType.LUR:
+                    return new RoomTypeBooleans(true, true, true, false);
+                case RoomType.URD:
+                    return new RoomTypeBooleans(false, true, true, true);
+                case RoomType.LDR:
+                    return new RoomTypeBooleans(true, true, false, true);
+                case RoomType.LUDR:
+                    return new RoomTypeBooleans(true, true, true, true);
+                default:
+                    return new RoomTypeBooleans(false, false, false, false);
+            }
+        }
+
+        public RoomType toRoomType(){
+
+            if(Left && !Right && !Up && !Down)
+                return RoomType.L;
+            else if(!Left && Right && !Up && !Down)
+                return RoomType.R;
+            else if(!Left && !Right && Up && !Down)
+                return RoomType.U;
+            else if(!Left && !Right && !Up && Down)
+                return RoomType.D;
+            else if(Left && Right && !Up && !Down)
+                return RoomType.LR;
+            else if(Left && !Right && Up && !Down)
+                return RoomType.LU;
+            else if(Left && !Right && !Up && Down)
+                return RoomType.LD;
+            else if(!Left && Right && Up && !Down)
+                return RoomType.RU;
+            else if(!Left && Right && !Up && Down)
+                return RoomType.RD;
+            else if(!Left && !Right && Up && Down)
+                return RoomType.UD;
+            else if(Left && !Right && Up && Down)
+                return RoomType.LUD;
+            else if(Left && !Right && Up && Down)
+                return RoomType.LUR;
+            else if(!Left && Right && Up && Down)
+                return RoomType.URD;
+            else if(Left && Right && !Up && Down)
+                return RoomType.LDR;
+            else if(Left && Right && Up && Down)
+                return RoomType.LUDR;
+            
+
+            return RoomType.L;
+        }
+
+
+
+    }
+
 
     [System.Serializable]
     public class RoomSerializable
@@ -11,9 +155,9 @@ namespace PabloLario.DungeonGeneration
         public List<GameObject> roomPrefabVariants;
         public RoomType roomType;
 
-        public GameObject GetRandomVariant() 
-        { 
-            return roomPrefabVariants[Random.Range(0, roomPrefabVariants.Count)]; 
+        public GameObject GetRandomVariant()
+        {
+            return roomPrefabVariants[Random.Range(0, roomPrefabVariants.Count)];
         }
     }
 
