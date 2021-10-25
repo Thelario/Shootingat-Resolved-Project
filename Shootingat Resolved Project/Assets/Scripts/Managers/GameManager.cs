@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace PabloLario.Managers
 { 
     public static class GameManager
@@ -16,6 +18,22 @@ namespace PabloLario.Managers
         public static void InvokeDelegateEnemyDead(int abilityPoints)
         {
             OnEnemyDead?.Invoke(abilityPoints);
+        }
+
+        public delegate void GameState();
+        public static event GameState OnPauseGame;
+        public static event GameState OnUnPauseGame;
+
+        public static void InvokeDelegateOnPauseGame()
+        {
+            Time.timeScale = 0f;
+            OnPauseGame?.Invoke();
+        }
+
+        public static void InvokeDelegateOnUnPauseGame()
+        {
+            Time.timeScale = 1f;
+            OnUnPauseGame?.Invoke();
         }
     }
 }

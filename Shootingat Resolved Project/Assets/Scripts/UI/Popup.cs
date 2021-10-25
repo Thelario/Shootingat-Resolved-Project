@@ -10,7 +10,7 @@ namespace PabloLario.UI
         [SerializeField] private Vector3 defaultScale;
         [SerializeField] private float popupTime;
 
-        public void AnimateScorePopup()
+        public void AnimatePopup()
         {
             LeanTween.scale(gameObject, popupScale, popupTime).setOnComplete(SetDefaultScale);
         }

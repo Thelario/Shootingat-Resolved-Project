@@ -21,14 +21,11 @@ namespace PabloLario.Characters.Player.Abilities
 
         private GameObject GetGiantBullet()
         {
-            foreach (Bullets b in Assets.Instance.bulletsArray)
-            {
-                if (b.type == BulletType.giantBullet)
-                    return b.bulletPrefab;
-            }
-
-            Debug.LogError("Giant Bullet NOT FOUND!");
-            return null;
+            if (Assets.Instance.bulletsDictionary.TryGetValue(BulletType.giantBullet, out GameObject bullet))
+                return bullet;
+            else
+                Debug.LogError("Giant Bullet NOT FOUND!");
+                return null;
         }
     }
 }

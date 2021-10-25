@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace PabloLario.Managers
 {
@@ -9,7 +10,8 @@ namespace PabloLario.Managers
         PickPowerup,
         PlayerWalk,
         PlayerDash,
-        EnemyDead
+        EnemyDead,
+        Blop
     }
 
     public enum ParticleType
@@ -67,13 +69,16 @@ namespace PabloLario.Managers
         // load all the objects into a dictionary when the game starts.
 
         [Header("SFX")]
-        public SoundAudioClip[] soundAudioClipArray;
+        [SerializeField] private SoundAudioClip[] soundAudioClipArray;
+        public Dictionary<SoundType, AudioClip> soundAudioClipDictionary;
 
         [Header("Particles")]
-        public Particle[] particlesArray;
+        [SerializeField] private Particle[] particlesArray;
+        public Dictionary<ParticleType, GameObject> particlesDictionary;
 
         [Header("Bullets")]
-        public Bullets[] bulletsArray;
+        [SerializeField] private Bullets[] bulletsArray;
+        public Dictionary<BulletType, GameObject> bulletsDictionary;
 
         [Header("Player Reference")]
         public Transform playerTransform;
@@ -84,8 +89,59 @@ namespace PabloLario.Managers
 
         [Header("Items")]
         public Items[] itemsArray;
+        public Dictionary<string, GameObject> itemsDictionary;
 
         [Header("Score Floating Text")]
         public GameObject damageFloatingText;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            PopulateSoundAudioClipDictionary();
+            PopulateParticlesDictionary();
+            PopulateBulletsDictionary();
+            PopulateItemsDictionary();
+        }
+
+        private void PopulateSoundAudioClipDictionary()
+        {
+            soundAudioClipDictionary = new Dictionary<SoundType, AudioClip>();
+
+            foreach (SoundAudioClip s in soundAudioClipArray)
+            {
+                soundAudioClipDictionary.Add(s.sound, s.audioClip);
+            }
+        }
+
+        private void PopulateParticlesDictionary()
+        {
+            particlesDictionary = new Dictionary<ParticleType, GameObject>();
+
+            foreach (Particle p in particlesArray)
+            {
+                particlesDictionary.Add(p.type, p.particlePrefab);
+            }
+        }
+
+        private void PopulateBulletsDictionary()
+        {
+            bulletsDictionary = new Dictionary<BulletType, GameObject>();
+
+            foreach (Bullets b in bulletsArray)
+            {
+                bulletsDictionary.Add(b.type, b.bulletPrefab);
+            }
+        }
+
+        private void PopulateItemsDictionary()
+        {
+            itemsDictionary = new Dictionary<string, GameObject>();
+
+            foreach (Items i in itemsArray)
+            {
+                itemsDictionary.Add(i.itemName, i.itemPrefab);
+            }
+        }
     }
 }

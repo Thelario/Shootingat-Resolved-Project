@@ -4,6 +4,8 @@ namespace PabloLario.Managers
 {
     public class Singleton<T> : MonoBehaviour where T : Component
     {
+        [SerializeField] private bool dontDestroyOnLoad;
+
         private static T _instance;
         public static T Instance
         {
@@ -36,13 +38,19 @@ namespace PabloLario.Managers
             if (_instance == null)
             {
                 _instance = this as T;
-                //DontDestroyOnLoad(gameObject);
+                
+                if (dontDestroyOnLoad)
+                    DontDestroyOnLoad(gameObject);
             }
             else if (_instance != this as T)
             {
                 Destroy(gameObject);
             }
-            //else { DontDestroyOnLoad(gameObject); }
+            else 
+            { 
+                if (dontDestroyOnLoad) 
+                    DontDestroyOnLoad(gameObject); 
+            }
         }
     }
 }

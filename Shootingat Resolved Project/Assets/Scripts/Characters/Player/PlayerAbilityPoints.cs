@@ -16,6 +16,9 @@ namespace PabloLario.Characters.Player
 
         public void UpdateAbility(int currentAbility, int currentMaxAbility)
         {
+            if (abilityPanelParent == null)
+                return;
+
             DestroyPreviousAbility();
 
             for (int i = 0; i < currentAbility; i++)

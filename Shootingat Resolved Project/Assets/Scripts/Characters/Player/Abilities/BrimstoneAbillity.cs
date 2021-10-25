@@ -23,14 +23,11 @@ namespace PabloLario.Characters.Player.Abilities
 
         private GameObject GetBrimstomeLaser()
         {
-            foreach (Bullets b in Assets.Instance.bulletsArray)
-            {
-                if (b.type == BulletType.brimstoneLaser)
-                    return b.bulletPrefab;
-            }
-
-            Debug.LogError("Brimstone Laser NOT FOUND!");
-            return null;
+            if (Assets.Instance.bulletsDictionary.TryGetValue(BulletType.brimstoneLaser, out GameObject brimstoneLaser))
+                return brimstoneLaser;
+            else
+                Debug.LogError("Brimstone Laser NOT FOUND!");
+                return null;
         }
     }
 }

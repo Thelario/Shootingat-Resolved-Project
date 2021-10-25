@@ -27,6 +27,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private float dashTime;
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
+        [SerializeField] private bool playDashSound = true;
 
         private float _dashTimeCounter;
         private float _horizontal;
@@ -35,8 +36,8 @@ namespace PabloLario.Characters.Player
         private Vector3 _mousePos;
         private bool _moving;
         private bool _shooting;
-
         private float _dashSpeedSmoothed;
+        private bool _pause;
 
         private Camera _camera;
         private Transform _transform;
@@ -64,11 +65,15 @@ namespace PabloLario.Characters.Player
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnLevelLoaded;
+            GameManager.OnPauseGame += Pause;
+            GameManager.OnUnPauseGame += UnPause;
         }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnLevelLoaded;
+            GameManager.OnPauseGame -= Pause;
+            GameManager.OnUnPauseGame -= UnPause;
         }
 
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
@@ -79,6 +84,9 @@ namespace PabloLario.Characters.Player
 
         private void Update()
         {
+            if (_pause)
+                return;
+
             _fireRateCounter += Time.deltaTime;
 
             CheckDash();
@@ -148,7 +156,7 @@ namespace PabloLario.Characters.Player
             Bullet b = go.GetComponent<Bullet>();
             b.SetDirStatsColor(dir, ps.bulletStats, ps.hitAnimation.agentColor);
 
-            weaponPopup.AnimateScorePopup();
+            weaponPopup.AnimatePopup();
             StartCoroutine(camController.ScreenShake());
 
             animator.SetTrigger("Shooting");
@@ -186,7 +194,9 @@ namespace PabloLario.Characters.Player
 
         private void StartDash()
         {
-            SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
+            if (playDashSound)
+                SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
+
             _dashTimeCounter = dashTime;
             AnimateDash();
             _dashSpeedSmoothed = dashSpeedUpperLimit;
@@ -232,6 +242,16 @@ namespace PabloLario.Characters.Player
         private void DeactivateWalkParticles()
         {
             //walkParticles.SetActive(false);
+        }
+
+        private void Pause()
+        {
+            _pause = true;
+        }
+
+        private void UnPause()
+        {
+            _pause = false;
         }
 
         public Transform GetShootPointTransform()
