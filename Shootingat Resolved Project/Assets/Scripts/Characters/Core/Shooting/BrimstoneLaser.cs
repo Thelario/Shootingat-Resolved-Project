@@ -1,7 +1,5 @@
 using PabloLario.Characters.Core.Stats;
 using PabloLario.Managers;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,9 +9,19 @@ namespace PabloLario.Characters.Core.Shooting
     {
         [Header("Fields")]
         [SerializeField] private float damageTickTime = 0.1f;
+        
+        private SpriteRenderer _sr;
 
         private float _damageTickTimeCounter;
         private int _damagePerTick;
+        private float _destroyTime;
+        private float _destroyTimeCounter = -1f;
+        private bool _destroyAbility;
+
+        private void Awake()
+        {
+            _sr = GetComponent<SpriteRenderer>();
+        }
 
         private void Start()
         {
@@ -22,7 +30,17 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void Update()
         {
+            if (_destroyTimeCounter < 0f)
+                return;
+
             _damageTickTimeCounter -= Time.deltaTime;
+
+            if (!_destroyAbility)
+                return;
+
+            _destroyTimeCounter += Time.deltaTime;
+            if (_destroyTimeCounter >= _destroyTime)
+                Destroy(gameObject);
         }
 
         private void OnTriggerStay2D(Collider2D collision)
@@ -43,9 +61,14 @@ namespace PabloLario.Characters.Core.Shooting
             damageFloatingText.GetComponent<TMP_Text>().text = _damagePerTick.ToString();
         }
 
-        public void SetDamage(int damage)
+        public void SetDamageRangeColorAndDestroyTime(int d, float r, Color c, float t, bool dt)
         {
-            _damagePerTick = damage;
+            _damagePerTick = d;
+            _sr.size = new Vector2(_sr.size.x, r);
+            _sr.color = c;
+            _destroyTime = t;
+            _destroyAbility = dt;
+            _destroyTimeCounter = 0f;
         }
     }
 }

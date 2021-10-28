@@ -77,8 +77,13 @@ MonoBehaviour:
     bulletPrefab: {fileID: 1332553578212533831, guid: 38067278f197e24408419869788b23de, type: 3}
   - type: 2
     bulletPrefab: {fileID: 7801829262258269338, guid: 63f4b881f5b0c7840b588809c5c30dad, type: 3}
-  - type: 3
-    bulletPrefab: {fileID: 8543063863393792101, guid: f394039ef5291c24881a43059aeeb32d, type: 3}
+  abilitiesArray:
+  - type: 0
+    abilityPrefab: {fileID: 8543063863393792101, guid: f394039ef5291c24881a43059aeeb32d, type: 3}
+  - type: 1
+    abilityPrefab: {fileID: 8883433979721709773, guid: 32e6631042312cf4d8f7fba04a5b7393, type: 3}
+  - type: 2
+    abilityPrefab: {fileID: 1701752162847527363, guid: a5244be8ed1fa684caf2583852b7fd8e, type: 3}
   playerTransform: {fileID: 0}
   bulletSplash_1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
   bloodSplash_1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}

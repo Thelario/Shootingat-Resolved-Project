@@ -20,11 +20,8 @@ namespace PabloLario.Characters.Enemies
 		protected float timeBetweenMoves = 2f;
 		protected float timeBetweenMovesCounter;
 
-		protected Assets a;
-
         protected virtual void Awake()
         {
-            a = Assets.Instance;
 			_roomAssociatedTo = FindObjectOfType<Room>();
 			timeBetweenMovesCounter = timeBetweenMoves;
         }
@@ -46,7 +43,7 @@ namespace PabloLario.Characters.Enemies
 
         protected virtual IEnumerator Co_Move()
         {
-			PathRequestManager.Instance.RequestPath(transform.position, a.playerTransform.position, OnPathFound);
+			PathRequestManager.Instance.RequestPath(transform.position, Assets.Instance.playerTransform.position, OnPathFound);
 
 			yield return new WaitForSeconds(.1f);
 
@@ -62,7 +59,7 @@ namespace PabloLario.Characters.Enemies
             deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
             Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
             
-			Instantiate(a.bloodSplash_1, transform.position, transform.rotation);
+			Instantiate(Assets.Instance.bloodSplash_1, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

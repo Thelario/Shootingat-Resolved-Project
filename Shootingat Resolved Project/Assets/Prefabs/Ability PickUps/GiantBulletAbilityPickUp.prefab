@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCost: 2
+  destroyAbility: 1
+  destroyAbilityTime: 3
   abilitySprite: {fileID: -4907201984947825597, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
 --- !u!61 &6861286525226187249
 BoxCollider2D:

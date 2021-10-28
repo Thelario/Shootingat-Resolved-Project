@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8543063863393792089}
   - component: {fileID: 8543063863393792090}
   - component: {fileID: -4326069641489306374}
+  - component: {fileID: 4393418757368021453}
   m_Layer: 0
   m_Name: BrimstoneLaser
   m_TagString: Untagged
@@ -144,6 +145,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f9c33887e39b84aae811d2e0d14b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 8543063863393792100}
-  bc: {fileID: 8543063863393792089}
   damageTickTime: 0.05
+--- !u!95 &4393418757368021453
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543063863393792101}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0da1d80b77cab54cb486303ef721e68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
