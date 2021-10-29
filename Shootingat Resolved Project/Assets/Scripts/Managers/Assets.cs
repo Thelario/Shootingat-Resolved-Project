@@ -27,8 +27,14 @@ namespace PabloLario.Managers
     {
         playerBullet,
         enemyBullet,
-        giantBullet,
-        brimstoneLaser
+        giantBullet
+    }
+
+    public enum AbilityType
+    {
+        brimstoneLaser,
+        temporalShield,
+        damageShield
     }
 
     [System.Serializable]
@@ -50,6 +56,13 @@ namespace PabloLario.Managers
     {
         public BulletType type;
         public GameObject bulletPrefab;
+    }
+
+    [System.Serializable]
+    public class Ability
+    {
+        public AbilityType type;
+        public GameObject abilityPrefab;
     }
 
     [System.Serializable]
@@ -80,6 +93,10 @@ namespace PabloLario.Managers
         [SerializeField] private Bullets[] bulletsArray;
         public Dictionary<BulletType, GameObject> bulletsDictionary;
 
+        [Header("Abilities")]
+        [SerializeField] private Ability[] abilitiesArray;
+        public Dictionary<AbilityType, GameObject> abilitiesDictionary;
+
         [Header("Player Reference")]
         public Transform playerTransform;
 
@@ -102,6 +119,7 @@ namespace PabloLario.Managers
             PopulateParticlesDictionary();
             PopulateBulletsDictionary();
             PopulateItemsDictionary();
+            PopulateAbilitiesDictionary();
         }
 
         private void PopulateSoundAudioClipDictionary()
@@ -141,6 +159,16 @@ namespace PabloLario.Managers
             foreach (Items i in itemsArray)
             {
                 itemsDictionary.Add(i.itemName, i.itemPrefab);
+            }
+        }
+
+        private void PopulateAbilitiesDictionary()
+        {
+            abilitiesDictionary = new Dictionary<AbilityType, GameObject>();
+
+            foreach (Ability a in abilitiesArray)
+            {
+                abilitiesDictionary.Add(a.type, a.abilityPrefab);
             }
         }
     }

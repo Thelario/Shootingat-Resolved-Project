@@ -83,9 +83,9 @@ namespace PabloLario.Characters.Enemies
             if (!_moving)
                 yield break;
 
-            Vector3 dir = a.playerTransform.position - transform.position;
+            Vector3 dir = Assets.Instance.playerTransform.position - transform.position;
             if (dir.magnitude < minDistanceAwayFromPlayer)
-                yield break; ;
+                yield break;
 
             this._dir = dir.normalized;
 
@@ -107,7 +107,7 @@ namespace PabloLario.Characters.Enemies
 
         private bool PlayerOnZone()
         {
-            Vector3 dir = a.playerTransform.position - transform.position;
+            Vector3 dir = Assets.Instance.playerTransform.position - transform.position;
 
             if (dir.magnitude < shootDst)
                 return true;
