@@ -114,6 +114,29 @@ public class ValidateRooms
     }
 
     [Test]
+    public void ValidateSpriteMasksObjectName()
+    {
+        string absolutePath = Path.Combine("Assets", "Prefabs", "Rooms", "Rooms").ToString();
+        string[] roomPaths = AssetDatabase.GetSubFolders(absolutePath);
+
+        foreach (string roomPath in roomPaths)
+        {
+            string[] filesPaths = Directory.GetFiles(roomPath);
+            List<String> prefabFilesPaths = filesPaths.Where(file => file.EndsWith("prefab")).ToList();
+
+            foreach (string prefabPath in prefabFilesPaths)
+            {
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                Transform spriteMasksObject = prefab.transform.Find("SpriteMasks");
+
+                Assert.NotNull(spriteMasksObject, $"Room in path { prefabPath } doesn't have a SpriteMasks object.");
+            }
+        }
+
+        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+    }
+
+    [Test]
     public void ValidateRoomsPoints()
     {
         string absolutePath = Path.Combine("Assets", "Prefabs", "Rooms", "Rooms").ToString();
