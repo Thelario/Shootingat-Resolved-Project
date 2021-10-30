@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,7 @@ using UnityEngine;
 
 public class ValidateRooms
 {
-    // private GetFieldValue(this object obj, string name)
+    // private RoomTypeOld GetFieldValue(this object obj, string name)
     // {
     //     // Set the flags so that private and public fields from instances will be found
     //     var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
@@ -48,8 +47,6 @@ public class ValidateRooms
                 }
             }
         }
-
-        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
     }
 
     // The next tests are going to be programmed because although right now all the rooms are correctly setup,
@@ -85,8 +82,6 @@ public class ValidateRooms
                 }
             }
         }
-
-        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
     }
 
     [Test]
@@ -109,8 +104,6 @@ public class ValidateRooms
                     Assert.Greater(spriteMasksObject.childCount, 0, $"Room in path {prefabPath} doesn't have any spriteMasks.");
             }
         }
-
-        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
     }
 
     [Test]
@@ -132,8 +125,6 @@ public class ValidateRooms
                 Assert.NotNull(spriteMasksObject, $"Room in path { prefabPath } doesn't have a SpriteMasks object.");
             }
         }
-
-        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
     }
 
     [Test]
@@ -160,7 +151,5 @@ public class ValidateRooms
                 Assert.Greater(points.Count, 0, $"Room in path {prefabPath} doesn't have any doors.");
             }
         }
-
-        // GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
     }
 }
