@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PabloLario.StateMachine;
 
@@ -7,21 +5,27 @@ namespace PabloLario.Characters.Boss
 {
     public class BossEnrage : State
     {
-        public BossEnrage(BaseStateMachine bsm) : base(bsm) { }
+        private BossStateMachine _bsm;
+
+        public BossEnrage(BossStateMachine bsm) : base(bsm)
+        {
+            _bsm = bsm;
+        }
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            _bsm.Enraged = true;
+            _bsm.Renderer.sprite = _bsm.enragedBossSprite;
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

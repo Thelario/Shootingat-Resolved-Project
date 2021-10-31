@@ -1,4 +1,3 @@
-using PabloLario.Characters.Core.Shooting;
 using PabloLario.Managers;
 using PabloLario.StateMachine;
 using UnityEngine;
@@ -19,18 +18,20 @@ namespace PabloLario.Characters.Boss
 
         public override void Enter()
         {
+            Debug.Log("Entering BossMove");
+
             if (_bsm.Enraged)
                 _bsm.CurrentNode = BossRoomNodes.Instance.GetClosestNodeToPlayer();
             else
                 _bsm.CurrentNode = BossRoomNodes.Instance.GetRandomNode();
 
-            timeBetweenWavesWhenMovingCounter = 0f;
+            timeBetweenWavesWhenMovingCounter = _bsm.BossStats.timeBetweenWavesWhenMoving;
             dirNorm = (_bsm.CurrentNode.position - _bsm.Tr.position).normalized;
         }
 
         public override void Exit()
         {
-            
+            Debug.Log("Exiting BossMove");
         }
 
         public override void Update()
@@ -70,21 +71,10 @@ namespace PabloLario.Characters.Boss
 
         private void WaveShooting()
         {
-            float fraction = 360f / _bsm.BossStats.numberOfBulletsInWavesWhenMoving;
+            float fraction = 360f / _bsm.BossStats.numberOfBulletsInWavesWhenMoving
             for (int i = 0; i < _bsm.BossStats.numberOfBulletsInWavesWhenMoving; i++)
             {
-                _bsm.weapon.Rotate(new Vector3(0f, 0f, fraction));
-                Vector2 dir = _bsm.shootPoint.position - _bsm.weapon.position;
 
-                GameObject g = BulletPoolManager.Instance.RequestEnemyBullet();
-                g.transform.SetPositionAndRotation(_bsm.shootPoint.position, _bsm.shootPoint.rotation);
-
-                Bullet b = g.GetComponent<Bullet>();
-                b.SetDirStatsColor(dir.normalized, _bsm.BossStats.bulletStats, _bsm.BossStats.hitAnimation.agentColor);
-
-                ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, _bsm.shootPoint.position, 0.5f, _bsm.shootPoint.rotation);
-
-                //currentRate += rate;
             }
         }
     }

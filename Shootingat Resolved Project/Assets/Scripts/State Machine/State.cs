@@ -2,7 +2,7 @@ namespace PabloLario.StateMachine
 {
     public abstract class State
     {
-        public BaseStateMachine BSM { get; protected set; }
+        public virtual BaseStateMachine BSM { get; protected set; }
 
         public State(BaseStateMachine bsm) => BSM = bsm;
 
