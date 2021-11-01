@@ -5,6 +5,8 @@ namespace PabloLario.Characters.Boss
 {
     public class BossEnrage : State
     {
+        private float _timeInEnrageBeforeStartMovingCounter;
+
         private BossStateMachine _bsm;
 
         public BossEnrage(BossStateMachine bsm) : base(bsm)
@@ -16,6 +18,8 @@ namespace PabloLario.Characters.Boss
         {
             _bsm.Enraged = true;
             _bsm.Renderer.sprite = _bsm.enragedBossSprite;
+            _bsm.BossStats.hitAnimation.agentColor = _bsm.bossEnragedColor;
+            _timeInEnrageBeforeStartMovingCounter = _bsm.BossStats.timeInEnrageBeforeStartMoving;
         }
 
         public override void Exit()
@@ -25,7 +29,11 @@ namespace PabloLario.Characters.Boss
 
         public override void Update()
         {
-            
+            _timeInEnrageBeforeStartMovingCounter -= Time.deltaTime;
+            if (_timeInEnrageBeforeStartMovingCounter <= 0f)
+            {
+                _bsm.ChangeState(_bsm.BossMove);
+            }
         }
     }
 }

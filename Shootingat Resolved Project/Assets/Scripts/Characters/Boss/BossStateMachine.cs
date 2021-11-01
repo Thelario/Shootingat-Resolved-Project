@@ -10,6 +10,7 @@ namespace PabloLario.Characters.Boss
 {
     public class BossStateMachine : BaseStateMachine
     {
+        public Color bossEnragedColor;
         public Sprite defaultBossSprite;
         public Sprite enragedBossSprite;
         public Transform shootPoint;
@@ -51,6 +52,13 @@ namespace PabloLario.Characters.Boss
             BossMove = new BossMove(this);
             BossStop = new BossStop(this);
             BossEnrage = new BossEnrage(this);
+
+            BossStats.OnBossEnrage += Enrage;
+        }
+
+        private void OnDestroy()
+        {
+            BossStats.OnBossEnrage -= Enrage;
         }
 
         private void Start()
@@ -67,6 +75,13 @@ namespace PabloLario.Characters.Boss
         public IEnumerator BurstShooting()
         {
             float fraction = 360f / BossStats.numberOfBulletsInWavesWhenMoving;
+
+            if (Enraged)
+            {
+                float randomFraction = Random.Range(0f, 30f);
+                fraction += randomFraction;
+            }
+
             for (int i = 0; i < BossStats.numberOfBulletsInWavesWhenMoving; i++)
             {
                 weapon.Rotate(new Vector3(0f, 0f, fraction));
@@ -82,6 +97,11 @@ namespace PabloLario.Characters.Boss
 
                 yield return new WaitForSeconds(BossStats.timeBetweenBulletsInBurstShooting);
             }
+        }
+
+        private void Enrage()
+        {
+            ChangeState(BossEnrage);
         }
     }
 }

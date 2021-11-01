@@ -2,6 +2,7 @@ using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using PabloLario.Characters.Enemies;
 using PabloLario.Animations;
+using Assets.Scripts.Characters.Boss;
 
 public class BossStats : MonoBehaviour, IDamageable
 {
@@ -28,12 +29,27 @@ public class BossStats : MonoBehaviour, IDamageable
     public float timeInStopTillStartShooting;
     public float timeBetweenBulletsInBurstShooting;
     public float timeBetweenBursts;
+    public float timeInEnrageBeforeStartMoving;
 
     [Header("Hit Animation")]
     public HitColorChangeAnimation hitAnimation;
 
+    [Header("Boss UI Controller")]
+    public BossUI bossUI;
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+        bossUI.SetSlider(currentHealth, maxHealth);
+    }
+
     public void TakeDamage(int damage)
     {
+        currentHealth -= damage;
+
+        StartCoroutine(hitAnimation.Co_HitColorChange());
+        bossUI.UpdateSliderValue(currentHealth);
+
         if (currentHealth - damage <= 0)
         {
             currentHealth = 0;
@@ -41,20 +57,27 @@ public class BossStats : MonoBehaviour, IDamageable
         }
         else if (currentHealth - damage <= Mathf.FloorToInt(maxHealth / 2f))
         {
-            currentHealth -= damage;
             Enrage();
         }
     }
 
     private void Enrage()
     {
-        // Here I need to change all the variables to the enrage phase
+        moveSpeed = 4f;
+        timeBetweenBulletsInBurstShooting = 0.04f;
+        bulletStats.Speed = 10f;
+        timeBetweenWavesWhenMoving = 0.85f;
+        timeBetweenWavesWhenStopped = 0.4f;
+        numberOfBulletsInWavesWhenMoving = 30;
+        numberOfBulletsInWavesWhenStopped = 40;
+        timeBetweenBursts = 1.10f;
 
         OnBossEnrage?.Invoke();
     }
 
     private void Die()
     {
+        bossUI.DisableSlider();
         OnBossDeath?.Invoke();
     }
 }

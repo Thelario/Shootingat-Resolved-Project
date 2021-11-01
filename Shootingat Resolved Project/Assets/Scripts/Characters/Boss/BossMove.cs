@@ -71,6 +71,14 @@ namespace PabloLario.Characters.Boss
         private void WaveShooting()
         {
             float fraction = 360f / _bsm.BossStats.numberOfBulletsInWavesWhenMoving;
+
+            if (_bsm.Enraged)
+            {
+                float randomFraction = Random.Range(0f, 30f);
+                fraction += randomFraction;
+            }
+
+
             for (int i = 0; i < _bsm.BossStats.numberOfBulletsInWavesWhenMoving; i++)
             {
                 _bsm.weapon.Rotate(new Vector3(0f, 0f, fraction));

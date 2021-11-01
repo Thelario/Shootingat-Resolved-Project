@@ -62,7 +62,8 @@ namespace PabloLario.Characters.Boss
         private void BurstShooting()
         {
             timeBetweenBulletCounter = _bsm.BossStats.timeBetweenBursts;
-            _bsm.StartCoroutine(nameof(_bsm.BurstShooting));
+
+            _bsm.StartCoroutine(_bsm.BurstShooting());
         }
 
         private void WaveShooting()
@@ -70,6 +71,13 @@ namespace PabloLario.Characters.Boss
             timeBetweenBulletCounter = _bsm.BossStats.timeBetweenWavesWhenStopped;
 
             float fraction = 360f / _bsm.BossStats.numberOfBulletsInWavesWhenMoving;
+
+            if (_bsm.Enraged)
+            {
+                float randomFraction = Random.Range(0f, 10f);
+                fraction += randomFraction;
+            }
+
             for (int i = 0; i < _bsm.BossStats.numberOfBulletsInWavesWhenMoving; i++)
             {
                 _bsm.weapon.Rotate(new Vector3(0f, 0f, fraction));
