@@ -4,51 +4,64 @@ using NUnit.Framework;
 using PabloLario.DungeonGeneration;
 using UnityEngine;
 
-public class RoomPosTest
+namespace PabloLario.Tests.EditorTests
 {
-    [Test]
-    public void GetNeighbourPositionsReturnsOnlyOpenedPositions()
+    public class RoomPosTest
     {
-        RoomPos roomPos = new RoomPos(Vector2Int.zero,
-            new RoomTypeBooleans(true, false, true, true),
-            RoomTypeOld.NormalRoom, null);
+        [Test]
+        public void GetNeighbourPositionsReturnsOnlyOpenedPositions()
+        {
+            RoomPos roomPos = new RoomPos(Vector2Int.zero,
+                new RoomTypeBooleans(true, false, true, true),
+                RoomTypeOld.NormalRoom, null);
 
-        List<Vector2Int> neighbourPositions = roomPos.NeighbourPositions().ToList();
+            List<Vector2Int> neighbourPositions = roomPos.NeighbourPositions().ToList();
 
-        Assert.AreEqual(3, neighbourPositions.Count);
+            Assert.AreEqual(3, neighbourPositions.Count);
 
-        Assert.True(neighbourPositions.Contains(Vector2Int.left));
-        Assert.True(neighbourPositions.Contains(Vector2Int.right));
-        Assert.True(neighbourPositions.Contains(Vector2Int.down));
-    }
+            Assert.True(neighbourPositions.Contains(Vector2Int.left));
+            Assert.True(neighbourPositions.Contains(Vector2Int.right));
+            Assert.True(neighbourPositions.Contains(Vector2Int.down));
+        }
 
-    [Test]
-    public void NeighbourPositionsReturnsEmptyEnumerableWithNoDoors()
-    {
-        RoomPos roomPos = new RoomPos(Vector2Int.zero,
-            new RoomTypeBooleans(false, false, false, false),
-            RoomTypeOld.NormalRoom, null);
+        [Test]
+        public void NeighbourPositionsReturnsEmptyEnumerableWithNoDoors()
+        {
+            RoomPos roomPos = new RoomPos(Vector2Int.zero,
+                new RoomTypeBooleans(false, false, false, false),
+                RoomTypeOld.NormalRoom, null);
+
+            Assert.AreEqual(Enumerable.Empty<RoomAndNeighbourPos>(), roomPos.NeighbourPositions());
+        }
         
-        Assert.AreEqual(Enumerable.Empty<RoomPosAndNeighbour>(), roomPos.NeighbourPositions());
-    }
+        [Test]
+        public void NotNeighbourPositionsReturnsEmptyEnumerableWithNoDoors()
+        {
+            RoomPos roomPos = new RoomPos(Vector2Int.zero,
+                new RoomTypeBooleans(true, true, true, true),
+                RoomTypeOld.NormalRoom, null);
 
-    [Test]
-    public void RoomWithOneNeighbourAndOneEmptyDoorReturnsOneEmptyNeighbour()
-    {
-        RoomPos roomPos = new RoomPos(Vector2Int.zero,
-            new RoomTypeBooleans(false, true, true, false),
-            RoomTypeOld.NormalRoom, null);
+            Assert.AreEqual(Enumerable.Empty<RoomAndNeighbourPos>(), roomPos.NotNeighbourPositions());
+        }
 
-        RoomPos roomPosRight = new RoomPos(Vector2Int.right,
-            new RoomTypeBooleans(true, false, false, false),
-            RoomTypeOld.NormalRoom, new List<RoomPos> {roomPos});
+        [Test]
+        public void RoomWithOneNeighbourAndOneEmptyDoorReturnsOneEmptyNeighbour()
+        {
+            RoomPos roomPos = new RoomPos(Vector2Int.zero,
+                new RoomTypeBooleans(false, true, true, false),
+                RoomTypeOld.NormalRoom, null);
 
-        List<RoomPosAndNeighbour> missingNeighbours = roomPos.MissingNeighbours().ToList();
+            RoomPos roomPosRight = new RoomPos(Vector2Int.right,
+                new RoomTypeBooleans(true, false, false, false),
+                RoomTypeOld.NormalRoom, new List<RoomPos> {roomPos});
 
-        Assert.AreEqual(1, missingNeighbours.Count);
+            List<RoomAndNeighbourPos> missingNeighbours = roomPos.MissingNeighbours().ToList();
 
-        Assert.AreEqual(Vector2Int.up, missingNeighbours[0].NeighbourPos);
-        
-        Assert.AreEqual(0, roomPosRight.MissingNeighbours().Count());
+            Assert.AreEqual(1, missingNeighbours.Count);
+
+            Assert.AreEqual(Vector2Int.up, missingNeighbours[0].NeighbourPos);
+
+            Assert.AreEqual(0, roomPosRight.MissingNeighbours().Count());
+        }
     }
 }

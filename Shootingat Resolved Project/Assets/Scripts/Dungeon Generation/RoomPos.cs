@@ -46,23 +46,35 @@ namespace PabloLario.DungeonGeneration
             if (RoomDoorsType.Left)
                 yield return Pos + Vector2Int.left;
         }
+        
+        public IEnumerable<Vector2Int> NotNeighbourPositions()
+        {
+            if (!RoomDoorsType.Up)
+                yield return Pos + Vector2Int.up;
+            if (!RoomDoorsType.Right)
+                yield return Pos + Vector2Int.right;
+            if (!RoomDoorsType.Down)
+                yield return Pos + Vector2Int.down;
+            if (!RoomDoorsType.Left)
+                yield return Pos + Vector2Int.left;
+        }
 
-        public IEnumerable<RoomPosAndNeighbour> MissingNeighbours()
+        public IEnumerable<RoomAndNeighbourPos> MissingNeighbours()
         {
             return NeighbourPositions()
                 .Where(pos =>
                     Neighbours.All(neighbour => neighbour.Pos != pos))
-                .Select(pos => new RoomPosAndNeighbour(this, pos));
+                .Select(pos => new RoomAndNeighbourPos(this, pos));
         }
     }
 }
 
-public class RoomPosAndNeighbour
+public class RoomAndNeighbourPos
 {
     public RoomPos Room { get; }
     public Vector2Int NeighbourPos { get; }
 
-    public RoomPosAndNeighbour(RoomPos room, Vector2Int neighbourPos)
+    public RoomAndNeighbourPos(RoomPos room, Vector2Int neighbourPos)
     {
         Room = room;
         NeighbourPos = neighbourPos;

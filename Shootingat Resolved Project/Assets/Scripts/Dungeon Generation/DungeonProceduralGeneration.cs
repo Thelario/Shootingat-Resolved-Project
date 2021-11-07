@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using PabloLario.Helper;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
@@ -8,154 +6,87 @@ namespace PabloLario.DungeonGeneration
     [System.Serializable]
     public class DungeonProceduralGeneration
     {
-        public List<RoomPos> CalculateValidRoomsPos(int roomsGenerated)
+        public List<RoomPos> CalculateValidRoomsPos(int roomsToGenerate)
         {
-            List<RoomPos> rooms = new List<RoomPos>();
+            RoomsMaze roomsMaze = new RoomsMaze();
 
-            RoomPos initialRoom = new RoomPos(Vector2Int.zero, RoomTypeBooleans.FromRoomType(RoomType.LUDR),
-                RoomTypeOld.NormalRoom, null);
-
-            rooms.Add(initialRoom);
-
-            List<RoomPosAndNeighbour> notCreatedNeighbours = new List<RoomPosAndNeighbour>();
-
-            AddAdjacentRooms(initialRoom, rooms);
-
-            AddRemainingNormalRooms(roomsGenerated, rooms);
-
-            
-            foreach (RoomPos room in rooms)
-            {
-                notCreatedNeighbours.AddRange(room.MissingNeighbours());
-            }
+            RoomPos initialRoom = roomsMaze.AddRoom(Vector2Int.zero, RoomTypeBooleans.FromRoomType(RoomType.LUDR),
+                RoomTypeOld.NormalRoom);
 
 
-            foreach (RoomPosAndNeighbour notCreatedNeighbour in notCreatedNeighbours)
+            AddAdjacentRooms(initialRoom, roomsMaze);
+
+            AddRemainingNormalRooms(roomsToGenerate, roomsMaze);
+
+            List<RoomAndNeighbourPos> missingNeighbours = new List<RoomAndNeighbourPos>(roomsMaze.MissingNeighbours);
+            foreach (RoomAndNeighbourPos notCreatedNeighbour in missingNeighbours)
             {
                 Vector2Int newPos = notCreatedNeighbour.NeighbourPos;
 
-                if (rooms.Any(room => room.Pos == newPos))
+                if (roomsMaze.IsPosInMaze(newPos))
                 {
-                    Vector2Int roomDirection = notCreatedNeighbour.DirectionTowardsNeighbour;
-                    RoomPos room = notCreatedNeighbour.Room;
-
-                    if (roomDirection == Vector2Int.left)
-                    {
-                        room.RoomDoorsType.Left = false;
-                    }
-
-                    else if (roomDirection == Vector2Int.up)
-                    {
-                        room.RoomDoorsType.Up = false;
-                    }
-
-                    else if (roomDirection == Vector2Int.right)
-                    {
-                        room.RoomDoorsType.Right = false;
-                    }
-
-                    else if (roomDirection == Vector2Int.down)
-                    {
-                        room.RoomDoorsType.Down = false;
-                    }
+                    RemoveDoor(notCreatedNeighbour);
                 }
                 else
                 {
-                    RoomTypeBooleans roomType =
-                        RoomTypeBooleans.FromVector2IntDirection(notCreatedNeighbour.DirectionTowardsRoom);
-
-                    List<RoomPos> neighbourRooms = GetNeighbourRooms(newPos, rooms);
-
-                    RoomPos addedRoom = new RoomPos(newPos,
-                        roomType,
-                        RoomTypeOld.TreasureRoom, neighbourRooms);
-
-                    rooms.Add(addedRoom);
+                    AddTreasureRoom(notCreatedNeighbour, roomsMaze, newPos);
                 }
             }
 
-            return rooms;
+            return roomsMaze.Rooms;
         }
 
-        private void AddAdjacentRooms(RoomPos initialRoom, List<RoomPos> rooms)
+        private void AddAdjacentRooms(RoomPos initialRoom, RoomsMaze roomMaze)
         {
             IEnumerable<Vector2Int> adyacentPositions = initialRoom.NeighbourPositions();
             foreach (Vector2Int adyacentPosition in adyacentPositions)
             {
-                AddRoomFromPos(adyacentPosition, rooms);
+                roomMaze.AddNormalRoomWithRandomDoors(adyacentPosition);
             }
         }
 
-        private void AddRemainingNormalRooms(int roomsGenerated, List<RoomPos> validRooms)
+        private void AddRemainingNormalRooms(int roomsToGenerate, RoomsMaze roomMaze)
         {
-            for (int i = 0; i < roomsGenerated - 5; i++)
+            while (roomMaze.Rooms.Count < roomsToGenerate)
             {
-                Vector2Int newPos = GetNewSpawnPosForRoom(validRooms);
-
-                AddRoomFromPos(newPos, validRooms);
+                roomMaze.AddNormalRoomWithRandomAtRandomPosition();
             }
         }
 
-        private static Vector2Int GetNewSpawnPosForRoom(List<RoomPos> validRooms)
+        private static void RemoveDoor(RoomAndNeighbourPos notCreatedNeighbour)
         {
-            Vector2Int? newPos = validRooms.GetRandomElement().RandomNeighbourPos();
+            Vector2Int roomDirection = notCreatedNeighbour.DirectionTowardsNeighbour;
+            RoomPos room = notCreatedNeighbour.Room;
 
-            while (newPos == null || validRooms.Any(room => room.Pos == newPos))
+            if (roomDirection == Vector2Int.left)
             {
-                newPos = validRooms.GetRandomElement().RandomNeighbourPos();
+                room.RoomDoorsType.Left = false;
             }
 
-            return (Vector2Int) newPos;
+            else if (roomDirection == Vector2Int.up)
+            {
+                room.RoomDoorsType.Up = false;
+            }
+
+            else if (roomDirection == Vector2Int.right)
+            {
+                room.RoomDoorsType.Right = false;
+            }
+
+            else if (roomDirection == Vector2Int.down)
+            {
+                room.RoomDoorsType.Down = false;
+            }
         }
 
-        private void AddRoomFromPos(Vector2Int newPos, List<RoomPos> rooms)
+        private static void AddTreasureRoom(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze,
+            Vector2Int newPos)
         {
-            List<RoomTypeBooleans> candidates = GetValidRoomTypesForPos(newPos, rooms);
-            RoomTypeBooleans roomType = candidates.GetRandomElement();
-
-            List<RoomPos> neighbourRooms = GetNeighbourRooms(newPos, rooms);
-
-            RoomPos addedRoom = new RoomPos(newPos,
-                roomType,
-                RoomTypeOld.NormalRoom, neighbourRooms);
-
-            rooms.Add(addedRoom);
-        }
-
-        private static List<RoomPos> GetNeighbourRooms(Vector2Int roomPos, List<RoomPos> generatedRooms)
-        {
-            List<Vector2Int> neighbourPositions = roomPos.AllNeighbourPositions().ToList();
-
-            List<RoomPos> neighbourRooms = generatedRooms.Where(room => neighbourPositions.Contains(room.Pos)).ToList();
-            return neighbourRooms;
-        }
+            RoomTypeBooleans roomType =
+                RoomTypeBooleans.FromVector2IntDirection(notCreatedNeighbour.DirectionTowardsRoom);
 
 
-        private List<RoomTypeBooleans> GetValidRoomTypesForPos(Vector2Int newPos, List<RoomPos> validRooms)
-        {
-            RoomTypeBooleans positionsAdjacentTaken = PositionsTaken(newPos, validRooms);
-
-            List<RoomTypeBooleans> candidates = RoomTypeBooleans.CandidateMatches(positionsAdjacentTaken);
-            return candidates;
-        }
-
-
-        private RoomTypeBooleans PositionsTaken(Vector2Int pos, List<RoomPos> rooms)
-        {
-            Vector2Int leftPos = pos + Vector2Int.left;
-            bool left = rooms.Any(room => room.Pos == leftPos && room.RoomDoorsType.Right);
-
-            Vector2Int rightPos = pos + Vector2Int.right;
-            bool right = rooms.Any(room => room.Pos == rightPos && room.RoomDoorsType.Left);
-
-            Vector2Int upPos = pos + Vector2Int.up;
-            bool up = rooms.Any(room => room.Pos == upPos && room.RoomDoorsType.Down);
-
-            Vector2Int downPos = pos + Vector2Int.down;
-            bool down = rooms.Any(room => room.Pos == downPos && room.RoomDoorsType.Up);
-
-
-            return new RoomTypeBooleans(left, right, up, down);
+            roomsMaze.AddRoom(newPos, roomType, RoomTypeOld.TreasureRoom);
         }
     }
 }

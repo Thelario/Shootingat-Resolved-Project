@@ -41,6 +41,24 @@ namespace PabloLario.DungeonGeneration
             Down = down;
         }
 
+        public void JoinDoors(RoomTypeBooleans other)
+        {
+            Left = Left || other.Left;
+            Up = Up || other.Up;
+            Right = Right || other.Right;
+            Down = Down || other.Down;
+        }
+
+        public int OpenedDoors()
+        {
+            int count = 0;
+            if (Up) count++;
+            if (Right) count++;
+            if (Down) count++;
+            if (Left) count++;
+            return count;
+        }
+
         public static List<RoomTypeBooleans> CandidateMatches(bool left, bool right, bool up, bool down)
         {
             return TypesRooms.Where(room => room.MatchesRoomWithAdjacent(left, right, up, down)).ToList();
@@ -63,24 +81,25 @@ namespace PabloLario.DungeonGeneration
         }
 
 
-        private static readonly RoomTypeBooleans[] TypesRooms =
-        {
-            new RoomTypeBooleans(true, false, false, false),
-            new RoomTypeBooleans(false, true, false, false),
-            new RoomTypeBooleans(false, true, true, false),
-            new RoomTypeBooleans(false, false, false, true),
-            new RoomTypeBooleans(true, true, false, false),
-            new RoomTypeBooleans(true, false, true, false),
-            new RoomTypeBooleans(true, false, false, true),
-            new RoomTypeBooleans(false, true, true, false),
-            new RoomTypeBooleans(false, true, false, true),
-            new RoomTypeBooleans(false, false, true, true),
-            new RoomTypeBooleans(true, false, true, true),
-            new RoomTypeBooleans(true, true, true, false),
-            new RoomTypeBooleans(false, true, true, true),
-            new RoomTypeBooleans(true, true, false, true),
-            new RoomTypeBooleans(true, true, true, true),
-        };
+        private static RoomTypeBooleans[] TypesRooms =>
+            new[]
+            {
+                new RoomTypeBooleans(true, false, false, false),
+                new RoomTypeBooleans(false, true, false, false),
+                new RoomTypeBooleans(false, false, true, false),
+                new RoomTypeBooleans(false, false, false, true),
+                new RoomTypeBooleans(true, true, false, false),
+                new RoomTypeBooleans(true, false, true, false),
+                new RoomTypeBooleans(true, false, false, true),
+                new RoomTypeBooleans(false, true, true, false),
+                new RoomTypeBooleans(false, true, false, true),
+                new RoomTypeBooleans(false, false, true, true),
+                new RoomTypeBooleans(true, false, true, true),
+                new RoomTypeBooleans(true, true, true, false),
+                new RoomTypeBooleans(false, true, true, true),
+                new RoomTypeBooleans(true, true, false, true),
+                new RoomTypeBooleans(true, true, true, true),
+            };
 
         public static RoomTypeBooleans FromVector2IntDirection(Vector2Int vector2Int)
         {
@@ -115,8 +134,8 @@ namespace PabloLario.DungeonGeneration
                 RoomType.R => new RoomTypeBooleans(false, true, false, false),
                 RoomType.U => new RoomTypeBooleans(false, false, true, false),
                 RoomType.D => new RoomTypeBooleans(false, false, false, true),
-                RoomType.LR => new RoomTypeBooleans(true, true, false, false),
-                RoomType.LU => new RoomTypeBooleans(true, false, true, false),
+                RoomType.LR => new RoomTypeBooleans(true, false, true, false),
+                RoomType.LU => new RoomTypeBooleans(true, true, false, false),
                 RoomType.LD => new RoomTypeBooleans(true, false, false, true),
                 RoomType.RU => new RoomTypeBooleans(false, true, true, false),
                 RoomType.RD => new RoomTypeBooleans(false, true, false, true),
@@ -156,7 +175,7 @@ namespace PabloLario.DungeonGeneration
                 return RoomType.UD;
             if (Left && !Right && Up && Down)
                 return RoomType.LUD;
-            if (Left && !Right && Up && Down)
+            if (Left && Right && Up && !Down)
                 return RoomType.LUR;
             if (!Left && Right && Up && Down)
                 return RoomType.URD;
@@ -172,6 +191,31 @@ namespace PabloLario.DungeonGeneration
         private static RoomTypeBooleans ErrorValue()
         {
             return new RoomTypeBooleans(false, false, false, false);
+        }
+
+        protected bool Equals(RoomTypeBooleans other)
+        {
+            return Left == other.Left && Right == other.Right && Up == other.Up && Down == other.Down;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((RoomTypeBooleans) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Left.GetHashCode();
+                hashCode = (hashCode * 397) ^ Right.GetHashCode();
+                hashCode = (hashCode * 397) ^ Up.GetHashCode();
+                hashCode = (hashCode * 397) ^ Down.GetHashCode();
+                return hashCode;
+            }
         }
     }
 
