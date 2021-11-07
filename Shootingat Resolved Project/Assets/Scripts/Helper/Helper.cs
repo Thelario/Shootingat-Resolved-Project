@@ -28,5 +28,6 @@ namespace PabloLario.Helper
             yield return pos + Vector2Int.down;
             yield return pos + Vector2Int.left;
         }
+        
     }
 }

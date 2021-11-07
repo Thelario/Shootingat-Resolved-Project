@@ -59,25 +59,38 @@ namespace PabloLario.DungeonGeneration
             return count;
         }
 
-        public static List<RoomTypeBooleans> CandidateMatches(bool left, bool right, bool up, bool down)
+        public static List<RoomTypeBooleans> ValidRoomsConnectingOn(bool left, bool up, bool right, bool down)
         {
-            return TypesRooms.Where(room => room.MatchesRoomWithAdjacent(left, right, up, down)).ToList();
+            return TypesRooms.Where(room => room.DoesMatchAdjacentConnections(left, up, right, down)).ToList();
         }
 
-        public static List<RoomTypeBooleans> CandidateMatches(RoomTypeBooleans otherPositions)
+        public static List<RoomTypeBooleans> ValidRoomsConnectingOn(RoomTypeBooleans connectedOn)
         {
-            return CandidateMatches(otherPositions.Left, otherPositions.Right, otherPositions.Up, otherPositions.Down);
+            return ValidRoomsConnectingOn(connectedOn.Left, connectedOn.Up, connectedOn.Right, connectedOn.Down);
         }
 
-        public bool MatchesRoomWithAdjacent(bool left, bool right, bool up, bool down)
+        public static List<RoomTypeBooleans> ValidRoomsConnectedOnAndDisconnectedOn(RoomTypeBooleans connectedOn,
+            RoomTypeBooleans disconnectedOn)
         {
-            return (!left || Left) && (!right || Right) && (!up || Up) && (!down || Down);
+            return ValidRoomsConnectingOn(connectedOn).Where(room =>
+                room.DoesMatchAdjacentDisconnections(disconnectedOn.Left, disconnectedOn.Up, disconnectedOn.Right,
+                    disconnectedOn.Down)).ToList();
         }
 
-        public bool MatchesRoomWithAdjacent(RoomTypeBooleans otherPositions)
+        public bool DoesMatchAdjacentConnections(bool left, bool up, bool right, bool down)
         {
-            return MatchesRoomWithAdjacent(otherPositions.Left, otherPositions.Right, otherPositions.Up,
+            return (!left || Left) && (!up || Up) && (!right || Right) && (!down || Down);
+        }
+
+        public bool DoesMatchAdjacentConnections(RoomTypeBooleans otherPositions)
+        {
+            return DoesMatchAdjacentConnections(otherPositions.Left, otherPositions.Up, otherPositions.Right,
                 otherPositions.Down);
+        }
+
+        public bool DoesMatchAdjacentDisconnections(bool left, bool up, bool right, bool down)
+        {
+            return (!left || !Left) && (!up || !Up) && (!right || !Right) && (!down || !Down);
         }
 
 
@@ -131,8 +144,8 @@ namespace PabloLario.DungeonGeneration
             return roomType switch
             {
                 RoomType.L => new RoomTypeBooleans(true, false, false, false),
-                RoomType.R => new RoomTypeBooleans(false, true, false, false),
-                RoomType.U => new RoomTypeBooleans(false, false, true, false),
+                RoomType.U => new RoomTypeBooleans(false, true, false, false),
+                RoomType.R => new RoomTypeBooleans(false, false, true, false),
                 RoomType.D => new RoomTypeBooleans(false, false, false, true),
                 RoomType.LR => new RoomTypeBooleans(true, false, true, false),
                 RoomType.LU => new RoomTypeBooleans(true, true, false, false),
@@ -140,10 +153,10 @@ namespace PabloLario.DungeonGeneration
                 RoomType.RU => new RoomTypeBooleans(false, true, true, false),
                 RoomType.RD => new RoomTypeBooleans(false, true, false, true),
                 RoomType.UD => new RoomTypeBooleans(false, false, true, true),
-                RoomType.LUD => new RoomTypeBooleans(true, false, true, true),
+                RoomType.LUD => new RoomTypeBooleans(true, true, false, true),
                 RoomType.LUR => new RoomTypeBooleans(true, true, true, false),
                 RoomType.URD => new RoomTypeBooleans(false, true, true, true),
-                RoomType.LDR => new RoomTypeBooleans(true, true, false, true),
+                RoomType.LDR => new RoomTypeBooleans(true, false, true, true),
                 RoomType.LUDR => new RoomTypeBooleans(true, true, true, true),
                 _ => ErrorValue()
             };

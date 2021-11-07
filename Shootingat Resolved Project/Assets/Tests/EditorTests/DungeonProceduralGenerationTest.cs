@@ -11,10 +11,10 @@ namespace PabloLario.Tests.EditorTests
         [Test]
         public void NormalRoomsCreatedIsRight()
         {
-            DungeonProceduralGeneration generation = new DungeonProceduralGeneration();
             for (int i = 0; i < 100; i++)
             {
-                List<RoomPos> generatedRooms = generation.CalculateValidRoomsPos(10);
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 0, 0, 0);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
                 Assert.GreaterOrEqual(generatedRooms.Count, 10);
             }
         }
@@ -23,10 +23,10 @@ namespace PabloLario.Tests.EditorTests
         [Test]
         public void AdjacentRoomsAreAlwaysCreated()
         {
-            DungeonProceduralGeneration generation = new DungeonProceduralGeneration();
             for (int i = 0; i < 100; i++)
             {
-                List<RoomPos> generatedRooms = generation.CalculateValidRoomsPos(6);
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(6, 0, 0, 0);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
 
                 Assert.True(generatedRooms.Any(room => room.Pos == Vector2Int.zero));
                 Assert.True(generatedRooms.Any(room => room.Pos == Vector2Int.left));
@@ -40,18 +40,25 @@ namespace PabloLario.Tests.EditorTests
         [Test]
         public void AllDoorsAreConnectedWithNoOverlappedRooms()
         {
-            DungeonProceduralGeneration generation = new DungeonProceduralGeneration();
-            for (int i = 0; i < 100; i++)
+            Random.InitState(2);
+            for (int i = 0; i < 1; i++)
             {
-                List<RoomPos> generatedRooms = generation.CalculateValidRoomsPos(10);
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 4, 1);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
 
                 foreach (RoomPos room in generatedRooms)
                 {
                     List<Vector2Int> neighbourPositions = room.NeighbourPositions().ToList();
                     foreach (Vector2Int neighbourPosition in neighbourPositions)
                     {
-                        Assert.True(generatedRooms.Any(roomToCompare => roomToCompare.Pos == neighbourPosition),
-                            $"Room in pos {room.Pos} is not with any room on {neighbourPosition}");
+                        Assert.True(generatedRooms
+                                .Any(roomToCompare =>
+                                    roomToCompare.Pos == neighbourPosition
+                                    && roomToCompare.RoomDoorsType
+                                        .DoesMatchAdjacentConnections(
+                                            RoomTypeBooleans
+                                                .FromVector2IntDirection(room.Pos - roomToCompare.Pos))),
+                            $"Room in pos {room.Pos} is not connected with any room on {neighbourPosition}");
                     }
 
                     Assert.AreEqual(1, generatedRooms.Count(generatedRoom => generatedRoom.Pos == room.Pos),
@@ -59,7 +66,18 @@ namespace PabloLario.Tests.EditorTests
                 }
             }
         }
-        
 
+        [Test]
+        public void TreasurerRoomAreCreated()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 6, 1);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
+                int count = generatedRooms.Count(room => room.RoomType == RoomTypeOld.TreasureRoom);
+                Assert.GreaterOrEqual(count, 2);
+                Assert.LessOrEqual(count, 6);
+            }
+        }
     }
 }

@@ -27,6 +27,21 @@ namespace PabloLario.DungeonGeneration
             return addedRoom;
         }
 
+        public RoomPos AddNormalRoomWithRandomDoors(Vector2Int newPos)
+        {
+            List<RoomTypeBooleans> candidates = GetValidRoomTypesForPos(newPos);
+            RoomTypeBooleans roomType = candidates.GetRandomElement();
+
+            return AddRoom(newPos, roomType, RoomTypeOld.NormalRoom);
+        }
+
+        public RoomPos AddNormalRoomWithRandomAtRandomPosition()
+        {
+            Vector2Int newPos = GetRandomSpawnPosForRoom();
+
+            return AddNormalRoomWithRandomDoors(newPos);
+        }
+
         private RoomPos AddRoomToList(Vector2Int newPos, RoomTypeBooleans roomDoorsType, RoomTypeOld roomType)
         {
             List<RoomPos> neighbourRooms = GetNeighbourRooms(newPos);
@@ -51,25 +66,20 @@ namespace PabloLario.DungeonGeneration
         private void RemoveMissingNeighboursFixedAfterAddingRoom(Vector2Int newPos, RoomPos addedRoom)
         {
             MissingNeighbours.RemoveAll(missingNeighbour => missingNeighbour.NeighbourPos == newPos &&
-                                                            addedRoom.RoomDoorsType.MatchesRoomWithAdjacent(
+                                                            addedRoom.RoomDoorsType.DoesMatchAdjacentConnections(
                                                                 RoomTypeBooleans.FromVector2IntDirection(
                                                                     missingNeighbour.DirectionTowardsRoom)));
-        }
-
-        public RoomPos AddNormalRoomWithRandomDoors(Vector2Int newPos)
-        {
-            List<RoomTypeBooleans> candidates = GetValidRoomTypesForPos(newPos);
-            RoomTypeBooleans roomType = candidates.GetRandomElement();
-
-            return AddRoom(newPos, roomType, RoomTypeOld.NormalRoom);
         }
 
 
         private List<RoomTypeBooleans> GetValidRoomTypesForPos(Vector2Int newPos)
         {
-            RoomTypeBooleans positionsAdjacentTaken = AdjacentRoomsConnected(newPos);
+            RoomTypeBooleans positionsAdjacentConnected = AdjacentRoomsConnected(newPos);
+            RoomTypeBooleans positionsAdjacentDisconnected = AdjacentRoomsDisconnected(newPos);
 
-            List<RoomTypeBooleans> candidates = RoomTypeBooleans.CandidateMatches(positionsAdjacentTaken);
+            List<RoomTypeBooleans> candidates = 
+                RoomTypeBooleans.ValidRoomsConnectedOnAndDisconnectedOn
+                    (positionsAdjacentConnected, positionsAdjacentDisconnected);
             return candidates;
         }
 
@@ -90,12 +100,23 @@ namespace PabloLario.DungeonGeneration
 
             return new RoomTypeBooleans(left, up, right, down);
         }
-
-        public RoomPos AddNormalRoomWithRandomAtRandomPosition()
+        
+        private RoomTypeBooleans AdjacentRoomsDisconnected(Vector2Int pos)
         {
-            Vector2Int newPos = GetRandomSpawnPosForRoom();
+            Vector2Int leftPos = pos + Vector2Int.left;
+            bool left = Rooms.Any(room => room.Pos == leftPos && !room.RoomDoorsType.Right);
 
-            return AddNormalRoomWithRandomDoors(newPos);
+            Vector2Int rightPos = pos + Vector2Int.right;
+            bool right = Rooms.Any(room => room.Pos == rightPos && !room.RoomDoorsType.Left);
+
+            Vector2Int upPos = pos + Vector2Int.up;
+            bool up = Rooms.Any(room => room.Pos == upPos && !room.RoomDoorsType.Down);
+
+            Vector2Int downPos = pos + Vector2Int.down;
+            bool down = Rooms.Any(room => room.Pos == downPos && !room.RoomDoorsType.Up);
+
+
+            return new RoomTypeBooleans(left, up, right, down);
         }
 
         private Vector2Int GetRandomSpawnPosForRoom()

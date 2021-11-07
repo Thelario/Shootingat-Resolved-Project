@@ -21,7 +21,7 @@ namespace PabloLario.Tests.EditorTests
                             RoomTypeBooleans otherPositions =
                                 new RoomTypeBooleans(left == 1, up == 1, right == 1, down == 1);
                             int openedDoors = otherPositions.OpenedDoors();
-                            List<RoomTypeBooleans> candidates = RoomTypeBooleans.CandidateMatches(otherPositions);
+                            List<RoomTypeBooleans> candidates = RoomTypeBooleans.ValidRoomsConnectingOn(otherPositions);
                             int expected = openedDoors switch
                             {
                                 0 => 15,

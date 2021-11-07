@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
@@ -6,7 +7,20 @@ namespace PabloLario.DungeonGeneration
     [System.Serializable]
     public class DungeonProceduralGeneration
     {
-        public List<RoomPos> CalculateValidRoomsPos(int roomsToGenerate)
+        public int roomsToGenerate;
+        public int minTreasureRooms;
+        public int maxTreasureRooms;
+        public int boosRooms;
+
+        public DungeonProceduralGeneration(int roomsToGenerate, int minTreasureRooms, int maxTreasureRooms, int boosRooms)
+        {
+            this.roomsToGenerate = roomsToGenerate;
+            this.minTreasureRooms = minTreasureRooms;
+            this.maxTreasureRooms = maxTreasureRooms;
+            this.boosRooms = boosRooms;
+        }
+
+        public List<RoomPos> GenerateValidRoomsPos()
         {
             RoomsMaze roomsMaze = new RoomsMaze();
 

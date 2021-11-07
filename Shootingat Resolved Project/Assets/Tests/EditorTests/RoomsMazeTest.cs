@@ -22,16 +22,16 @@ namespace PabloLario.Tests.EditorTests
         }
         
         [Test]
-        public void AddingRandomRoomsDoNotRepeatposition()
+        public void AddingRandomRoomsDoNotRepeatPosition()
         {
             RoomsMaze roomsMaze = new RoomsMaze();
 
             roomsMaze.AddRoom(Vector2Int.zero, RoomTypeBooleans.FromRoomType(RoomType.LUDR),
                 RoomTypeOld.NormalRoom);
             
-            Random.InitState(1);
+            Random.InitState(4);
             
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 roomsMaze.AddNormalRoomWithRandomAtRandomPosition();
             }
