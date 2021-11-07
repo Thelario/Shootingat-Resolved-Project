@@ -8,14 +8,11 @@ namespace PabloLario.Managers
     {
         public GameObject GetParticles(ParticleType pt)
         {
-            foreach (Particle p in Assets.Instance.particlesArray)
-            {
-                if (p.type == pt)
-                    return p.particlePrefab;
-            }
-
-            Debug.LogError("Particle Prefab Not Found");
-            return null;
+            if (Assets.Instance.particlesDictionary.TryGetValue(pt, out GameObject p))
+                return p;
+            else
+                Debug.LogError("Particle Prefab Not Found");
+                return null;
         }
 
         public void CreateParticle(ParticleType pt, Vector3 pos)

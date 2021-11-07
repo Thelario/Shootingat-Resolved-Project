@@ -1,0 +1,81 @@
+using PabloLario.Managers;
+using PabloLario.StateMachine;
+using UnityEngine;
+
+namespace PabloLario.Characters.Boss
+{
+    public class BossMove : State
+    {
+        private Vector3 dirNorm = Vector3.zero;
+        private float timeBetweenWavesWhenMovingCounter;
+
+        private BossStateMachine _bsm;
+
+        public BossMove(BossStateMachine bsm) : base(bsm) 
+        {
+            _bsm = bsm;
+        }
+
+        public override void Enter()
+        {
+            Debug.Log("Entering BossMove");
+
+            if (_bsm.Enraged)
+                _bsm.CurrentNode = BossRoomNodes.Instance.GetClosestNodeToPlayer();
+            else
+                _bsm.CurrentNode = BossRoomNodes.Instance.GetRandomNode();
+
+            timeBetweenWavesWhenMovingCounter = _bsm.BossStats.timeBetweenWavesWhenMoving;
+            dirNorm = (_bsm.CurrentNode.position - _bsm.Tr.position).normalized;
+        }
+
+        public override void Exit()
+        {
+            Debug.Log("Exiting BossMove");
+        }
+
+        public override void Update()
+        {
+            // Check if dirmNorm has already been set. It doesn't give a problem with the center node because it is not in 0,0.
+            if (dirNorm == Vector3.zero)
+                return;
+
+            CheckRemainingDst();
+
+            CheckWaveShooting();
+
+            Move();
+        }
+
+        private void Move()
+        {
+            _bsm.Tr.position += _bsm.BossStats.moveSpeed * Time.deltaTime * dirNorm;
+        }
+
+        private void CheckRemainingDst()
+        {
+            if (Mathf.Abs((_bsm.CurrentNode.position - _bsm.Tr.position).magnitude) <= 0.15f)
+                _bsm.ChangeState(_bsm.BossStop);
+        }
+
+        private void CheckWaveShooting()
+        {
+            timeBetweenWavesWhenMovingCounter -= Time.deltaTime;
+
+            if (timeBetweenWavesWhenMovingCounter <= 0f)
+            {
+                timeBetweenWavesWhenMovingCounter = _bsm.BossStats.timeBetweenWavesWhenMoving;
+                WaveShooting();
+            }
+        }
+
+        private void WaveShooting()
+        {
+            float fraction = 360f / _bsm.BossStats.numberOfBulletsInWavesWhenMoving
+            for (int i = 0; i < _bsm.BossStats.numberOfBulletsInWavesWhenMoving; i++)
+            {
+
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+using UnityEngine;
+
+namespace PabloLario.StateMachine
+{
+    public class StateMachine : MonoBehaviour
+    {
+        public State CurrentState { get; private set; }
+
+        public void ChangeState(State newState)
+        {
+
+        }
+    }
+}

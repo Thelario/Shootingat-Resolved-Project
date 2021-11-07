@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7233549779730495119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7233549779730495120}
+  - component: {fileID: 7233549779730495121}
+  m_Layer: 0
+  m_Name: Assets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7233549779730495120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7233549779730495119}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7233549779730495121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7233549779730495119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8be6176cce842840817b8bee9f766a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  soundAudioClipArray:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: ac9a5d716f9c811429a2e023dd4e2474, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: b35303bdd337f1146a950cd4aeeb0e59, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 98cb683a842443b4bb8440e1204ecaf3, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 8fa0059aff3ea7d4aad7642adae5b764, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 4bd4636e38d0e2d4eac5f8e35a10a3dc, type: 3}
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: 4bd4636e38d0e2d4eac5f8e35a10a3dc, type: 3}
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: ccbd2428ca0375d418da10eb88c8bfc2, type: 3}
+  particlesArray:
+  - type: 0
+    particlePrefab: {fileID: 7791509615102547665, guid: 8521ed6103a31af4b89f3ac62dda2876, type: 3}
+  - type: 1
+    particlePrefab: {fileID: 1534976519767892788, guid: 9a163bfa1b2b883488c48a7d371d27ef, type: 3}
+  - type: 2
+    particlePrefab: {fileID: 3641847577362649146, guid: 6e758581bfee5f34094b7778b68a74b7, type: 3}
+  - type: 3
+    particlePrefab: {fileID: 7521397190411832878, guid: d1f33a49a9fd666479d5134be24205c9, type: 3}
+  - type: 4
+    particlePrefab: {fileID: 8869810884129508332, guid: da1f6c2748d6d7e44b2414c94fb3ae3b, type: 3}
+  bulletsArray:
+  - type: 0
+    bulletPrefab: {fileID: 715189581830604452, guid: c0f8c652b3730484388fae69e1071424, type: 3}
+  - type: 1
+    bulletPrefab: {fileID: 1332553578212533831, guid: 38067278f197e24408419869788b23de, type: 3}
+  - type: 2
+    bulletPrefab: {fileID: 7801829262258269338, guid: 63f4b881f5b0c7840b588809c5c30dad, type: 3}
+  abilitiesArray:
+  - type: 0
+    abilityPrefab: {fileID: 8543063863393792101, guid: f394039ef5291c24881a43059aeeb32d, type: 3}
+  - type: 1
+    abilityPrefab: {fileID: 8883433979721709773, guid: 32e6631042312cf4d8f7fba04a5b7393, type: 3}
+  - type: 2
+    abilityPrefab: {fileID: 1701752162847527363, guid: a5244be8ed1fa684caf2583852b7fd8e, type: 3}
+  playerTransform: {fileID: 0}
+  bulletSplash_1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
+  bloodSplash_1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}
+  itemsArray:
+  - itemName: Bread
+    itemPrefab: {fileID: 7926178377822186661, guid: dd47e99807b84d440925ea452b237c3e, type: 3}
+  - itemName: Wine
+    itemPrefab: {fileID: 6887414669846699261, guid: 91bc254392ba75948b934e5df6630915, type: 3}
+  - itemName: Banana
+    itemPrefab: {fileID: 6515199749232666185, guid: a9c4348d6b901524392bd1001bd63436, type: 3}
+  - itemName: Apple
+    itemPrefab: {fileID: 620766062353759677, guid: 04192544b7b002c4f91535098da4a37e, type: 3}
+  - itemName: Cherries
+    itemPrefab: {fileID: 1782440733790565026, guid: 80b82ec95e258bb47bb6075c20c3007a, type: 3}
+  - itemName: Water
+    itemPrefab: {fileID: 1445146849918651025, guid: 73ad36f8eb6919b41ad7ee45655514b6, type: 3}
+  - itemName: Chicken
+    itemPrefab: {fileID: 6887414669846699261, guid: d31a55f86984b04499df1b061c0e1fe9, type: 3}
+  - itemName: Chips
+    itemPrefab: {fileID: 6887414669846699261, guid: 6f8b6bad14f5d594983bc5974d367dcd, type: 3}
+  - itemName: Cookie
+    itemPrefab: {fileID: 620766062353759677, guid: d8eaceac1b73fe44bb30e30ca31772bb, type: 3}
+  - itemName: Donut
+    itemPrefab: {fileID: 6887414669846699261, guid: a670ba819b9cadc48ae3ce0fec2e0b11, type: 3}
+  - itemName: Hamburguer
+    itemPrefab: {fileID: 7926178377822186661, guid: 12f2b9b2a40c8464c828038ae8c0c926, type: 3}
+  - itemName: IceCream
+    itemPrefab: {fileID: 6887414669846699261, guid: bd8a5ec2e4f6a984d8bf0cec1159eb20, type: 3}
+  - itemName: Taco
+    itemPrefab: {fileID: 6515199749232666185, guid: 3d2baf8886ad1214fb3c19ade8e6b60d, type: 3}
+  damageFloatingText: {fileID: 5419167160747013488, guid: a86a47e94e707f647b70f4f8e61e9a4b, type: 3}

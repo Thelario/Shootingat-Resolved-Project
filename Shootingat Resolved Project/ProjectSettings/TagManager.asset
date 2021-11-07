@@ -10,6 +10,7 @@ TagManager:
   - EnemyTrigger
   - Door
   - Portal
+  - Shield
   layers:
   - Default
   - TransparentFX

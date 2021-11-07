@@ -1,0 +1,23 @@
+using System.Collections;
+using UnityEngine;
+
+namespace PabloLario.StateMachine
+{
+    public abstract class AbstractState : ScriptableObject
+    {
+        public bool Enter()
+        {
+            return true;
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public bool ExitState()
+        {
+
+        }
+    }
+}

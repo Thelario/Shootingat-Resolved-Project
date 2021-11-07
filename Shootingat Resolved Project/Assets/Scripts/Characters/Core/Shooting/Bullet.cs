@@ -33,30 +33,40 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.giantBullet)
-                return;
-
-            if (collision.CompareTag("Bullet") || collision.CompareTag("EnemyTrigger") || collision.CompareTag("Door"))
-                return;
-
-            if (collision.TryGetComponent(out IDamageable id))
+            if (collision.CompareTag("Shield"))
             {
-                id.TakeDamage(_stats.Damage);
-                SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
-                GameObject damageFloatingText = Instantiate(Assets.Instance.damageFloatingText, collision.transform.position + Vector3.up, Quaternion.identity);
-                damageFloatingText.GetComponent<TMP_Text>().text = _stats.Damage.ToString();
-                Destroy(damageFloatingText, 2f);
+                if (type == BulletType.playerBullet || type == BulletType.giantBullet)
+                    return;
+
+                StartCoroutine(Co_DisableBullet(0f));
             }
             else
             {
-                GameObject splash = Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
-                splash.GetComponent<SpriteRenderer>().color = sr.color;
-            }
+                if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.giantBullet)
+                    return;
 
-            StartCoroutine(Co_DisableBullet(0f));
+                if (collision.CompareTag("Bullet") || collision.CompareTag("EnemyTrigger") || collision.CompareTag("Door"))
+                    return;
+
+                if (collision.TryGetComponent(out IDamageable id))
+                {
+                    id.TakeDamage(_stats.Damage);
+                    SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
+                    GameObject damageFloatingText = Instantiate(Assets.Instance.damageFloatingText, collision.transform.position + Vector3.up, Quaternion.identity);
+                    damageFloatingText.GetComponent<TMP_Text>().text = _stats.Damage.ToString();
+                    Destroy(damageFloatingText, 2f);
+                }
+                else
+                {
+                    GameObject splash = Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
+                    splash.GetComponent<SpriteRenderer>().color = sr.color;
+                }
+
+                StartCoroutine(Co_DisableBullet(0f));
+            }
         }
 
-        private IEnumerator Co_DisableBullet(float time)
+        public IEnumerator Co_DisableBullet(float time)
         {
             yield return new WaitForSeconds(time);
 

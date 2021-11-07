@@ -1,10 +1,11 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using PabloLario.Characters.Player.Powerups;
 using PabloLario.Characters.Core.Shooting;
+using PabloLario.Characters.Player.Powerups;
 using PabloLario.Managers;
 using PabloLario.UI;
+using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 #pragma warning disable CS0414 // Quitar miembros privados no leídos
 
@@ -27,6 +28,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private float dashTime;
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
+        [SerializeField] private bool playDashSound = true;
 
         private float _dashTimeCounter;
         private float _horizontal;
@@ -35,8 +37,10 @@ namespace PabloLario.Characters.Player
         private Vector3 _mousePos;
         private bool _moving;
         private bool _shooting;
-
         private float _dashSpeedSmoothed;
+        private bool _pause;
+
+        private Rigidbody2D rb;
 
         private Camera _camera;
         private Transform _transform;
@@ -59,31 +63,40 @@ namespace PabloLario.Characters.Player
                 _camera = Camera.main;
 
             Time.timeScale = 1f;
+
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnLevelLoaded;
+            GameManager.OnPauseGame += Pause;
+            GameManager.OnUnPauseGame += UnPause;
         }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnLevelLoaded;
+            GameManager.OnPauseGame -= Pause;
+            GameManager.OnUnPauseGame -= UnPause;
         }
 
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
         {
             camController = FindObjectOfType<MainCameraController>();
-            transform.position = Vector3.zero;
+            rb.MovePosition(Vector2.zero);
         }
 
         private void Update()
         {
+            if (_pause)
+                return;
+
             _fireRateCounter += Time.deltaTime;
 
             CheckDash();
 
-            if (Dash())
+            if (IsDashing())
                 return;
 
             CheckAbilityUse();
@@ -95,6 +108,15 @@ namespace PabloLario.Characters.Player
             CheckShoot();
 
             CheckShootFinish();
+        }
+
+        private void FixedUpdate()
+        {
+            if(Dash())
+                return;
+
+            rb.MovePosition(rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
+
         }
 
         private void Move()
@@ -114,7 +136,8 @@ namespace PabloLario.Characters.Player
                 DeactivateWalkParticles();
             }
 
-            _transform.position += ps.moveSpeed.Value * Time.deltaTime * new Vector3(_horizontal, _vertical).normalized;
+
+
         }
 
         private void Rotate()
@@ -148,7 +171,7 @@ namespace PabloLario.Characters.Player
             Bullet b = go.GetComponent<Bullet>();
             b.SetDirStatsColor(dir, ps.bulletStats, ps.hitAnimation.agentColor);
 
-            weaponPopup.AnimateScorePopup();
+            weaponPopup.AnimatePopup();
             StartCoroutine(camController.ScreenShake());
 
             animator.SetTrigger("Shooting");
@@ -186,7 +209,9 @@ namespace PabloLario.Characters.Player
 
         private void StartDash()
         {
-            SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
+            if (playDashSound)
+                SoundManager.Instance.PlaySound(SoundType.PlayerDash, 1f);
+
             _dashTimeCounter = dashTime;
             AnimateDash();
             _dashSpeedSmoothed = dashSpeedUpperLimit;
@@ -194,16 +219,23 @@ namespace PabloLario.Characters.Player
 
         private bool Dash()
         {
-            if (_dashTimeCounter > 0f)
+            if (IsDashing())
             {
-                _transform.position += new Vector3(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.deltaTime;
-                _dashTimeCounter -= Time.deltaTime;
+
+                rb.MovePosition(rb.position + (new Vector2(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.fixedDeltaTime));
+
+                _dashTimeCounter -= Time.fixedDeltaTime;
                 _dashSpeedSmoothed -= ps.moveSpeed.Value / dashDropRate;
                 _dashSpeedSmoothed = Mathf.Clamp(_dashSpeedSmoothed, 0f, dashSpeedUpperLimit);
                 return true;
             }
 
             return false;
+        }
+
+        private bool IsDashing()
+        {
+            return _dashTimeCounter > 0f;
         }
 
         private void Animate(Vector2 dir)
@@ -232,6 +264,16 @@ namespace PabloLario.Characters.Player
         private void DeactivateWalkParticles()
         {
             //walkParticles.SetActive(false);
+        }
+
+        private void Pause()
+        {
+            _pause = true;
+        }
+
+        private void UnPause()
+        {
+            _pause = false;
         }
 
         public Transform GetShootPointTransform()

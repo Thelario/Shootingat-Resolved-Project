@@ -16,6 +16,9 @@ namespace PabloLario.Characters.Player
 
         public void UpdateClarity(int currentClarity, int currentMaxClarity)
         {
+            if (clarityPanelParent == null)
+                return;
+
             DestroyPreviousClarity();
 
             // Creates the available clarity items

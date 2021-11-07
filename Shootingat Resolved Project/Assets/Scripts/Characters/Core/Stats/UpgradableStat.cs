@@ -25,7 +25,8 @@ namespace PabloLario.Characters.Core.Stats
 
         protected void UpdateText()
         {
-            textUiFormatter.UpdateText(GetArgumentsToDisplay());
+            if (textUiFormatter != null)
+                textUiFormatter.UpdateText(GetArgumentsToDisplay());
         }
 
         protected virtual object[] GetArgumentsToDisplay()

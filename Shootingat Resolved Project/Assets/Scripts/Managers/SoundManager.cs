@@ -75,14 +75,21 @@ namespace PabloLario.Managers
 
         private AudioClip SearchSound(SoundType st)
         {
+            /* CODE FOR LOOPING THROUGH LIST
             foreach (SoundAudioClip sac in Assets.Instance.soundAudioClipArray)
             {
                 if (sac.sound == st)
                     return sac.audioClip;
             }
+            */
+            // CODE FOR SEARCHING IN DICTIONARY
+            Assets.Instance.soundAudioClipDictionary.TryGetValue(st, out AudioClip clip);
 
-            Debug.LogError("Sound Not Found");
-            return null;
+            if (clip != null)
+                return clip;
+            else
+                Debug.LogError("Sound Not Found");
+                return null;
         }
     }
 }
