@@ -32,7 +32,7 @@ namespace PabloLario.DungeonGeneration
 
             AddAdjacentRooms(roomsMaze, initialRoom);
 
-            AddRemainingNormalRooms(roomsMaze, roomsToGenerate);
+            AddRemainingNormalRooms(roomsMaze);
 
             int goalAmountEndRooms = Random.Range(minTreasureRooms, maxTreasureRooms + 1) + boosRooms;
             int amountEndRooms = 0;
@@ -54,7 +54,7 @@ namespace PabloLario.DungeonGeneration
             }
         }
 
-        private void AddRemainingNormalRooms(RoomsMaze roomMaze, int roomsToGenerate)
+        private void AddRemainingNormalRooms(RoomsMaze roomMaze)
         {
             while (roomMaze.Rooms.Count < roomsToGenerate)
             {
