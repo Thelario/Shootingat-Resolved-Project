@@ -84,7 +84,6 @@ namespace PabloLario.Characters.Player
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
         {
             camController = FindObjectOfType<MainCameraController>();
-            rb.MovePosition(Vector2.zero);
         }
 
         private void Update()

@@ -30,28 +30,13 @@ namespace PabloLario.DungeonGeneration
                 RoomTypeOld.NormalRoom);
 
 
-            AddAdjacentRooms(initialRoom, roomsMaze);
+            AddAdjacentRooms(roomsMaze, initialRoom);
 
-            AddRemainingNormalRooms(roomsToGenerate, roomsMaze);
+            AddRemainingNormalRooms(roomsMaze, roomsToGenerate);
 
             int goalAmountEndRooms = Random.Range(minTreasureRooms, maxTreasureRooms + 1) + boosRooms;
             int amountEndRooms = 0;
-            List<RoomAndNeighbourPos> missingNeighbours = new List<RoomAndNeighbourPos>(roomsMaze.MissingNeighbours);
-            missingNeighbours.Shuffle();
-            foreach (RoomAndNeighbourPos notCreatedNeighbour in missingNeighbours)
-            {
-                Vector2Int newPos = notCreatedNeighbour.NeighbourPos;
-
-                if (roomsMaze.IsPosInMaze(newPos) || amountEndRooms >= goalAmountEndRooms)
-                {
-                    RemoveDoor(notCreatedNeighbour, roomsMaze);
-                }
-                else
-                {
-                    AddTreasureRoom(notCreatedNeighbour, roomsMaze);
-                    amountEndRooms++;
-                }
-            }
+            amountEndRooms = FixNotConnectedRooms(roomsMaze, amountEndRooms, goalAmountEndRooms);
 
             AddTreasureRoomsUntilMeetingGoal(amountEndRooms, goalAmountEndRooms, roomsMaze);
 
@@ -60,7 +45,7 @@ namespace PabloLario.DungeonGeneration
             return roomsMaze.Rooms;
         }
 
-        private void AddAdjacentRooms(RoomPos initialRoom, RoomsMaze roomMaze)
+        private void AddAdjacentRooms(RoomsMaze roomMaze, RoomPos initialRoom)
         {
             IEnumerable<Vector2Int> adyacentPositions = initialRoom.NeighbourPositions();
             foreach (Vector2Int adyacentPosition in adyacentPositions)
@@ -69,7 +54,7 @@ namespace PabloLario.DungeonGeneration
             }
         }
 
-        private void AddRemainingNormalRooms(int roomsToGenerate, RoomsMaze roomMaze)
+        private void AddRemainingNormalRooms(RoomsMaze roomMaze, int roomsToGenerate)
         {
             while (roomMaze.Rooms.Count < roomsToGenerate)
             {
@@ -77,7 +62,29 @@ namespace PabloLario.DungeonGeneration
             }
         }
 
-        private static void RemoveDoor(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze)
+        private static int FixNotConnectedRooms(RoomsMaze roomsMaze, int amountEndRooms, int goalAmountEndRooms)
+        {
+            List<RoomAndNeighbourPos> missingNeighbours = new List<RoomAndNeighbourPos>(roomsMaze.MissingNeighbours);
+            missingNeighbours.Shuffle();
+            foreach (RoomAndNeighbourPos notCreatedNeighbour in missingNeighbours)
+            {
+                Vector2Int newPos = notCreatedNeighbour.NeighbourPos;
+
+                if (roomsMaze.IsPosInMaze(newPos) || amountEndRooms >= goalAmountEndRooms)
+                {
+                    RemoveDoor(roomsMaze, notCreatedNeighbour);
+                }
+                else
+                {
+                    AddTreasureRoom(roomsMaze, notCreatedNeighbour);
+                    amountEndRooms++;
+                }
+            }
+
+            return amountEndRooms;
+        }
+
+        private static void RemoveDoor(RoomsMaze roomsMaze, RoomAndNeighbourPos notCreatedNeighbour)
         {
             Vector2Int roomDirection = notCreatedNeighbour.DirectionTowardsNeighbour;
             RoomPos room = notCreatedNeighbour.Room;
@@ -105,7 +112,7 @@ namespace PabloLario.DungeonGeneration
             roomsMaze.MissingNeighbours.Remove(notCreatedNeighbour);
         }
 
-        private static void AddTreasureRoom(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze)
+        private static void AddTreasureRoom(RoomsMaze roomsMaze, RoomAndNeighbourPos notCreatedNeighbour)
         {
             RoomTypeBooleans roomType =
                 RoomTypeBooleans.FromVector2IntDirection(notCreatedNeighbour.DirectionTowardsRoom);
@@ -120,7 +127,7 @@ namespace PabloLario.DungeonGeneration
             while (amountEndRooms < goalAmountEndRooms)
             {
                 RoomAndNeighbourPos neighbour = roomsMaze.AddMissingRoom();
-                AddTreasureRoom(neighbour, roomsMaze);
+                AddTreasureRoom(roomsMaze, neighbour);
                 amountEndRooms++;
             }
         }

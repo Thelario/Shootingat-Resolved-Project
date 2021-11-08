@@ -42,6 +42,36 @@ namespace PabloLario.DungeonGeneration
             return AddNormalRoomWithRandomDoors(newPos);
         }
 
+        public bool IsPosInMaze(Vector2Int notNeighbourPosition)
+        {
+            return Rooms.Any(room => room.Pos == notNeighbourPosition);
+        }
+
+        public RoomAndNeighbourPos AddMissingRoom()
+        {
+            while (MissingNeighbours.Count == 0)
+            {
+                RoomPos room = Rooms.GetRandomElement();
+                IEnumerable<Vector2Int> notNeighbourPositions = room.NotNeighbourPositions();
+                int openedDoors = room.RoomDoorsType.OpenedDoors();
+                foreach (Vector2Int notNeighbourPosition in notNeighbourPositions)
+                {
+                    if (IsPosInMaze(notNeighbourPosition))
+                        continue;
+                    Vector2Int directionToNeighbour = notNeighbourPosition - room.Pos;
+                    RoomTypeBooleans doorToOpen = RoomTypeBooleans.FromVector2IntDirection(directionToNeighbour);
+                    room.RoomDoorsType.JoinDoors(doorToOpen);
+
+                    if (room.RoomDoorsType.OpenedDoors() <= openedDoors) continue;
+                    RoomAndNeighbourPos newNeighbour = new RoomAndNeighbourPos(room, notNeighbourPosition);
+                    MissingNeighbours.Add(newNeighbour);
+                    return newNeighbour;
+                }
+            }
+
+            return MissingNeighbours.First();
+        }
+
         private RoomPos AddRoomToList(Vector2Int newPos, RoomTypeBooleans roomDoorsType, RoomTypeOld roomType)
         {
             List<RoomPos> neighbourRooms = GetNeighbourRooms(newPos);
@@ -77,7 +107,7 @@ namespace PabloLario.DungeonGeneration
             RoomTypeBooleans positionsAdjacentConnected = AdjacentRoomsConnected(newPos);
             RoomTypeBooleans positionsAdjacentDisconnected = AdjacentRoomsDisconnected(newPos);
 
-            List<RoomTypeBooleans> candidates = 
+            List<RoomTypeBooleans> candidates =
                 RoomTypeBooleans.ValidRoomsConnectedOnAndDisconnectedOn
                     (positionsAdjacentConnected, positionsAdjacentDisconnected);
             return candidates;
@@ -100,7 +130,7 @@ namespace PabloLario.DungeonGeneration
 
             return new RoomTypeBooleans(left, up, right, down);
         }
-        
+
         private RoomTypeBooleans AdjacentRoomsDisconnected(Vector2Int pos)
         {
             Vector2Int leftPos = pos + Vector2Int.left;
@@ -124,36 +154,6 @@ namespace PabloLario.DungeonGeneration
             AddMissingRoom();
 
             return MissingNeighbours.GetRandomElement().NeighbourPos;
-        }
-
-        public RoomAndNeighbourPos AddMissingRoom()
-        {
-            while (MissingNeighbours.Count == 0)
-            {
-                RoomPos room = Rooms.GetRandomElement();
-                IEnumerable<Vector2Int> notNeighbourPositions = room.NotNeighbourPositions();
-                int openedDoors = room.RoomDoorsType.OpenedDoors();
-                foreach (Vector2Int notNeighbourPosition in notNeighbourPositions)
-                {
-                    if (IsPosInMaze(notNeighbourPosition))
-                        continue;
-                    Vector2Int directionToNeighbour = notNeighbourPosition - room.Pos;
-                    RoomTypeBooleans doorToOpen = RoomTypeBooleans.FromVector2IntDirection(directionToNeighbour);
-                    room.RoomDoorsType.JoinDoors(doorToOpen);
-
-                    if (room.RoomDoorsType.OpenedDoors() <= openedDoors) continue;
-                    RoomAndNeighbourPos newNeighbour = new RoomAndNeighbourPos(room, notNeighbourPosition);
-                    MissingNeighbours.Add(newNeighbour);
-                    return newNeighbour;
-                }
-            }
-
-            return MissingNeighbours.First();
-        }
-
-        public bool IsPosInMaze(Vector2Int notNeighbourPosition)
-        {
-            return Rooms.Any(room => room.Pos == notNeighbourPosition);
         }
     }
 }

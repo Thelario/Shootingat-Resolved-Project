@@ -7,11 +7,13 @@ using PabloLario.Managers;
 
 namespace PabloLario.DungeonGeneration
 {
-    public class DungeonBuilder : MonoBehaviour
+    public class DungeonInstantiator : MonoBehaviour
     {
         [SerializeField] private DungeonProceduralGeneration dungeonGenerator;
         [SerializeField] private RoomSelector roomSelector;
         [SerializeField] private GameObject initialRoom;
+
+        
         private const float RoomSizeX = 40f;
         private const float RoomSizeY = 25f;
 
@@ -26,7 +28,6 @@ namespace PabloLario.DungeonGeneration
 
             Instantiate(initialRoom, Vector3.zero, Quaternion.identity, transform);
 
-
             foreach (RoomPos room in rooms.Skip(1))
             {
                 RoomType rt = room.RoomDoorsType.ToRoomType();
@@ -34,7 +35,7 @@ namespace PabloLario.DungeonGeneration
                 GameObject roomToBeCreated = room.RoomType switch
                 {
                     RoomTypeOld.NormalRoom => roomSelector.GetRoomFromVariants(rt),
-                    RoomTypeOld.HiddenRoom => roomSelector.GetTreasureRoomFromVariants(rt),
+                    RoomTypeOld.TreasureRoom => roomSelector.GetTreasureRoomFromVariants(rt),
                     RoomTypeOld.BossRoom => roomSelector.GetTreasureRoomFromVariants(rt), // TODO: CreateBossRoomFromVariants(rt);
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };

@@ -203,30 +203,7 @@ namespace PabloLario.DungeonGeneration
             return new RoomTypeBooleans(false, false, false, false);
         }
 
-        protected bool Equals(RoomTypeBooleans other)
-        {
-            return Left == other.Left && Right == other.Right && Up == other.Up && Down == other.Down;
-        }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((RoomTypeBooleans) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = Left.GetHashCode();
-                hashCode = (hashCode * 397) ^ Right.GetHashCode();
-                hashCode = (hashCode * 397) ^ Up.GetHashCode();
-                hashCode = (hashCode * 397) ^ Down.GetHashCode();
-                return hashCode;
-            }
-        }
     }
 
 }
