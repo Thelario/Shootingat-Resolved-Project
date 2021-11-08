@@ -27,14 +27,6 @@ namespace PabloLario.DungeonGeneration
             Neighbours.ForEach(neighbour => neighbour.Neighbours.Add(this));
         }
 
-        public Vector2Int? RandomNeighbourPos()
-        {
-            List<Vector2Int> neighbourPositions = NeighbourPositions().ToList();
-            if (neighbourPositions.Count == 0)
-                return null;
-            return NeighbourPositions().ToList().GetRandomElement();
-        }
-
         public IEnumerable<Vector2Int> NeighbourPositions()
         {
             if (RoomDoorsType.Up)
