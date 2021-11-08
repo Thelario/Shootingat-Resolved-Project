@@ -1,19 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PabloLario.DungeonGeneration
 {
-    public enum RoomType { L, R, U, D, LR, LU, LD, RU, RD, UD, LUD, LUR, URD, LDR, LUDR }
 
-    [System.Serializable]
+
+    [Serializable]
     public class RoomSerializable
     {
         public List<GameObject> roomPrefabVariants;
         public RoomType roomType;
 
-        public GameObject GetRandomVariant() 
-        { 
-            return roomPrefabVariants[Random.Range(0, roomPrefabVariants.Count)]; 
+        public GameObject GetRandomVariant()
+        {
+            return roomPrefabVariants[Random.Range(0, roomPrefabVariants.Count)];
         }
     }
 
@@ -23,41 +25,45 @@ namespace PabloLario.DungeonGeneration
         [SerializeField] private List<RoomSerializable> treasureRoomPrefabs = new List<RoomSerializable>();
         [SerializeField] private List<RoomSerializable> bossRoomPrefabs = new List<RoomSerializable>();
 
-        private RoomType[] left = new RoomType[] {
-        RoomType.URD,
-        RoomType.RU,
-        RoomType.RD,
-        RoomType.LR,
-        RoomType.R,
-        RoomType.LUDR
-    };
+        private RoomType[] left =
+        {
+            RoomType.URD,
+            RoomType.RU,
+            RoomType.RD,
+            RoomType.LR,
+            RoomType.R,
+            RoomType.LUDR
+        };
 
-        private RoomType[] right = new RoomType[] {
-        RoomType.LUD,
-        RoomType.LD,
-        RoomType.LU,
-        RoomType.LR,
-        RoomType.L,
-        RoomType.LUDR
-    };
+        private RoomType[] right =
+        {
+            RoomType.LUD,
+            RoomType.LD,
+            RoomType.LU,
+            RoomType.LR,
+            RoomType.L,
+            RoomType.LUDR
+        };
 
-        private RoomType[] up = new RoomType[] {
-        RoomType.LDR,
-        RoomType.UD,
-        RoomType.RD,
-        RoomType.LD,
-        RoomType.D,
-        RoomType.LUDR
-    };
+        private RoomType[] up =
+        {
+            RoomType.LDR,
+            RoomType.UD,
+            RoomType.RD,
+            RoomType.LD,
+            RoomType.D,
+            RoomType.LUDR
+        };
 
-        private RoomType[] down = new RoomType[] {
-        RoomType.LUR,
-        RoomType.RU,
-        RoomType.UD,
-        RoomType.LU,
-        RoomType.U,
-        RoomType.LUDR
-    };
+        private RoomType[] down =
+        {
+            RoomType.LUR,
+            RoomType.RU,
+            RoomType.UD,
+            RoomType.LU,
+            RoomType.U,
+            RoomType.LUDR
+        };
 
         public GameObject GetCorrectRoom(RoomType rt)
         {
