@@ -1326,29 +1326,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 415727342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac07743724e78fc40bad17f884cf7d4e, type: 3}
+  m_Script: {fileID: 11500000, guid: c1764c0d5a2e46f6959e79be7a43b1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms:
-  - {fileID: 4384131754532262409, guid: c3d970744020c7044827885f3c23e4a5, type: 3}
-  - {fileID: 5759091518878757181, guid: 1a2ca07c4283b01499d3a52750beecf2, type: 3}
-  - {fileID: 889797729164482792, guid: 60ed34ffbf5f4ef419f3ec7c9ec4812f, type: 3}
-  - {fileID: 3707795612759604860, guid: 678ae963af17d7c4d955d40fae9fd882, type: 3}
-  - {fileID: 5722033261756358747, guid: df9483ee63397c44dbab23ecb76c6824, type: 3}
-  - {fileID: 3867099608720592400, guid: 5cbaa08cd251cc542b6c28ce5485a7e4, type: 3}
-  - {fileID: 9156654493713297421, guid: 95943fb23ad09f54a99754fbd1add5a3, type: 3}
-  - {fileID: 5184109270337626229, guid: d54f609838986714ca9eee7445a1c0df, type: 3}
-  - {fileID: 5998462362031359100, guid: 1146ae19e5c6ac4498507963b210af1e, type: 3}
-  - {fileID: 7708936763071231640, guid: 041734d3b0e58ef44929e647e58083a2, type: 3}
-  - {fileID: 6289980709169080035, guid: 52f41a8efd1223946b3e0dcf9baea62d, type: 3}
-  - {fileID: 4593091296976797379, guid: 8f902207e51f722469012daa1cd9b061, type: 3}
-  - {fileID: 1468312536501880682, guid: 9b861e6ed84d66d4d892de64048f0f8a, type: 3}
-  - {fileID: 3337968177563840482, guid: ac7a9ffaa528c184c80c32db163018f1, type: 3}
-  - {fileID: 2125925172756096916, guid: 6cc73a3c423f1bf4b93f40634229b3f0, type: 3}
-  initialRoom: {fileID: 2125925172756096916, guid: adffc0f99cb4c4340b5c5fec9a359dfc, type: 3}
-  minNumRooms: 10
-  maxNumRooms: 15
+  dungeonGenerator:
+    roomsToGenerate: 10
+    minTreasureRooms: 2
+    maxTreasureRooms: 4
+    boosRooms: 1
   roomSelector: {fileID: 75517522}
+  initialRoom: {fileID: 2125925172756096916, guid: adffc0f99cb4c4340b5c5fec9a359dfc, type: 3}
 --- !u!1 &460943083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,7 +2129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001411586370133679, guid: dee18d9fcedaabd458b7159d2594c3cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9001411586370133681, guid: dee18d9fcedaabd458b7159d2594c3cb, type: 3}
       propertyPath: m_RootOrder

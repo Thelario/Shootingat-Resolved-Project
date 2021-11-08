@@ -6,14 +6,14 @@ namespace PabloLario.Helper
     public static class Helper
 
     {
-        public static T GetRandomElement<T>(this List<T> list)
+        public static T GetRandomElement<T>(this IList<T> list)
         {
             if (list.Count == 0)
                 return default;
             return list[Random.Range(0, list.Count)];
         }
 
-        public static T RemoveRandomElement<T>(this List<T> list)
+        public static T RemoveRandomElement<T>(this IList<T> list)
         {
             int elementIndex = Random.Range(0, list.Count);
             T value = list[elementIndex];
@@ -27,6 +27,17 @@ namespace PabloLario.Helper
             yield return pos + Vector2Int.right;
             yield return pos + Vector2Int.down;
             yield return pos + Vector2Int.left;
+        }
+        
+        public static void Shuffle<T>(this IList<T> ts)
+        {
+            int count = ts.Count;
+            int last = count - 1;
+            for (int i = 0; i < last; ++i)
+            {
+                int r = Random.Range(i, count);
+                (ts[i], ts[r]) = (ts[r], ts[i]);
+            }
         }
         
     }

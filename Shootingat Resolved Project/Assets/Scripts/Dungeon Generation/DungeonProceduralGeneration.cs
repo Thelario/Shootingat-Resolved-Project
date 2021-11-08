@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using PabloLario.Helper;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
@@ -12,7 +13,8 @@ namespace PabloLario.DungeonGeneration
         public int maxTreasureRooms;
         public int boosRooms;
 
-        public DungeonProceduralGeneration(int roomsToGenerate, int minTreasureRooms, int maxTreasureRooms, int boosRooms)
+        public DungeonProceduralGeneration(int roomsToGenerate, int minTreasureRooms, int maxTreasureRooms,
+            int boosRooms)
         {
             this.roomsToGenerate = roomsToGenerate;
             this.minTreasureRooms = minTreasureRooms;
@@ -32,20 +34,28 @@ namespace PabloLario.DungeonGeneration
 
             AddRemainingNormalRooms(roomsToGenerate, roomsMaze);
 
+            int goalAmountEndRooms = Random.Range(minTreasureRooms, maxTreasureRooms + 1) + boosRooms;
+            int amountEndRooms = 0;
             List<RoomAndNeighbourPos> missingNeighbours = new List<RoomAndNeighbourPos>(roomsMaze.MissingNeighbours);
+            missingNeighbours.Shuffle();
             foreach (RoomAndNeighbourPos notCreatedNeighbour in missingNeighbours)
             {
                 Vector2Int newPos = notCreatedNeighbour.NeighbourPos;
 
-                if (roomsMaze.IsPosInMaze(newPos))
+                if (roomsMaze.IsPosInMaze(newPos) || amountEndRooms >= goalAmountEndRooms)
                 {
-                    RemoveDoor(notCreatedNeighbour);
+                    RemoveDoor(notCreatedNeighbour, roomsMaze);
                 }
                 else
                 {
-                    AddTreasureRoom(notCreatedNeighbour, roomsMaze, newPos);
+                    AddTreasureRoom(notCreatedNeighbour, roomsMaze);
+                    amountEndRooms++;
                 }
             }
+
+            AddTreasureRoomsUntilMeetingGoal(amountEndRooms, goalAmountEndRooms, roomsMaze);
+
+            ConvertFurthestRoomsFromCenterIntoBossRoom(roomsMaze);
 
             return roomsMaze.Rooms;
         }
@@ -67,7 +77,7 @@ namespace PabloLario.DungeonGeneration
             }
         }
 
-        private static void RemoveDoor(RoomAndNeighbourPos notCreatedNeighbour)
+        private static void RemoveDoor(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze)
         {
             Vector2Int roomDirection = notCreatedNeighbour.DirectionTowardsNeighbour;
             RoomPos room = notCreatedNeighbour.Room;
@@ -91,16 +101,42 @@ namespace PabloLario.DungeonGeneration
             {
                 room.RoomDoorsType.Down = false;
             }
+
+            roomsMaze.MissingNeighbours.Remove(notCreatedNeighbour);
         }
 
-        private static void AddTreasureRoom(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze,
-            Vector2Int newPos)
+        private static void AddTreasureRoom(RoomAndNeighbourPos notCreatedNeighbour, RoomsMaze roomsMaze)
         {
             RoomTypeBooleans roomType =
                 RoomTypeBooleans.FromVector2IntDirection(notCreatedNeighbour.DirectionTowardsRoom);
 
 
-            roomsMaze.AddRoom(newPos, roomType, RoomTypeOld.TreasureRoom);
+            roomsMaze.AddRoom(notCreatedNeighbour.NeighbourPos, roomType, RoomTypeOld.TreasureRoom);
+        }
+
+        private static void AddTreasureRoomsUntilMeetingGoal(int amountEndRooms, int goalAmountEndRooms,
+            RoomsMaze roomsMaze)
+        {
+            while (amountEndRooms < goalAmountEndRooms)
+            {
+                RoomAndNeighbourPos neighbour = roomsMaze.AddMissingRoom();
+                AddTreasureRoom(neighbour, roomsMaze);
+                amountEndRooms++;
+            }
+        }
+
+        private void ConvertFurthestRoomsFromCenterIntoBossRoom(RoomsMaze roomsMaze)
+        {
+            for (int i = 0; i < boosRooms; i++)
+            {
+                int furthestTreasureRoomDistance = roomsMaze.Rooms
+                    .Where(room => room.RoomType == RoomTypeOld.TreasureRoom)
+                    .Max(room => room.Pos.sqrMagnitude);
+                RoomPos furthestTreasureRoom = roomsMaze.Rooms.Where(room => room.RoomType == RoomTypeOld.TreasureRoom)
+                    .First(room => room.Pos.sqrMagnitude == furthestTreasureRoomDistance);
+                furthestTreasureRoom.RoomType = RoomTypeOld.BossRoom;
+                
+            }
         }
     }
 }

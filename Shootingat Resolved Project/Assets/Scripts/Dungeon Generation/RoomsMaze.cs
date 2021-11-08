@@ -121,6 +121,13 @@ namespace PabloLario.DungeonGeneration
 
         private Vector2Int GetRandomSpawnPosForRoom()
         {
+            AddMissingRoom();
+
+            return MissingNeighbours.GetRandomElement().NeighbourPos;
+        }
+
+        public RoomAndNeighbourPos AddMissingRoom()
+        {
             while (MissingNeighbours.Count == 0)
             {
                 RoomPos room = Rooms.GetRandomElement();
@@ -135,13 +142,13 @@ namespace PabloLario.DungeonGeneration
                     room.RoomDoorsType.JoinDoors(doorToOpen);
 
                     if (room.RoomDoorsType.OpenedDoors() <= openedDoors) continue;
-
-                    MissingNeighbours.Add(new RoomAndNeighbourPos(room, notNeighbourPosition));
-                    break;
+                    RoomAndNeighbourPos newNeighbour = new RoomAndNeighbourPos(room, notNeighbourPosition);
+                    MissingNeighbours.Add(newNeighbour);
+                    return newNeighbour;
                 }
             }
 
-            return MissingNeighbours.GetRandomElement().NeighbourPos;
+            return MissingNeighbours.First();
         }
 
         public bool IsPosInMaze(Vector2Int notNeighbourPosition)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PabloLario.Managers
 {
-#pragma warning disable CS0618 // El tipo o el miembro est·n obsoletos
+#pragma warning disable CS0618 // El tipo o el miembro est√°n obsoletos
 
     public class ParticlesManager : Singleton<ParticlesManager>
     {

@@ -40,8 +40,7 @@ namespace PabloLario.Tests.EditorTests
         [Test]
         public void AllDoorsAreConnectedWithNoOverlappedRooms()
         {
-            Random.InitState(2);
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 100; i++)
             {
                 DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 4, 1);
                 List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
@@ -72,11 +71,23 @@ namespace PabloLario.Tests.EditorTests
         {
             for (int i = 0; i < 100; i++)
             {
-                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 6, 1);
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 6, 0);
                 List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
                 int count = generatedRooms.Count(room => room.RoomType == RoomTypeOld.TreasureRoom);
                 Assert.GreaterOrEqual(count, 2);
                 Assert.LessOrEqual(count, 6);
+            }
+        }
+
+        [Test]
+        public void BossRoomAreCreated()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 0, 4, 2);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
+                int bossCount = generatedRooms.Count(room => room.RoomType == RoomTypeOld.BossRoom);
+                Assert.AreEqual(2, bossCount);
             }
         }
     }

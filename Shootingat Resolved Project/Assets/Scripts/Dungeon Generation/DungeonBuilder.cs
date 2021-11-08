@@ -35,7 +35,7 @@ namespace PabloLario.DungeonGeneration
                 {
                     RoomTypeOld.NormalRoom => roomSelector.GetRoomFromVariants(rt),
                     RoomTypeOld.HiddenRoom => roomSelector.GetTreasureRoomFromVariants(rt),
-                    RoomTypeOld.BossRoom => roomSelector.GetTreasureRoomFromVariants(rt),
+                    RoomTypeOld.BossRoom => roomSelector.GetTreasureRoomFromVariants(rt), // TODO: CreateBossRoomFromVariants(rt);
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };
                 Instantiate(roomToBeCreated, GlobalCoordinateOf(room.Pos), Quaternion.identity, transform);

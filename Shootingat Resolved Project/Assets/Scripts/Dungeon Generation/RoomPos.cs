@@ -13,7 +13,7 @@ namespace PabloLario.DungeonGeneration
 
         public RoomTypeBooleans RoomDoorsType { get; }
 
-        public RoomTypeOld RoomType { get; }
+        public RoomTypeOld RoomType { get; set; }
 
         public List<RoomPos> Neighbours { get; }
 
