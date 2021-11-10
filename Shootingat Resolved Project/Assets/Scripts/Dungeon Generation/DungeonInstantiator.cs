@@ -9,7 +9,6 @@ namespace PabloLario.DungeonGeneration
         [SerializeField] private DungeonProceduralGeneration dungeonGenerator;
         [SerializeField] private RoomSelector roomSelector;
         [SerializeField] private GameObject initialRoom;
-
         
         private const float RoomSizeX = 40f;
         private const float RoomSizeY = 25f;
@@ -28,12 +27,12 @@ namespace PabloLario.DungeonGeneration
             foreach (RoomPos room in rooms.Skip(1))
             {
                 RoomType rt = room.RoomDoorsType.ToRoomType();
-
+                
                 GameObject roomToBeCreated = room.RoomType switch
                 {
                     RoomTypeOld.NormalRoom => roomSelector.GetRoomFromVariants(rt),
                     RoomTypeOld.TreasureRoom => roomSelector.GetTreasureRoomFromVariants(rt),
-                    RoomTypeOld.BossRoom => roomSelector.GetTreasureRoomFromVariants(rt), // TODO: CreateBossRoomFromVariants(rt);
+                    RoomTypeOld.BossRoom => roomSelector.GetBossRoomFromVariants(rt), // TODO: CreateBossRoomFromVariants(rt);
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };
                 Instantiate(roomToBeCreated, GlobalCoordinateOf(room.Pos), Quaternion.identity, transform);

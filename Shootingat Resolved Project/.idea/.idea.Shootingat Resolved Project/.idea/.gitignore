@@ -3,6 +3,7 @@
 /workspace.xml
 # Rider ignored files
 /contentModel.xml
+<<<<<<< Updated upstream
 /.idea.Shootingat Resolved Project.iml
 /projectSettingsUpdater.xml
 /modules.xml
@@ -12,3 +13,13 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 discord.xml
+=======
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.Shootingat Resolved Project.iml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+>>>>>>> Stashed changes
