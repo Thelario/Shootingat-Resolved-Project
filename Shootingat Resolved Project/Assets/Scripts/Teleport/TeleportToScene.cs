@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PabloLario.Managers;
 
 namespace PabloLario.Teleport
 {
@@ -8,6 +9,7 @@ namespace PabloLario.Teleport
         public void GoToScene(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
+            Managers.Assets.Instance.playerTransform.position = new Vector3(0f, -21f);
         }
     }
 }

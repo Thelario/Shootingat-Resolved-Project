@@ -7,13 +7,13 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-#pragma warning disable CS0414 // Quitar miembros privados no leídos
+#pragma warning disable CS0414 //Quitar miembros privados no leídos
 
 namespace PabloLario.Characters.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Singleton<PlayerController>
     {
-        [Header("References")]
+        [Header("References")] 
         [SerializeField] private Transform shootPoint;
         [SerializeField] private MainCameraController camController;
         [SerializeField] private Transform weaponTransform;
@@ -24,7 +24,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private Popup weaponPopup;
         [SerializeField] private Image abilityImage;
 
-        [Header("Fields")]
+        [Header("Fields")] 
         [SerializeField] private float dashTime;
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
@@ -41,16 +41,16 @@ namespace PabloLario.Characters.Player
         private bool _pause;
 
         private Rigidbody2D rb;
-
         private Camera _camera;
         private Transform _transform;
 
         public Ability _currentAbility;
-
         public Vector2 dir;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             _camera = Camera.main;
             _transform = transform;
         }
@@ -111,11 +111,10 @@ namespace PabloLario.Characters.Player
 
         private void FixedUpdate()
         {
-            if(Dash())
+            if (Dash())
                 return;
 
             rb.MovePosition(rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
-
         }
 
         private void Move()
@@ -134,9 +133,6 @@ namespace PabloLario.Characters.Player
                 _moving = false;
                 DeactivateWalkParticles();
             }
-
-
-
         }
 
         private void Rotate()
@@ -165,7 +161,9 @@ namespace PabloLario.Characters.Player
             _fireRateCounter = 0f;
 
             GameObject go = BulletPoolManager.Instance.RequestPlayerBullet();
-            go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-10f, 5f)));
+            go.transform.SetPositionAndRotation(shootPoint.position,
+                Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y,
+                    shootPoint.rotation.eulerAngles.z + Random.Range(-10f, 5f)));
 
             Bullet b = go.GetComponent<Bullet>();
             b.SetDirStatsColor(dir, ps.bulletStats, ps.hitAnimation.agentColor);
@@ -174,7 +172,8 @@ namespace PabloLario.Characters.Player
             StartCoroutine(camController.ScreenShake());
 
             animator.SetTrigger("Shooting");
-            ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
+            ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f,
+                shootPoint.rotation);
             SoundManager.Instance.PlaySound(SoundType.PlayerShoot, 1f);
         }
 
@@ -221,7 +220,8 @@ namespace PabloLario.Characters.Player
             if (IsDashing())
             {
 
-                rb.MovePosition(rb.position + (new Vector2(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.fixedDeltaTime));
+                rb.MovePosition(rb.position + (new Vector2(_horizontal, _vertical).normalized * _dashSpeedSmoothed *
+                                               Time.fixedDeltaTime));
 
                 _dashTimeCounter -= Time.fixedDeltaTime;
                 _dashSpeedSmoothed -= ps.moveSpeed.Value / dashDropRate;

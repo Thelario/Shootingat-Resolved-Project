@@ -54,6 +54,7 @@ namespace PabloLario.Characters.Core.Shooting
                     SoundManager.Instance.PlaySound(SoundType.EnemyHit, 0.5f);
                     GameObject damageFloatingText = Instantiate(Assets.Instance.damageFloatingText, collision.transform.position + Vector3.up, Quaternion.identity);
                     damageFloatingText.GetComponent<TMP_Text>().text = _stats.Damage.ToString();
+                    
                     Destroy(damageFloatingText, 2f);
                 }
                 else

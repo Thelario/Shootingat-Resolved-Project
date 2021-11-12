@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using PabloLario.Managers;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
@@ -32,11 +33,15 @@ namespace PabloLario.DungeonGeneration
                 {
                     RoomTypeOld.NormalRoom => roomSelector.GetRoomFromVariants(rt),
                     RoomTypeOld.TreasureRoom => roomSelector.GetTreasureRoomFromVariants(rt),
-                    RoomTypeOld.BossRoom => roomSelector.GetBossRoomFromVariants(rt), // TODO: CreateBossRoomFromVariants(rt);
+                    RoomTypeOld.BossRoom => roomSelector.GetBossRoomFromVariants(rt), 
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };
+                
+                Debug.Log(roomToBeCreated);
                 Instantiate(roomToBeCreated, GlobalCoordinateOf(room.Pos), Quaternion.identity, transform);
             }
+            
+            GameManager.InvokeDelegateDungeonGeneration();
         }
 
         private Vector3 GlobalCoordinateOf(Vector2Int coordinate)

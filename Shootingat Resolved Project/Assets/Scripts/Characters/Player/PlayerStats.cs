@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
@@ -65,6 +66,7 @@ namespace PabloLario.Characters.Player
         private void Die()
         {
             SceneManager.LoadScene(0);
+            transform.position = new Vector3(0, -2f);
         }
 
         public void TakeDamage(int damage)

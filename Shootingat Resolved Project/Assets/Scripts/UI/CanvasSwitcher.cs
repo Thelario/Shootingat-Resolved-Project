@@ -10,8 +10,6 @@ namespace PabloLario.UI
         public CanvasType desiredCanvasType;
         public bool addButtonEvent = false;
 
-        
-
         CanvasManager canvasManager;
         Button menuButton;
 

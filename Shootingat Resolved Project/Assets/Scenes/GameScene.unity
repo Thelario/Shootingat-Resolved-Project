@@ -1529,7 +1529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d2ae1de1f2c674899fb6137c647066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   smoothSpeed: 5
   zOffset: -10
   screenShakeTime: 0.2
@@ -2619,6 +2619,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1730406120}
+    - target: {fileID: 7233549779730495121, guid: c630c4a72debd0a45a94f8088f630fe9, type: 3}
+      propertyPath: particlesArray.Array.data[2].particlePrefab
+      value: 
+      objectReference: {fileID: 1534976519767892788, guid: 9beaad75a3dc57d43bbbe0f4a8f1b3f5, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c630c4a72debd0a45a94f8088f630fe9, type: 3}
 --- !u!1 &980475242
@@ -4701,6 +4705,10 @@ PrefabInstance:
       propertyPath: abilityImage
       value: 
       objectReference: {fileID: 1846597154}
+    - target: {fileID: 9200384582610188845, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9200384582610188845, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: dashSpeedUpperLimit
       value: 35

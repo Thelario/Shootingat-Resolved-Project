@@ -11,7 +11,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private float screenShakeTime = 0.2f;
         [SerializeField] private float cameraMaxMoveLimit = 0.05f;
 
-        private float screenShakeTimeCounter;
+        private float _screenShakeTimeCounter;
 
         private Camera _camera;
 
@@ -36,7 +36,7 @@ namespace PabloLario.Characters.Player
         private void CalculateCamPos()
         {
             if (Assets.Instance.playerTransform == null)
-                Assets.Instance.playerTransform = FindObjectOfType<PlayerController>().transform;
+                Assets.Instance.playerTransform = PlayerController.Instance.transform;
 
             Vector2 playerPos = Assets.Instance.playerTransform.position;
             Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -49,15 +49,15 @@ namespace PabloLario.Characters.Player
 
         public IEnumerator ScreenShake()
         {
-            screenShakeTimeCounter = screenShakeTime;
+            _screenShakeTimeCounter = screenShakeTime;
 
-            while (screenShakeTimeCounter > 0f)
+            while (_screenShakeTimeCounter > 0f)
             {
                 float newRandomX = Random.Range(-cameraMaxMoveLimit, cameraMaxMoveLimit);
                 float newRandomY = Random.Range(-cameraMaxMoveLimit, cameraMaxMoveLimit);
 
                 transform.position += new Vector3(newRandomX, newRandomY, zOffset);
-                screenShakeTimeCounter -= Time.deltaTime;
+                _screenShakeTimeCounter -= Time.deltaTime;
 
                 yield return null;
             }

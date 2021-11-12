@@ -106,7 +106,7 @@ namespace PabloLario.Characters.Enemies
             GameManager.InvokeDelegateEnemyDead(abilityPointsToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
 
-            GameObject deadParticles = ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead);
+            GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity);
             deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
             Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
 

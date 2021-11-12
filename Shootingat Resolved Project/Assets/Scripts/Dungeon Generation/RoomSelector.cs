@@ -5,8 +5,6 @@ using Random = UnityEngine.Random;
 
 namespace PabloLario.DungeonGeneration
 {
-
-
     [Serializable]
     public class RoomSerializable
     {
