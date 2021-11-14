@@ -39,6 +39,7 @@ namespace PabloLario.UI
             SwitchCanvas(CanvasType.MainMenu);
 
             Time.timeScale = 0f;
+            GameManager.InvokeDelegateOnPauseGame();
         }
 
         public void SwitchCanvas(CanvasType _type)
@@ -51,6 +52,20 @@ namespace PabloLario.UI
             CanvasController desiredCanvas = canvasControllerList.Find(x => x.canvasType == _type);
             if (desiredCanvas != null)
             {
+                switch (_type)
+                {
+                    case CanvasType.InGameMenu:
+                        GameManager.InvokeDelegateOnUnPauseGame();
+                        break;
+                    case CanvasType.MainMenu:
+                    case CanvasType.PauseGameMenu:
+                    case CanvasType.AboutMenu:
+                    case CanvasType.OptionsMenu:
+                    case CanvasType.VaultMenu:
+                        GameManager.InvokeDelegateOnPauseGame();
+                        break;
+                }
+                
                 desiredCanvas.gameObject.SetActive(true);
                 lastActiveCanvas = desiredCanvas;
             }

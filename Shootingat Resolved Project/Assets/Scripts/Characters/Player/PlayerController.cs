@@ -3,7 +3,6 @@ using PabloLario.Characters.Player.Powerups;
 using PabloLario.Managers;
 using PabloLario.UI;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,7 +18,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerStats ps;
-        [SerializeField] private BoxCollider2D playerCollider;
+        [SerializeField] private CircleCollider2D playerCollider;
         [SerializeField] private GameObject walkParticles;
         [SerializeField] private Popup weaponPopup;
         [SerializeField] private Image abilityImage;
@@ -62,8 +61,6 @@ namespace PabloLario.Characters.Player
             if (_camera == null)
                 _camera = Camera.main;
 
-            Time.timeScale = 1f;
-
             rb = GetComponent<Rigidbody2D>();
         }
 
@@ -91,6 +88,9 @@ namespace PabloLario.Characters.Player
             if (_pause)
                 return;
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+                CanvasManager.Instance.SwitchCanvas(CanvasType.PauseGameMenu);
+            
             _fireRateCounter += Time.deltaTime;
 
             CheckDash();

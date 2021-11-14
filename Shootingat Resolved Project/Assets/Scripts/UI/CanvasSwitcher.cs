@@ -18,46 +18,26 @@ namespace PabloLario.UI
             if (addButtonEvent)
             {
                 menuButton = GetComponent<Button>();
-                menuButton.onClick.AddListener(OnButtonClicked);
+                menuButton.onClick.AddListener(SelectButton);
             }
 
             canvasManager = CanvasManager.Instance;
         }
-
-        private void OnButtonClicked()
-        {
-            PlayButtonSound();
-
-            switch (desiredCanvasType)
-            {
-                case CanvasType.InGameMenu:
-                case CanvasType.MainMenu:
-                    GameManager.InvokeDelegateOnUnPauseGame();
-                    canvasManager.SwitchCanvas(desiredCanvasType);
-                    break;
-                case CanvasType.PauseGameMenu:
-                case CanvasType.AboutMenu:
-                case CanvasType.OptionsMenu:
-                case CanvasType.VaultMenu:
-                    GameManager.InvokeDelegateOnPauseGame();
-                    canvasManager.SwitchCanvas(desiredCanvasType);
-                    break;
-                default:
-                    canvasManager.SwitchCanvas(desiredCanvasType);
-                    break;
-            }
-        }
-
+        
         public void SelectButton()
         {
             PlayButtonSound();
             OnButtonClicked();
         }
 
+        private void OnButtonClicked()
+        {
+            canvasManager.SwitchCanvas(desiredCanvasType);
+        }
+
         public void PlayButtonSound()
         {
             SoundManager.Instance.PlaySound(SoundType.Blop, 1f);
-            
         }
     }
 }

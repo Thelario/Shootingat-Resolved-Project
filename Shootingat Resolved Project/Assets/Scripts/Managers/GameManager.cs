@@ -28,12 +28,14 @@ namespace PabloLario.Managers
         {
             Time.timeScale = 0f;
             OnPauseGame?.Invoke();
+            Debug.Log(Time.timeScale);
         }
 
         public static void InvokeDelegateOnUnPauseGame()
         {
             Time.timeScale = 1f;
             OnUnPauseGame?.Invoke();
+            Debug.Log(Time.timeScale);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace PabloLario.DungeonGeneration
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };
                 
-                Debug.Log(roomToBeCreated);
+                //Debug.Log(roomToBeCreated);
                 Instantiate(roomToBeCreated, GlobalCoordinateOf(room.Pos), Quaternion.identity, transform);
             }
             
