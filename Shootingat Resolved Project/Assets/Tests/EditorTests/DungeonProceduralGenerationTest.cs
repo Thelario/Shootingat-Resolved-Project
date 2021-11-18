@@ -80,6 +80,20 @@ namespace PabloLario.Tests.EditorTests
         }
 
         [Test]
+        public void TreasurerRoomsHaveOnlyOneDoor()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                DungeonProceduralGeneration generation = new DungeonProceduralGeneration(10, 2, 6, 0);
+                List<RoomPos> generatedRooms = generation.GenerateValidRoomsPos();
+                List<RoomPos> treasureRooms =
+                    generatedRooms.Where(room => room.RoomType == RoomTypeOld.TreasureRoom).ToList();
+
+                Assert.True(treasureRooms.All(room => room.RoomDoorsType.OpenedDoors() == 1));
+            }
+        }
+
+        [Test]
         public void BossRoomAreCreated()
         {
             for (int i = 0; i < 100; i++)
