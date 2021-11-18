@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d278689db8a493981dc54cc43cfb58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 3
+  sceneIndex: 2
   teleportToScene: {fileID: 7164439282672730152}
 --- !u!1 &7164439284038523993
 GameObject:

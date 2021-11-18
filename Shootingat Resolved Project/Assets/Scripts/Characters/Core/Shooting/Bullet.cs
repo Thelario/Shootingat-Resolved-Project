@@ -35,14 +35,14 @@ namespace PabloLario.Characters.Core.Shooting
         {
             if (collision.CompareTag("Shield"))
             {
-                if (type == BulletType.playerBullet || type == BulletType.giantBullet)
+                if (type == BulletType.playerBullet || type == BulletType.gigantBullet)
                     return;
 
                 StartCoroutine(Co_DisableBullet(0f));
             }
             else
             {
-                if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.giantBullet)
+                if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.gigantBullet)
                     return;
 
                 if (collision.CompareTag("Bullet") || collision.CompareTag("EnemyTrigger") || collision.CompareTag("Door"))
@@ -99,7 +99,7 @@ namespace PabloLario.Characters.Core.Shooting
             _dir = dir;
             _stats = stats;
 
-            if (type == BulletType.giantBullet)
+            if (type == BulletType.gigantBullet)
                 _stats.Range *= 2;
 
             sr.color = color;

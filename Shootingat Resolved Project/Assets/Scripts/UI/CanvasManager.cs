@@ -10,7 +10,8 @@ namespace PabloLario.UI
     {
         MainMenu,
         DifficultyPanel,
-        OptionsMenu,
+        MainMenuOptionsMenu,
+        InGameOptionsMenu,
         InGameMenu,
         PauseGameMenu,
         DeadGameMenu,
@@ -60,7 +61,8 @@ namespace PabloLario.UI
                     case CanvasType.MainMenu:
                     case CanvasType.PauseGameMenu:
                     case CanvasType.AboutMenu:
-                    case CanvasType.OptionsMenu:
+                    case CanvasType.MainMenuOptionsMenu:
+                    case CanvasType.InGameOptionsMenu:
                     case CanvasType.VaultMenu:
                         GameManager.InvokeDelegateOnPauseGame();
                         break;

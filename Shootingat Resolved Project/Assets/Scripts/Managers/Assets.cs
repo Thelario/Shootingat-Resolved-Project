@@ -27,11 +27,12 @@ namespace PabloLario.Managers
     {
         playerBullet,
         enemyBullet,
-        giantBullet
+        gigantBullet
     }
 
     public enum AbilityType
     {
+        gigantBullet,
         brimstoneLaser,
         temporalShield,
         damageShield
@@ -72,15 +73,15 @@ namespace PabloLario.Managers
         public GameObject itemPrefab;
     }
 
+    [System.Serializable]
+    public class AbilityPickup
+    {
+        public AbilityType type;
+        public GameObject pickupPrefab;
+    }
+
     public class Assets : Singleton<Assets>
     {
-        // I am thinking on changing the arrays with dictionaries, but I assume they are 
-        // not going to be Serializable, which is going to be a problem for assigning the
-        // resources in the inspector.
-
-        // I might be able to have dictionaries if I use arrays or list for serialization and
-        // load all the objects into a dictionary when the game starts.
-
         [Header("SFX")]
         [SerializeField] private SoundAudioClip[] soundAudioClipArray;
         public Dictionary<SoundType, AudioClip> soundAudioClipDictionary;
@@ -94,8 +95,12 @@ namespace PabloLario.Managers
         public Dictionary<BulletType, GameObject> bulletsDictionary;
 
         [Header("Abilities")]
-        [SerializeField] private Ability[] abilitiesArray;
+        public Ability[] abilitiesArray;
         public Dictionary<AbilityType, GameObject> abilitiesDictionary;
+
+        [Header("Ability Pickups")] 
+        public AbilityPickup[] pickupsArray;
+        public Dictionary<AbilityType, GameObject> pickupsDictionary;
 
         [Header("Player Reference")]
         public Transform playerTransform;
@@ -120,6 +125,7 @@ namespace PabloLario.Managers
             PopulateBulletsDictionary();
             PopulateItemsDictionary();
             PopulateAbilitiesDictionary();
+            PopulateAbilityPickupsDictionary();
         }
 
         private void PopulateSoundAudioClipDictionary()
@@ -169,6 +175,16 @@ namespace PabloLario.Managers
             foreach (Ability a in abilitiesArray)
             {
                 abilitiesDictionary.Add(a.type, a.abilityPrefab);
+            }
+        }
+        
+        private void PopulateAbilityPickupsDictionary()
+        {
+            pickupsDictionary = new Dictionary<AbilityType, GameObject>();
+
+            foreach (AbilityPickup a in pickupsArray)
+            {
+                pickupsDictionary.Add(a.type, a.pickupPrefab);
             }
         }
     }

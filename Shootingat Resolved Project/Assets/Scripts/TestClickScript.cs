@@ -1,3 +1,4 @@
+using PabloLario.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ namespace PabloLario
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(0);
+                CanvasManager.Instance.SwitchCanvas(CanvasType.MainMenu);
             }
         }
     }

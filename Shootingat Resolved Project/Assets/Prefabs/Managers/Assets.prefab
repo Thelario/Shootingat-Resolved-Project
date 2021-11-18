@@ -65,7 +65,7 @@ MonoBehaviour:
   - type: 1
     particlePrefab: {fileID: 1534976519767892788, guid: 9a163bfa1b2b883488c48a7d371d27ef, type: 3}
   - type: 2
-    particlePrefab: {fileID: 3641847577362649146, guid: 6e758581bfee5f34094b7778b68a74b7, type: 3}
+    particlePrefab: {fileID: 1534976519767892788, guid: 9beaad75a3dc57d43bbbe0f4a8f1b3f5, type: 3}
   - type: 3
     particlePrefab: {fileID: 7521397190411832878, guid: d1f33a49a9fd666479d5134be24205c9, type: 3}
   - type: 4
@@ -78,12 +78,19 @@ MonoBehaviour:
   - type: 2
     bulletPrefab: {fileID: 7801829262258269338, guid: 63f4b881f5b0c7840b588809c5c30dad, type: 3}
   abilitiesArray:
-  - type: 0
-    abilityPrefab: {fileID: 8543063863393792101, guid: f394039ef5291c24881a43059aeeb32d, type: 3}
   - type: 1
-    abilityPrefab: {fileID: 8883433979721709773, guid: 32e6631042312cf4d8f7fba04a5b7393, type: 3}
+    abilityPrefab: {fileID: 8543063863393792101, guid: f394039ef5291c24881a43059aeeb32d, type: 3}
   - type: 2
+    abilityPrefab: {fileID: 8883433979721709773, guid: 32e6631042312cf4d8f7fba04a5b7393, type: 3}
+  - type: 3
     abilityPrefab: {fileID: 1701752162847527363, guid: a5244be8ed1fa684caf2583852b7fd8e, type: 3}
+  pickupsArray:
+  - type: 0
+    pickupPrefab: {fileID: 6861286525226187253, guid: f8b4001d184721b4cbce7d38846fe799, type: 3}
+  - type: 1
+    pickupPrefab: {fileID: 8734435722503973064, guid: 357a09a0be830554e944169b89108137, type: 3}
+  - type: 2
+    pickupPrefab: {fileID: 7816895172567132522, guid: 7692dc2f95cf66f4cb6536a078da826c, type: 3}
   playerTransform: {fileID: 0}
   bulletSplash_1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
   bloodSplash_1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}

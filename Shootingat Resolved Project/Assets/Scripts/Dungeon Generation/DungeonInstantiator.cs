@@ -36,8 +36,14 @@ namespace PabloLario.DungeonGeneration
                     RoomTypeOld.BossRoom => roomSelector.GetBossRoomFromVariants(rt), 
                     _ => roomSelector.GetRoomFromVariants(rt) // Impossible to reach
                 };
-                
-                //Debug.Log(roomToBeCreated);
+
+                if (roomToBeCreated == null)
+                {
+                    print("RoomType: " + rt);
+                    print("RoomPos: " + room.Pos);
+                    continue;
+                }
+                    
                 Instantiate(roomToBeCreated, GlobalCoordinateOf(room.Pos), Quaternion.identity, transform);
             }
             

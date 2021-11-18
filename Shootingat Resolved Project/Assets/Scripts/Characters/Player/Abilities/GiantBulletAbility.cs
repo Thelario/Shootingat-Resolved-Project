@@ -22,7 +22,7 @@ namespace PabloLario.Characters.Player.Abilities
 
         private GameObject GetGiantBullet()
         {
-            if (Assets.Instance.bulletsDictionary.TryGetValue(BulletType.giantBullet, out GameObject bullet))
+            if (Assets.Instance.bulletsDictionary.TryGetValue(BulletType.gigantBullet, out GameObject bullet))
                 return bullet;
             else
                 Debug.LogError("Giant Bullet NOT FOUND!");

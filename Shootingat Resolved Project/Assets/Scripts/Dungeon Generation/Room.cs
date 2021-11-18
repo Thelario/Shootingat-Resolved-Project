@@ -134,7 +134,11 @@ namespace PabloLario.DungeonGeneration
 
         private void HandleTreasureRoom()
         {
-            SpawnItem();
+            if (Random.Range(0, 100) > 20)
+                SpawnItem();
+            else
+                SpawnPowerup();
+            
             OpenDoors();
             DeactivateDoorTriggers();
         }
@@ -144,6 +148,11 @@ namespace PabloLario.DungeonGeneration
             Instantiate(ItemsManager.Instance.GetRandomItemPrefab(), roomCenter.position, Quaternion.identity);
         }
 
+        private void SpawnPowerup()
+        {
+            Instantiate(AbilityPickupsManager.Instance.GetRandomAbilityPickupPrefab(), roomCenter.position, Quaternion.identity);
+        }
+        
         private void HandleBossRoom()
         {
             // This functionality might not be here in the future.
