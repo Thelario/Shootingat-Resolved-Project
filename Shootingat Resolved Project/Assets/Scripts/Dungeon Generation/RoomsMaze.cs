@@ -52,6 +52,11 @@ namespace PabloLario.DungeonGeneration
             while (MissingNeighbours.Count == 0)
             {
                 RoomPos room = Rooms.GetRandomElement();
+                while (room.RoomType != RoomTypeOld.NormalRoom)
+                {
+                    room = Rooms.GetRandomElement();
+                }
+                
                 IEnumerable<Vector2Int> notNeighbourPositions = room.NotNeighbourPositions();
                 int openedDoors = room.RoomDoorsType.OpenedDoors();
                 foreach (Vector2Int notNeighbourPosition in notNeighbourPositions)
