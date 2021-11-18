@@ -4820,7 +4820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2645952899486639663
 Transform:
   m_ObjectHideFlags: 0
@@ -5165,11 +5165,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9200384582610188844}
   - component: {fileID: 9200384582610188832}
-  - component: {fileID: 2984691167234270574}
   - component: {fileID: 9200384582610188845}
   - component: {fileID: 9200384582610188846}
   - component: {fileID: 304192961}
   - component: {fileID: 6607096218962583076}
+  - component: {fileID: 1883876229}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5216,32 +5216,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &2984691167234270574
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200384582610188843}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &9200384582610188845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5254,18 +5228,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b87834266e38e488bb3fff57f75394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
   shootPoint: {fileID: 9200384582755046442}
   camController: {fileID: 0}
   weaponTransform: {fileID: 9200384582147479607}
   animator: {fileID: 9200384582083607026}
   ps: {fileID: 9200384582610188846}
-  playerCollider: {fileID: 2984691167234270574}
+  playerCollider: {fileID: 1883876229}
   walkParticles: {fileID: 1099566229}
   weaponPopup: {fileID: 160393134}
   abilityImage: {fileID: 0}
   dashTime: 0.5
-  dashSpeedUpperLimit: 26
+  dashSpeedUpperLimit: 35
   dashDropRate: 10
+  playDashSound: 1
   _currentAbility: {fileID: 0}
   dir: {x: 0, y: 0}
 --- !u!114 &9200384582610188846
@@ -5291,12 +5267,12 @@ MonoBehaviour:
       limitValue: 50
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 1
+      _value: 50
     rangeUpgradable:
       limitValue: 7.5
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 3.5
+      _value: 7.5
     speedUpgradable:
       limitValue: 20
       improvingIncreasesValue: 1
@@ -5306,12 +5282,12 @@ MonoBehaviour:
     limitValue: 0.1
     improvingIncreasesValue: 0
     textUiFormatter: {fileID: 0}
-    _value: 0.5
+    _value: 0.1
   moveSpeed:
     limitValue: 7
     improvingIncreasesValue: 1
     textUiFormatter: {fileID: 0}
-    _value: 4
+    _value: 7
   abilityPoints:
     limitValue: 5
     improvingIncreasesValue: 1
@@ -5355,6 +5331,22 @@ MonoBehaviour:
   abilityPanelParent: {fileID: 0}
   availableAbility: {fileID: 8908303903779177459, guid: 9da9206022e78894b983e0cb274f7339, type: 3}
   unavailableAbility: {fileID: 6929309954437135944, guid: 2e988e14e2c1bb341b2f1c291bd385a5, type: 3}
+--- !u!58 &1883876229
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582610188843}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!1 &9200384582755046441
 GameObject:
   m_ObjectHideFlags: 0

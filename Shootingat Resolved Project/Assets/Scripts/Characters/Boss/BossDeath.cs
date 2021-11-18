@@ -16,7 +16,8 @@ namespace PabloLario.Characters.Boss
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            _bsm.Animator.Play(_bsm.DIE);
+            GameObject.Destroy(_bsm.gameObject, 2f);
         }
 
         public override void Exit()
@@ -26,7 +27,7 @@ namespace PabloLario.Characters.Boss
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

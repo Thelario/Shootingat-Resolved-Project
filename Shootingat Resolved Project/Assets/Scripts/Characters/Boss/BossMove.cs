@@ -26,6 +26,7 @@ namespace PabloLario.Characters.Boss
 
             timeBetweenWavesWhenMovingCounter = 0f;
             dirNorm = (_bsm.CurrentNode.position - _bsm.Tr.position).normalized;
+            _bsm.Animator.Play(_bsm.MOVE);
         }
 
         public override void Exit()

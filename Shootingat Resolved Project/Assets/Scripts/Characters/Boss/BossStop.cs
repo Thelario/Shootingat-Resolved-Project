@@ -22,6 +22,7 @@ namespace PabloLario.Characters.Boss
         {
             timeElapsedInStop = 0f;
             timeBetweenBulletCounter = _bsm.BossStats.timeInStopTillStartShooting;
+            _bsm.Animator.Play(_bsm.STOP);
         }
 
         public override void Exit()

@@ -19,11 +19,13 @@ namespace PabloLario.Characters.Boss
         {
             _bsm.Enraged = false;
             timeTillBossBattleStartCounter = timeTillBossBattleStart;
+            _bsm.Animator.Play(_bsm.START);
+            _bsm.BossStats.MakeBossInvencible(true);
         }
 
         public override void Exit()
         {
-            
+            _bsm.BossStats.MakeBossInvencible(false);
         }
 
         public override void Update()

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  volume: 0.01
+  volume: 1
   defaultPitch: 1
   pitchRandomModifier: 0.1
 --- !u!82 &6710500325846272517

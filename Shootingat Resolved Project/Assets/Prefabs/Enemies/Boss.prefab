@@ -118,6 +118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ffe581a8b53adb4fba2880d0772e7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  START: Start
+  MOVE: Move
+  ENRAGE: Enrage
+  STOP: Stop
+  DIE: Die
   bossEnragedColor: {r: 1, g: 0.40392157, b: 0.40392157, a: 1}
   defaultBossSprite: {fileID: -6409659707449403641, guid: 93af3a7752687e44cb288bcaa1c2c60a, type: 3}
   enragedBossSprite: {fileID: -8183189892705412490, guid: 93af3a7752687e44cb288bcaa1c2c60a, type: 3}
@@ -156,6 +161,7 @@ MonoBehaviour:
     hitColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   bossUI: {fileID: 6097392990622316583}
+  enraging: 0
 --- !u!114 &6097392990622316583
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,14 @@ namespace PabloLario.Characters.Boss
 {
     public class BossStateMachine : BaseStateMachine
     {
+        [Header("Animation String Literals")] 
+        public string START;
+        public string MOVE;
+        public string ENRAGE;
+        public string STOP;
+        public string DIE;
+
+        [Header("Fields")]
         public Color bossEnragedColor;
         public Sprite defaultBossSprite;
         public Sprite enragedBossSprite;
@@ -17,28 +25,19 @@ namespace PabloLario.Characters.Boss
         public Transform weapon;
 
         public Transform CurrentNode { get; set; }
-
         public Rigidbody2D Rb { get; private set; }
-
         public Transform Tr { get; private set; }
-
         public BossStats BossStats { get; private set; }
-
         public Animator Animator { get; private set; }
-
         public SpriteRenderer Renderer { get; private set; }
 
         public bool Enraged { get; set; }
-
-        // Boss stats should probably be passed to each state. Maybe the best way to do it
-        // is in the constructor. I could simply modify the constructor for each state with
-        // the addition of the BossStats.
-        // [Serialized] private BossStats stats; // BossStats needs to be implemented
 
         public BossStart BossStart { get; private set; }
         public BossMove BossMove { get; private set; }
         public BossStop BossStop { get; private set; }
         public BossEnrage BossEnrage { get; private set; }
+        public BossDeath BossDeath { get; private set; }
 
         private void Awake()
         {
@@ -52,13 +51,16 @@ namespace PabloLario.Characters.Boss
             BossMove = new BossMove(this);
             BossStop = new BossStop(this);
             BossEnrage = new BossEnrage(this);
+            BossDeath = new BossDeath(this);
 
             BossStats.OnBossEnrage += Enrage;
+            BossStats.OnBossDeath += Die;
         }
 
         private void OnDestroy()
         {
             BossStats.OnBossEnrage -= Enrage;
+            BossStats.OnBossDeath -= Die;
         }
 
         private void Start()
@@ -102,6 +104,11 @@ namespace PabloLario.Characters.Boss
         private void Enrage()
         {
             ChangeState(BossEnrage);
+        }
+
+        private void Die()
+        {
+            ChangeState(BossDeath);
         }
     }
 }

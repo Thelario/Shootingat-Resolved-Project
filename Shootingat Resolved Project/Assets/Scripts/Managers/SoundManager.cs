@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor;
 
 namespace PabloLario.Managers
 {
     [RequireComponent(typeof(AudioSource))]
     public class SoundManager : Singleton<SoundManager>
     {
-        [SerializeField] private float volume; // Volume of SFX
+        [Range(0,1)][SerializeField] private float volume; // Volume of SFX
         [SerializeField] private float defaultPitch = 1f;
         [SerializeField] private float pitchRandomModifier = 0.1f;
 
@@ -36,7 +37,7 @@ namespace PabloLario.Managers
             if (CanPlaySound(st))
             {
                 source.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
-                source.PlayOneShot(SearchSound(st), volume * volume);
+                source.PlayOneShot(SearchSound(st), OptionsManager.Instance.MasterVolume * OptionsManager.Instance.SfxVolume);
             }
         }
 
@@ -59,7 +60,7 @@ namespace PabloLario.Managers
                     if (soundTimerDictionary.ContainsKey(sound))
                     {
                         float lastTimePlayed = soundTimerDictionary[sound];
-                        float playerMoveTimerMax = .475f;
+                        float playerMoveTimerMax = .25f;
                         if (lastTimePlayed + playerMoveTimerMax < Time.time)
                         {
                             soundTimerDictionary[sound] = Time.time;

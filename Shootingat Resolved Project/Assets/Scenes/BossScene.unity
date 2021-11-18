@@ -8197,10 +8197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3239376972028931245, guid: ce4ce9e3f03da2443a7ca6d151c44688, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6097392990622316583, guid: ce4ce9e3f03da2443a7ca6d151c44688, type: 3}
       propertyPath: healthSlider
       value: 

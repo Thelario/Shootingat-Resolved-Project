@@ -1,8 +1,10 @@
+using System.Collections;
 using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using PabloLario.Characters.Enemies;
 using PabloLario.Animations;
 using Assets.Scripts.Characters.Boss;
+using UnityEngine.Serialization;
 
 public class BossStats : MonoBehaviour, IDamageable
 {
@@ -37,6 +39,10 @@ public class BossStats : MonoBehaviour, IDamageable
     [Header("Boss UI Controller")]
     public BossUI bossUI;
 
+    public bool enraging = false;
+    private bool _hasEnraged = false;
+    private bool _invencible = false;
+    
     private void Start()
     {
         currentHealth = maxHealth;
@@ -45,6 +51,9 @@ public class BossStats : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        if (enraging || _invencible)
+            return;
+        
         currentHealth -= damage;
 
         StartCoroutine(hitAnimation.Co_HitColorChange());
@@ -55,14 +64,20 @@ public class BossStats : MonoBehaviour, IDamageable
             currentHealth = 0;
             Die();
         }
-        else if (currentHealth - damage <= Mathf.FloorToInt(maxHealth / 2f))
+        else if (currentHealth - damage <= Mathf.FloorToInt(maxHealth / 2f) && !_hasEnraged)
         {
             Enrage();
         }
     }
 
+    public void MakeBossInvencible(bool invencible)
+    {
+        _invencible = invencible;
+    }
+
     private void Enrage()
     {
+        _hasEnraged = true;
         moveSpeed = 4f;
         timeBetweenBulletsInBurstShooting = 0.04f;
         bulletStats.Speed = 10f;
