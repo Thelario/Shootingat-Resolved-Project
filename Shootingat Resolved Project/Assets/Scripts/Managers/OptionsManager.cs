@@ -1,20 +1,38 @@
+using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace PabloLario.Managers
 {
     public class OptionsManager : Singleton<OptionsManager>
     {
-        [SerializeField] private VolumeProfile bloomVolumeProfile;
-        
+        private PostProcessingManager ppm;
+
+        private void Start()
+        {
+            ppm = PostProcessingManager.Instance;
+            
+            SetOptionsValues();
+        }
+
+        private void SetOptionsValues()
+        {
+            // TODO: here I need to add the logic for the save & load that is related to the sacing of the player
+            // preferences of the options, so that they don't change every time the player restarts the game.
+
+            MasterVolume = 1f;
+            MusicVolume = 1f;
+            SfxVolume = 1f;
+            BloomEffect = true;
+            GrainEffect = true;
+        }
+
         private float masterVolume;
         public float MasterVolume
         {
             get => masterVolume;
             set
             {
-                // Here I am probably gonna have to add something to
-                // change the current volume of the music
+                SoundManager.Instance.ChangeMusicVolume();
                 masterVolume = Mathf.Clamp(value, 0f, 1f);
             }
         }
@@ -25,8 +43,7 @@ namespace PabloLario.Managers
             get => musicVolume;
             set
             {
-                // Here I am probably gonna have to add something to
-                // change the current volume of the music
+                SoundManager.Instance.ChangeMusicVolume();
                 musicVolume = Mathf.Clamp(value, 0f, 1f);
             }
         }
@@ -35,10 +52,7 @@ namespace PabloLario.Managers
         public float SfxVolume
         {
             get => sfxVolume;
-            set
-            {
-                sfxVolume = Mathf.Clamp(value, 0f, 1f);
-            }
+            set => sfxVolume = Mathf.Clamp(value, 0f, 1f);
         }
 
         private bool bloomEffect;
@@ -47,7 +61,8 @@ namespace PabloLario.Managers
             get => bloomEffect;
             set
             {
-                Debug.Log("UO" + value);
+                bloomEffect = value;
+                ppm.SetBloom(value);
             }
         }
 
@@ -57,7 +72,8 @@ namespace PabloLario.Managers
             get => grainEffect;
             set
             {
-                Debug.Log("UO" + value);
+                grainEffect = value;
+                ppm.SetGrain(value);
             }
         }
     }

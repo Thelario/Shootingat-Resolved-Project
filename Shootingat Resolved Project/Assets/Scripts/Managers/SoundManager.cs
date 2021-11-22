@@ -7,19 +7,18 @@ namespace PabloLario.Managers
     [RequireComponent(typeof(AudioSource))]
     public class SoundManager : Singleton<SoundManager>
     {
-        [Range(0,1)][SerializeField] private float volume; // Volume of SFX
+        // Volume of SFX
         [SerializeField] private float defaultPitch = 1f;
         [SerializeField] private float pitchRandomModifier = 0.1f;
 
-        private AudioSource source; // Private reference of the audioSource where we are going to play our SFX
+        [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private AudioSource musicAudioSource;
 
         private Dictionary<SoundType, float> soundTimerDictionary;
 
         protected override void Awake()
         {
             base.Awake();
-
-            source = GetComponent<AudioSource>();
 
             Initialize();
         }
@@ -32,12 +31,19 @@ namespace PabloLario.Managers
             };
         }
 
+        public void ChangeMusicVolume()
+        {
+            musicAudioSource.volume = OptionsManager.Instance.MasterVolume * OptionsManager.Instance.MusicVolume * OptionsManager.Instance.MusicVolume;
+            if (musicAudioSource.volume < 0.001)
+                musicAudioSource.volume = 0f;
+        }
+
         public void PlaySound(SoundType st)
         {
             if (CanPlaySound(st))
             {
-                source.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
-                source.PlayOneShot(SearchSound(st), OptionsManager.Instance.MasterVolume * OptionsManager.Instance.SfxVolume);
+                sfxSource.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
+                sfxSource.PlayOneShot(SearchSound(st), OptionsManager.Instance.MasterVolume * OptionsManager.Instance.SfxVolume);
             }
         }
 
@@ -45,8 +51,8 @@ namespace PabloLario.Managers
         {
             if (CanPlaySound(st))
             {
-                source.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
-                source.PlayOneShot(SearchSound(st), volume * newVolume);
+                sfxSource.pitch = Random.Range(defaultPitch - pitchRandomModifier, defaultPitch + pitchRandomModifier);
+                sfxSource.PlayOneShot(SearchSound(st), OptionsManager.Instance.MasterVolume * OptionsManager.Instance.SfxVolume * newVolume);
             }
         }
 

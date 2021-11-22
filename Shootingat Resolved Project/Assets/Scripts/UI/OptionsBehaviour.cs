@@ -11,13 +11,9 @@ namespace UI
         [SerializeField] private Slider sfxVolumeSlider;
         [SerializeField] private Toggle bloomToggle;
         [SerializeField] private Toggle grainToggle;
-
-        private OptionsManager options;
         
         private void Start()
         {
-            options = OptionsManager.Instance;
-            
             SetSettings();
         }
 
@@ -37,17 +33,17 @@ namespace UI
 
         private void SetValuesFromOptions()
         {
-            masterVolumeSlider.value = options.MasterVolume;
-            musicVolumeSlider.value = options.MusicVolume;
-            sfxVolumeSlider.value = options.SfxVolume;
-            bloomToggle.isOn = options.BloomEffect;
-            grainToggle.isOn = options.GrainEffect;
+            masterVolumeSlider.value = OptionsManager.Instance.MasterVolume;
+            musicVolumeSlider.value = OptionsManager.Instance.MusicVolume;
+            sfxVolumeSlider.value = OptionsManager.Instance.SfxVolume;
+            bloomToggle.isOn = OptionsManager.Instance.BloomEffect;
+            grainToggle.isOn = OptionsManager.Instance.GrainEffect;
         }
         
-        private void SetMasterVolume(float vol) { options.MasterVolume = vol; }
-        private void SetMusicVolume(float vol) { options.MusicVolume = vol; }
-        private void SetSfxVolume(float vol) { options.SfxVolume = vol; }
-        private void SetBloomEffect(bool on) { options.BloomEffect = on; }
-        private void SetGrainEffect(bool on) { options.GrainEffect = on; }
+        private void SetMasterVolume(float vol) { OptionsManager.Instance.MasterVolume = vol; }
+        private void SetMusicVolume(float vol) { OptionsManager.Instance.MusicVolume = vol; }
+        private void SetSfxVolume(float vol) { OptionsManager.Instance.SfxVolume = vol; }
+        private void SetBloomEffect(bool on) { OptionsManager.Instance.BloomEffect = on; }
+        private void SetGrainEffect(bool on) { OptionsManager.Instance.GrainEffect = on; }
     }
 }
