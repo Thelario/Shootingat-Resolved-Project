@@ -19,7 +19,7 @@ namespace PabloLario.Characters.Player.Abilities
 
         private GameObject GetBrimstomeLaser()
         {
-            if (Assets.Instance.abilitiesDictionary.TryGetValue(AbilityType.brimstoneLaser, out GameObject brimstoneLaser))
+            if (Assets.Instance.abilitiesDictionary.TryGetValue(AbilityType.BrimstoneLaser, out GameObject brimstoneLaser))
                 return brimstoneLaser;
             else
                 Debug.LogError("Brimstone Laser NOT FOUND!");

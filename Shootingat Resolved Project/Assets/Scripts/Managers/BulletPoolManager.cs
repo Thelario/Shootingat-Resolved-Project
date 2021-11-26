@@ -9,31 +9,31 @@ namespace PabloLario.Managers
         [SerializeField] private int initialEnemyBullets;
         [SerializeField] private Transform bulletsParent;
 
-        private List<GameObject> playerBulletsPool = new List<GameObject>();
-        private List<GameObject> enemyBulletsPool = new List<GameObject>();
+        private List<GameObject> _playerBulletsPool = new List<GameObject>();
+        private List<GameObject> _enemyBulletsPool = new List<GameObject>();
 
         private void Start()
         {
-            playerBulletsPool = GeneratePlayerBullets(initialPlayerBullets);
-            enemyBulletsPool = GenerateEnemyBullets(initialEnemyBullets);
+            _playerBulletsPool = GeneratePlayerBullets(initialPlayerBullets);
+            _enemyBulletsPool = GenerateEnemyBullets(initialEnemyBullets);
         }
 
         private List<GameObject> GeneratePlayerBullets(int amountOfBullets)
         {
             for (int i = 0; i < amountOfBullets; i++)
             {
-                GameObject bullet = Instantiate(BulletsManager.Instance.GetBullets(BulletType.playerBullet), bulletsParent); // We create the bullet and assign the parent (clean inspector)
-                playerBulletsPool.Add(bullet); // We add the bullet into the bullet pool
+                GameObject bullet = Instantiate(BulletsManager.Instance.GetBullets(BulletType.PlayerBullet), bulletsParent); // We create the bullet and assign the parent (clean inspector)
+                _playerBulletsPool.Add(bullet); // We add the bullet into the bullet pool
                 bullet.SetActive(false); // Disable the bullet because we only need to activate a bullet when we shoot
             }
 
-            return playerBulletsPool;
+            return _playerBulletsPool;
         }
 
         public GameObject RequestPlayerBullet()
         {
             // Search for an active bullet (one that is not being used)
-            foreach (GameObject b in playerBulletsPool)
+            foreach (GameObject b in _playerBulletsPool)
             {
                 if (!b.activeInHierarchy)
                 {
@@ -43,7 +43,7 @@ namespace PabloLario.Managers
             }
 
             // In case more bullets are needed, we can generate them
-            playerBulletsPool = GenerateEnemyBullets(1);
+            _playerBulletsPool = GenerateEnemyBullets(1);
             return RequestPlayerBullet();
         }
 
@@ -51,18 +51,18 @@ namespace PabloLario.Managers
         {
             for (int i = 0; i < amountOfBullets; i++)
             {
-                GameObject bullet = Instantiate(BulletsManager.Instance.GetBullets(BulletType.enemyBullet), bulletsParent); // We create the bullet and assign the parent (clean inspector)
-                enemyBulletsPool.Add(bullet); // We add the bullet into the bullet pool
+                GameObject bullet = Instantiate(BulletsManager.Instance.GetBullets(BulletType.EnemyBullet), bulletsParent); // We create the bullet and assign the parent (clean inspector)
+                _enemyBulletsPool.Add(bullet); // We add the bullet into the bullet pool
                 bullet.SetActive(false); // Disable the bullet because we only need to activate a bullet when we shoot
             }
 
-            return enemyBulletsPool;
+            return _enemyBulletsPool;
         }
 
         public GameObject RequestEnemyBullet()
         {
             // Search for an active bullet (one that is not being used)
-            foreach (GameObject b in enemyBulletsPool)
+            foreach (GameObject b in _enemyBulletsPool)
             {
                 if (!b.activeInHierarchy)
                 {
@@ -72,7 +72,7 @@ namespace PabloLario.Managers
             }
 
             // In case more bullets are needed, we can generate them
-            enemyBulletsPool = GenerateEnemyBullets(1);
+            _enemyBulletsPool = GenerateEnemyBullets(1);
             return RequestEnemyBullet();
         }
     }

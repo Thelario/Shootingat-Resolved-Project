@@ -7,7 +7,7 @@ namespace PabloLario.Managers
     {
         public List<Transform> nodes;
 
-        private Transform previousNode;
+        private Transform _previousNode;
 
         protected override void Awake()
         {
@@ -28,12 +28,13 @@ namespace PabloLario.Managers
         {
             int r = Random.Range(0, nodes.Count);
             
-            if (previousNode == null)
+            if (_previousNode == null)
                 return nodes[r];
 
-            while(previousNode == nodes[r])
+            while(_previousNode == nodes[r])
                 r = Random.Range(0, nodes.Count);
 
+            _previousNode = nodes[r];
             return nodes[r];
         }
 
@@ -52,8 +53,8 @@ namespace PabloLario.Managers
                 }
             }
 
-            if (currentNode == null) 
-                return GetRandomNode();
+            if (currentNode == null)
+                currentNode = GetRandomNode();
 
             return currentNode;
         }

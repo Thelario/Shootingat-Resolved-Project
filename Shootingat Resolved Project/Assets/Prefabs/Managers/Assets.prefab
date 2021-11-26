@@ -59,6 +59,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 4bd4636e38d0e2d4eac5f8e35a10a3dc, type: 3}
   - sound: 6
     audioClip: {fileID: 8300000, guid: ccbd2428ca0375d418da10eb88c8bfc2, type: 3}
+  - sound: 7
+    audioClip: {fileID: 8300000, guid: d3fccc173e4969e46bb959238fbc62fe, type: 3}
   particlesArray:
   - type: 0
     particlePrefab: {fileID: 7791509615102547665, guid: 8521ed6103a31af4b89f3ac62dda2876, type: 3}
@@ -92,8 +94,8 @@ MonoBehaviour:
   - type: 2
     pickupPrefab: {fileID: 7816895172567132522, guid: 7692dc2f95cf66f4cb6536a078da826c, type: 3}
   playerTransform: {fileID: 0}
-  bulletSplash_1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
-  bloodSplash_1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}
+  bulletSplash1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
+  bloodSplash1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}
   itemsArray:
   - itemName: Bread
     itemPrefab: {fileID: 7926178377822186661, guid: dd47e99807b84d440925ea452b237c3e, type: 3}

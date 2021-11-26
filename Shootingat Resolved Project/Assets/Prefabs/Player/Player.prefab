@@ -5238,11 +5238,12 @@ MonoBehaviour:
   walkParticles: {fileID: 1099566229}
   weaponPopup: {fileID: 160393134}
   abilityImage: {fileID: 0}
-  dashTime: 0.5
+  dashTime: 0.25
   dashSpeedUpperLimit: 35
-  dashDropRate: 10
+  dashDropRate: 2.5
   playDashSound: 1
-  _currentAbility: {fileID: 0}
+  timeBetweenDashes: 0.75
+  currentAbility: {fileID: 0}
   dir: {x: 0, y: 0}
 --- !u!114 &9200384582610188846
 MonoBehaviour:
@@ -5264,15 +5265,15 @@ MonoBehaviour:
     maxLimit: 20
   bulletStats:
     damageUpgradable:
-      limitValue: 50
+      limitValue: 2
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 50
+      _value: 10
     rangeUpgradable:
-      limitValue: 7.5
+      limitValue: 15
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 7.5
+      _value: 5
     speedUpgradable:
       limitValue: 20
       improvingIncreasesValue: 1
@@ -5282,9 +5283,9 @@ MonoBehaviour:
     limitValue: 0.1
     improvingIncreasesValue: 0
     textUiFormatter: {fileID: 0}
-    _value: 0.1
+    _value: 0.35
   moveSpeed:
-    limitValue: 7
+    limitValue: 10
     improvingIncreasesValue: 1
     textUiFormatter: {fileID: 0}
     _value: 7

@@ -28,8 +28,10 @@ namespace PabloLario.Characters.Player
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
         [SerializeField] private bool playDashSound = true;
+        [SerializeField] private float timeBetweenDashes = 1f;
 
         private float _dashTimeCounter;
+        private float _timeBetweenDashesCounter;
         private float _horizontal;
         private float _vertical;
         private float _fireRateCounter;
@@ -39,11 +41,10 @@ namespace PabloLario.Characters.Player
         private float _dashSpeedSmoothed;
         private bool _pause;
 
-        private Rigidbody2D rb;
+        private Rigidbody2D _rb;
         private Camera _camera;
-        private Transform _transform;
 
-        public Ability _currentAbility;
+        public Ability currentAbility;
         public Vector2 dir;
 
         protected override void Awake()
@@ -51,17 +52,17 @@ namespace PabloLario.Characters.Player
             base.Awake();
             
             _camera = Camera.main;
-            _transform = transform;
         }
 
         private void Start()
         {
             _fireRateCounter = ps.fireRate.Value;
+            _timeBetweenDashesCounter = 0f;
 
             if (_camera == null)
                 _camera = Camera.main;
 
-            rb = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void OnEnable()
@@ -92,6 +93,9 @@ namespace PabloLario.Characters.Player
                 CanvasManager.Instance.SwitchCanvas(CanvasType.PauseGameMenu);
             
             _fireRateCounter += Time.deltaTime;
+            _timeBetweenDashesCounter -= Time.deltaTime;
+            if (_timeBetweenDashesCounter <= -.5f)
+                _timeBetweenDashesCounter = -.5f;
 
             CheckDash();
 
@@ -114,7 +118,7 @@ namespace PabloLario.Characters.Player
             if (Dash())
                 return;
 
-            rb.MovePosition(rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
+            _rb.MovePosition(_rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
         }
 
         private void Move()
@@ -181,8 +185,8 @@ namespace PabloLario.Characters.Player
         {
             if (Input.GetMouseButtonDown(1))
             {
-                if (_currentAbility != null)
-                    _currentAbility.UseAbility(ps, this);
+                if (currentAbility != null)
+                    currentAbility.UseAbility(ps, this);
             }
         }
 
@@ -201,6 +205,9 @@ namespace PabloLario.Characters.Player
                 if (_dashTimeCounter > 0f)
                     return;
 
+                if (_timeBetweenDashesCounter > 0f)
+                    return;
+                
                 StartDash();
             }
         }
@@ -213,15 +220,14 @@ namespace PabloLario.Characters.Player
             _dashTimeCounter = dashTime;
             AnimateDash();
             _dashSpeedSmoothed = dashSpeedUpperLimit;
+            _timeBetweenDashesCounter = timeBetweenDashes;
         }
 
         private bool Dash()
         {
             if (IsDashing())
             {
-
-                rb.MovePosition(rb.position + (new Vector2(_horizontal, _vertical).normalized * _dashSpeedSmoothed *
-                                               Time.fixedDeltaTime));
+                _rb.MovePosition(_rb.position + (new Vector2(_horizontal, _vertical).normalized * _dashSpeedSmoothed * Time.fixedDeltaTime));
 
                 _dashTimeCounter -= Time.fixedDeltaTime;
                 _dashSpeedSmoothed -= ps.moveSpeed.Value / dashDropRate;
@@ -297,10 +303,10 @@ namespace PabloLario.Characters.Player
             }
             else if (collision.gameObject.TryGetComponent(out Ability a))
             {
-                if (_currentAbility != null)
-                    Destroy(_currentAbility.gameObject);
+                if (currentAbility != null)
+                    Destroy(currentAbility.gameObject);
 
-                _currentAbility = a;
+                currentAbility = a;
 
                 // TODO: extract responsability from here and move it to somewhere, like a UI manager or smth
                 abilityImage.sprite = a.abilitySprite;

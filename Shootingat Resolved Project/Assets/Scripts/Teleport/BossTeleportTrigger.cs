@@ -6,18 +6,19 @@ namespace PabloLario.Teleport
     {
         [SerializeField] private int sceneIndex;
         [SerializeField] private TeleportToScene teleportToScene;
+        [SerializeField] private KeyPopup keyPopup;
 
-        private bool playerOnTeleport = false;
+        private bool _playerOnTeleport;
 
         private void Update()
         {
-            if (!Input.GetKeyDown(KeyCode.Space)) 
+            if (!Input.GetKeyDown(KeyCode.E)) 
                 return;
             
-            if (!playerOnTeleport)
+            if (!_playerOnTeleport)
                 return;
                 
-            teleportToScene.GoToScene((sceneIndex));
+            teleportToScene.GoToScene(sceneIndex, new Vector3(0f, -21f));
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -25,7 +26,8 @@ namespace PabloLario.Teleport
             if (!other.CompareTag("Player"))
                 return;
 
-            playerOnTeleport = true;
+            _playerOnTeleport = true;
+            keyPopup.EnableKeyPopup();
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -33,7 +35,8 @@ namespace PabloLario.Teleport
             if (!other.CompareTag("Player"))
                 return;
 
-            playerOnTeleport = false;
+            _playerOnTeleport = false;
+            keyPopup.DisableKeyPopup();
         }
     }
 }

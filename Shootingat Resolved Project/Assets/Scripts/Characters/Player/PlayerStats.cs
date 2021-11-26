@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
@@ -20,6 +19,8 @@ namespace PabloLario.Characters.Player
         [SerializeField] private PlayerAbilityPoints pap;
 
         public HitColorChangeAnimation hitAnimation;
+
+        private bool _dying = false;
 
         private void Start()
         {
@@ -54,8 +55,8 @@ namespace PabloLario.Characters.Player
         {
             pc.UpdateClarity(nextClarity.Value, nextClarity.LimitValue);
 
-            if (nextClarity.Value <= 0)
-                Die();
+            if (nextClarity.Value <= 0 && !_dying)
+                StartCoroutine(nameof(Die));
 
             if (nextClarity.Value < previousClarity.Value)
             {
@@ -63,10 +64,15 @@ namespace PabloLario.Characters.Player
             }
         }
 
-        private void Die()
+        private IEnumerator Die()
         {
-            SceneManager.LoadScene(0);
-            transform.position = new Vector3(0, -2f);
+            _dying = true;
+            SoundManager.Instance.PlaySound(SoundType.PlayerDeath);
+            Time.timeScale = 0.25f;
+            yield return new WaitForSeconds(2f);
+            // TODO: After that time, load a screen with a death message
+            // TODO: Give some options to player (go back to menu, restart game)
+            _dying = false;
         }
 
         public void TakeDamage(int damage)

@@ -5,75 +5,75 @@ namespace PabloLario.Managers
 {
     public class OptionsManager : Singleton<OptionsManager>
     {
-        private PostProcessingManager ppm;
+        private PostProcessingManager _ppm;
 
         private void Start()
         {
-            ppm = PostProcessingManager.Instance;
+            _ppm = PostProcessingManager.Instance;
             
             SetOptionsValues();
         }
 
         private void SetOptionsValues()
         {
-            // TODO: here I need to add the logic for the save & load that is related to the sacing of the player
+            // TODO: here I need to add the logic for the save & load that is related to the saving of the player
             // preferences of the options, so that they don't change every time the player restarts the game.
 
-            MasterVolume = 1f;
-            MusicVolume = 1f;
+            MasterVolume = .5f;
+            MusicVolume = 0f;
             SfxVolume = 1f;
             BloomEffect = true;
             GrainEffect = true;
         }
 
-        private float masterVolume;
+        private float _masterVolume;
         public float MasterVolume
         {
-            get => masterVolume;
+            get => _masterVolume;
             set
             {
+                _masterVolume = Mathf.Clamp(value, 0f, 1f);
                 SoundManager.Instance.ChangeMusicVolume();
-                masterVolume = Mathf.Clamp(value, 0f, 1f);
             }
         }
 
-        private float musicVolume;
+        private float _musicVolume;
         public float MusicVolume
         {
-            get => musicVolume;
+            get => _musicVolume;
             set
             {
+                _musicVolume = Mathf.Clamp(value, 0f, 1f);
                 SoundManager.Instance.ChangeMusicVolume();
-                musicVolume = Mathf.Clamp(value, 0f, 1f);
             }
         }
 
-        private float sfxVolume;
+        private float _sfxVolume;
         public float SfxVolume
         {
-            get => sfxVolume;
-            set => sfxVolume = Mathf.Clamp(value, 0f, 1f);
+            get => _sfxVolume;
+            set => _sfxVolume = Mathf.Clamp(value, 0f, 1f);
         }
 
-        private bool bloomEffect;
+        private bool _bloomEffect;
         public bool BloomEffect
         {
-            get => bloomEffect;
+            get => _bloomEffect;
             set
             {
-                bloomEffect = value;
-                ppm.SetBloom(value);
+                _bloomEffect = value;
+                _ppm.SetBloom(value);
             }
         }
 
-        private bool grainEffect;
+        private bool _grainEffect;
         public bool GrainEffect
         {
-            get => grainEffect;
+            get => _grainEffect;
             set
             {
-                grainEffect = value;
-                ppm.SetGrain(value);
+                _grainEffect = value;
+                _ppm.SetGrain(value);
             }
         }
     }

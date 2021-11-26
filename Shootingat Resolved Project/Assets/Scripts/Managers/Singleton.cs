@@ -6,22 +6,22 @@ namespace PabloLario.Managers
     {
         [SerializeField] private bool dontDestroyOnLoad;
 
-        private static T _instance;
+        private static T instance;
         public static T Instance
         {
             get
             {
-                if (_instance == null)
+                if (instance == null)
                 {
-                    _instance = FindObjectOfType<T>();
-                    if (_instance == null)
+                    instance = FindObjectOfType<T>();
+                    if (instance == null)
                     {
                         GameObject obj = new GameObject();
                         obj.name = typeof(T).Name;
-                        _instance = obj.AddComponent<T>();
+                        instance = obj.AddComponent<T>();
                     }
                 }
-                return _instance;
+                return instance;
             }
         }
 
@@ -35,14 +35,14 @@ namespace PabloLario.Managers
 
         protected virtual void Awake()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = this as T;
+                instance = this as T;
                 
                 if (dontDestroyOnLoad)
                     DontDestroyOnLoad(gameObject);
             }
-            else if (_instance != this as T)
+            else if (instance != this as T)
             {
                 Destroy(gameObject);
             }

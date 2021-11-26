@@ -4,28 +4,28 @@ namespace PabloLario.Managers
 {
     public class ItemsManager : Singleton<ItemsManager>
     {
-        Assets a;
+        private Assets _a;
 
         private void Start()
         {
-            a = Assets.Instance;
+            _a = Assets.Instance;
         }
 
         public GameObject GetRandomItemPrefab()
         {
-            int random = Random.Range(0, a.itemsArray.Length);
-            return a.itemsArray[random].itemPrefab;
+            int random = Random.Range(0, _a.itemsArray.Length);
+            return _a.itemsArray[random].itemPrefab;
         }
 
-        public GameObject GetItemFromName(string name)
+        public GameObject GetItemFromName(string nName)
         {
-            foreach (Items i in a.itemsArray)
+            foreach (Items i in _a.itemsArray)
             {
-                if (i.itemName == name)
+                if (i.itemName == nName)
                     return i.itemPrefab;
             }
 
-            Debug.LogError("Item " + name + "Not Found! There might not be any item in the Assets.");
+            Debug.LogError("Item " + nName + "Not Found! There might not be any item in the Assets.");
             return null;
         }
     }

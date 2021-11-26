@@ -5,25 +5,25 @@ namespace PabloLario.Managers
 {
     public class PostProcessingManager : Singleton<PostProcessingManager>
     {
-        private Volume volume;
-        private Bloom bloom;
-        private FilmGrain grain;
+        private Volume _volume;
+        private Bloom _bloom;
+        private FilmGrain _grain;
         
         private void Start()
         {
-            volume = GetComponent<Volume>();
-            volume.profile.TryGet(out bloom);
-            volume.profile.TryGet(out grain);
+            _volume = GetComponent<Volume>();
+            _volume.profile.TryGet(out _bloom);
+            _volume.profile.TryGet(out _grain);
         }
 
         public void SetBloom(bool enabled)
         {
-            bloom.active = enabled;
+            _bloom.active = enabled;
         }
 
         public void SetGrain(bool enabled)
         {
-            grain.active = enabled;
+            _grain.active = enabled;
         }
     }
 }

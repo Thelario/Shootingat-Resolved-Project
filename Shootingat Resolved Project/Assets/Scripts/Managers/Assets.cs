@@ -11,7 +11,8 @@ namespace PabloLario.Managers
         PlayerWalk,
         PlayerDash,
         EnemyDead,
-        Blop
+        Blop,
+        PlayerDeath
     }
 
     public enum ParticleType
@@ -25,17 +26,17 @@ namespace PabloLario.Managers
 
     public enum BulletType
     {
-        playerBullet,
-        enemyBullet,
-        gigantBullet
+        PlayerBullet,
+        EnemyBullet,
+        GigantBullet
     }
 
     public enum AbilityType
     {
-        gigantBullet,
-        brimstoneLaser,
-        temporalShield,
-        damageShield
+        GigantBullet,
+        BrimstoneLaser,
+        TemporalShield,
+        DamageShield
     }
 
     [System.Serializable]
@@ -106,8 +107,8 @@ namespace PabloLario.Managers
         public Transform playerTransform;
 
         [Header("Splash Images")]
-        public GameObject bulletSplash_1;
-        public GameObject bloodSplash_1;
+        public GameObject bulletSplash1;
+        public GameObject bloodSplash1;
 
         [Header("Items")]
         public Items[] itemsArray;

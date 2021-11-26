@@ -265,7 +265,7 @@ MonoBehaviour:
   maxRotation: 360
   numberOfBullets: 10
   isRandom: 0
-  shootTime: 0.5
+  shootTime: 1
   consecutiveShooting: 0
   consecutiveShootTime: 0.25
   rotationSpeed: 15

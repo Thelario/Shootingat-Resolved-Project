@@ -35,14 +35,14 @@ namespace PabloLario.Characters.Core.Shooting
         {
             if (collision.CompareTag("Shield"))
             {
-                if (type == BulletType.playerBullet || type == BulletType.gigantBullet)
+                if (type == BulletType.PlayerBullet || type == BulletType.GigantBullet)
                     return;
 
                 StartCoroutine(Co_DisableBullet(0f));
             }
             else
             {
-                if ((type == BulletType.enemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.playerBullet && collision.CompareTag("Player")) || type == BulletType.gigantBullet)
+                if ((type == BulletType.EnemyBullet && collision.CompareTag("Enemy")) || (type == BulletType.PlayerBullet && collision.CompareTag("Player")) || type == BulletType.GigantBullet)
                     return;
 
                 if (collision.CompareTag("Bullet") || collision.CompareTag("EnemyTrigger") || collision.CompareTag("Door"))
@@ -59,7 +59,7 @@ namespace PabloLario.Characters.Core.Shooting
                 }
                 else
                 {
-                    GameObject splash = Instantiate(Assets.Instance.bulletSplash_1, transform.position, Quaternion.identity);
+                    GameObject splash = Instantiate(Assets.Instance.bulletSplash1, transform.position, Quaternion.identity);
                     splash.GetComponent<SpriteRenderer>().color = sr.color;
                 }
 
@@ -99,7 +99,7 @@ namespace PabloLario.Characters.Core.Shooting
             _dir = dir;
             _stats = stats;
 
-            if (type == BulletType.gigantBullet)
+            if (type == BulletType.GigantBullet)
                 _stats.Range *= 2;
 
             sr.color = color;

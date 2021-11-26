@@ -59,7 +59,7 @@ namespace PabloLario.Characters.Enemies
 			deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
 			Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
             
-			Instantiate(Assets.Instance.bloodSplash_1, transform.position, transform.rotation);
+			Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

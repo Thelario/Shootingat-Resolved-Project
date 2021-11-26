@@ -18,7 +18,7 @@ namespace PabloLario.Characters.Player.Abilities
 
         private GameObject GetTemporalShield()
         {
-            if (Assets.Instance.abilitiesDictionary.TryGetValue(AbilityType.temporalShield, out GameObject a))
+            if (Assets.Instance.abilitiesDictionary.TryGetValue(AbilityType.TemporalShield, out GameObject a))
                 return a;
             else
                 Debug.LogError("Temporal Shield NOT FOUND!");

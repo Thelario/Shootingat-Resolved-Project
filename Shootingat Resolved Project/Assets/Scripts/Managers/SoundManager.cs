@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor;
 
 namespace PabloLario.Managers
 {
@@ -14,7 +13,7 @@ namespace PabloLario.Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicAudioSource;
 
-        private Dictionary<SoundType, float> soundTimerDictionary;
+        private Dictionary<SoundType, float> _soundTimerDictionary;
 
         protected override void Awake()
         {
@@ -25,7 +24,7 @@ namespace PabloLario.Managers
 
         private void Initialize()
         {
-            soundTimerDictionary = new Dictionary<SoundType, float>
+            _soundTimerDictionary = new Dictionary<SoundType, float>
             {
                 [SoundType.PlayerWalk] = 0f
             };
@@ -63,13 +62,13 @@ namespace PabloLario.Managers
                 default:
                     return true;
                 case SoundType.PlayerWalk:
-                    if (soundTimerDictionary.ContainsKey(sound))
+                    if (_soundTimerDictionary.ContainsKey(sound))
                     {
-                        float lastTimePlayed = soundTimerDictionary[sound];
+                        float lastTimePlayed = _soundTimerDictionary[sound];
                         float playerMoveTimerMax = .25f;
                         if (lastTimePlayed + playerMoveTimerMax < Time.time)
                         {
-                            soundTimerDictionary[sound] = Time.time;
+                            _soundTimerDictionary[sound] = Time.time;
                             return true;
                         }
                         else
@@ -95,8 +94,10 @@ namespace PabloLario.Managers
             if (clip != null)
                 return clip;
             else
+            {
                 Debug.LogError("Sound Not Found");
                 return null;
+            }
         }
     }
 }
