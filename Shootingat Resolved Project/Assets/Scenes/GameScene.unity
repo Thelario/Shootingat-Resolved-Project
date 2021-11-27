@@ -12340,6 +12340,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043698741}
   m_CullTransparentMesh: 1
+--- !u!1 &1065892427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1099566229, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+  m_PrefabInstance: {fileID: 9200384582346719896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1065892429 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1099566231, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+  m_PrefabInstance: {fileID: 9200384582346719896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1073153998
 GameObject:
   m_ObjectHideFlags: 0
@@ -22894,6 +22904,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1846597154}
     - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: walkParticlesG
+      value: 
+      objectReference: {fileID: 1065892427}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: walkParticlesPS
+      value: 
+      objectReference: {fileID: 1065892429}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: clarity.textUiFormatter
       value: 
       objectReference: {fileID: 272506609}
@@ -22901,10 +22919,6 @@ PrefabInstance:
       propertyPath: fireRate.textUiFormatter
       value: 
       objectReference: {fileID: 1296945917}
-    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: invencibilityTimeWhenHit
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: moveSpeed.textUiFormatter
       value: 

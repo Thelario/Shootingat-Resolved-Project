@@ -27,6 +27,8 @@ namespace PabloLario.Characters.Player
         [Header("Invencibility When Hit")] 
         [SerializeField] private float invencibilityTimeWhenHit;
         private float _invencibilityTimeWhenHitCounter;
+        [SerializeField] private GameObject walkParticlesG;
+        [SerializeField] private ParticleSystem walkParticlesPS;
 
         private void Start()
         {
@@ -40,7 +42,14 @@ namespace PabloLario.Characters.Player
         private void Update()
         {
             if (_invencibilityTimeWhenHitCounter > 0f)
+            {
                 _invencibilityTimeWhenHitCounter -= Time.deltaTime;
+                if (_invencibilityTimeWhenHitCounter <= 0f)
+                {
+                    walkParticlesG.SetActive(true);
+                    walkParticlesPS.GetComponent<ParticleSystem>().Play();
+                }
+            }
         }
 
         private void UpdateUI()
@@ -94,6 +103,8 @@ namespace PabloLario.Characters.Player
         private void SetInvencibility()
         {
             _invencibilityTimeWhenHitCounter = invencibilityTimeWhenHit;
+            walkParticlesG.SetActive(false);
+            walkParticlesPS.GetComponent<ParticleSystem>().Stop();
         }
 
         public bool TakeDamage(int damage)
