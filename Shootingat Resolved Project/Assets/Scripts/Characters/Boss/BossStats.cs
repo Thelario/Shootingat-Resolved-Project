@@ -49,14 +49,14 @@ public class BossStats : MonoBehaviour, IDamageable
         bossUI.SetSlider(currentHealth, maxHealth);
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
         if (enraging || _invencible)
-            return;
+            return false;
         
         currentHealth -= damage;
 
-        StartCoroutine(hitAnimation.Co_HitColorChange());
+        StartCoroutine(hitAnimation.Co_HitColorChange(false, 0f));
         bossUI.UpdateSliderValue(currentHealth);
 
         if (currentHealth - damage <= 0)
@@ -68,6 +68,8 @@ public class BossStats : MonoBehaviour, IDamageable
         {
             Enrage();
         }
+
+        return true;
     }
 
     public void MakeBossInvencible(bool invencible)

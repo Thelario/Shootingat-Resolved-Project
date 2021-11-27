@@ -20101,7 +20101,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 864.86005, y: -115.71}
+  m_AnchoredPosition: {x: 864.86005, y: -115.70999}
   m_SizeDelta: {x: 400, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843388876
@@ -22901,6 +22901,10 @@ PrefabInstance:
       propertyPath: fireRate.textUiFormatter
       value: 
       objectReference: {fileID: 1296945917}
+    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
+      propertyPath: invencibilityTimeWhenHit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: moveSpeed.textUiFormatter
       value: 

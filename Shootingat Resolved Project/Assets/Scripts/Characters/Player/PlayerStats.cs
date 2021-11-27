@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
@@ -20,7 +21,12 @@ namespace PabloLario.Characters.Player
 
         public HitColorChangeAnimation hitAnimation;
 
-        private bool _dying = false;
+        private bool _dying;
+        private bool _freezing;
+        
+        [Header("Invencibility When Hit")] 
+        [SerializeField] private float invencibilityTimeWhenHit;
+        private float _invencibilityTimeWhenHitCounter;
 
         private void Start()
         {
@@ -29,6 +35,12 @@ namespace PabloLario.Characters.Player
             clarity.onUpdateValue += OnClarityUpdate;
             abilityPoints.onUpdateValue += OnAbilityUpdate;
             GameManager.OnEnemyDead += UpdateAbilityAfterEnemyDie;
+        }
+
+        private void Update()
+        {
+            if (_invencibilityTimeWhenHitCounter > 0f)
+                _invencibilityTimeWhenHitCounter -= Time.deltaTime;
         }
 
         private void UpdateUI()
@@ -46,9 +58,9 @@ namespace PabloLario.Characters.Player
             pap.UpdateAbility(nextAbility.Value, nextAbility.LimitValue);
         }
 
-        private void UpdateAbilityAfterEnemyDie(int abilityPoints)
+        private void UpdateAbilityAfterEnemyDie(int abiPoints)
         {
-            this.abilityPoints.UpgradeValue(abilityPoints);
+            abilityPoints.UpgradeValue(abiPoints);
         }
 
         private void OnClarityUpdate(UpgradableStat<int> previousClarity, UpgradableStat<int> nextClarity)
@@ -60,12 +72,16 @@ namespace PabloLario.Characters.Player
 
             if (nextClarity.Value < previousClarity.Value)
             {
-                StartCoroutine(hitAnimation.Co_HitColorChange());
+                StartCoroutine(hitAnimation.Co_HitColorChange(true, invencibilityTimeWhenHit));
+                SetInvencibility();
             }
         }
 
         private IEnumerator Die()
         {
+            while (!_freezing)
+                yield return new WaitForSeconds(0.01f);
+            
             _dying = true;
             SoundManager.Instance.PlaySound(SoundType.PlayerDeath);
             Time.timeScale = 0.25f;
@@ -75,19 +91,30 @@ namespace PabloLario.Characters.Player
             _dying = false;
         }
 
-        public void TakeDamage(int damage)
+        private void SetInvencibility()
         {
+            _invencibilityTimeWhenHitCounter = invencibilityTimeWhenHit;
+        }
+
+        public bool TakeDamage(int damage)
+        {
+            if (_invencibilityTimeWhenHitCounter > 0f)
+                return false;
+            
             clarity.DowngradeValue(damage);
 
             StartCoroutine(nameof(FreezeTime));
+            return true;
         }
 
         private IEnumerator FreezeTime()
         {
+            _freezing = true;
             Time.timeScale = 0f;
 
             yield return new WaitForSecondsRealtime(0.1f);
 
+            _freezing = false;
             Time.timeScale = 1f;
         }
     }

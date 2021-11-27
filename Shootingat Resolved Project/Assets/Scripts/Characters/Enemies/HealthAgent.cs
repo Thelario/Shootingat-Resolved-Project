@@ -18,7 +18,7 @@ namespace PabloLario.Characters.Enemies
             currentHealth = maxHealth;
         }
 
-        public virtual void TakeDamage(int damage)
+        public virtual bool TakeDamage(int damage)
         {
             currentHealth -= damage;
 
@@ -29,8 +29,10 @@ namespace PabloLario.Characters.Enemies
             }
             else
             {
-                StartCoroutine(hitAnimation.Co_HitColorChange());
+                StartCoroutine(hitAnimation.Co_HitColorChange(false, 0f));
             }
+
+            return true;
         }
 
         public virtual void HealHealth(int health)

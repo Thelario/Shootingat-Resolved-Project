@@ -5301,7 +5301,9 @@ MonoBehaviour:
     agentRenderer: {fileID: 9200384582083607024}
     agentColor: {r: 0.058823533, g: 1, b: 1, a: 1}
     hitColor: {r: 1, g: 1, b: 1, a: 1}
+    invencibilityColor: {r: 0, g: 0.9816513, b: 1, a: 0.5019608}
     timeToWaitForColorChange: 0.075
+  invencibilityTimeWhenHit: 0.5
 --- !u!114 &304192961
 MonoBehaviour:
   m_ObjectHideFlags: 0
