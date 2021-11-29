@@ -82,6 +82,11 @@ namespace PabloLario.Characters.Player
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
         {
             camController = FindObjectOfType<MainCameraController>();
+            if (scene.buildIndex == 0)
+            {
+                transform.position = new Vector3(0f, 0f);
+                camController.transform.position = new Vector3(0f, 0f);
+            }
         }
 
         private void Update()
@@ -90,7 +95,7 @@ namespace PabloLario.Characters.Player
                 return;
 
             if (Input.GetKeyDown(KeyCode.Escape))
-                CanvasManager.Instance.SwitchCanvas(CanvasType.PauseGameMenu);
+                CanvasManager.Instance.SwitchCanvas(CanvasType.PauseGameMenu, false);
             
             _fireRateCounter += Time.deltaTime;
             _timeBetweenDashesCounter -= Time.deltaTime;
@@ -240,6 +245,9 @@ namespace PabloLario.Characters.Player
 
         private bool IsDashing()
         {
+            if (_dashTimeCounter <= 0f)
+                transform.localScale = new Vector3(1f, 1f);
+                
             return _dashTimeCounter > 0f;
         }
 
@@ -255,10 +263,7 @@ namespace PabloLario.Characters.Player
 
         private void AnimateDash()
         {
-            if (!animator.enabled)
-                return;
-
-            animator.SetTrigger("Dashing");
+            transform.localScale = new Vector3(0.75f, 0.75f);
         }
 
         private void ActivateWalkParticles()

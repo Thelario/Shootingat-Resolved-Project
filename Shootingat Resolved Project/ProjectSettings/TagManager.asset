@@ -11,6 +11,7 @@ TagManager:
   - Door
   - Portal
   - Shield
+  - EventSystem
   layers:
   - Default
   - TransparentFX

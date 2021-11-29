@@ -1,3 +1,4 @@
+using PabloLario.Managers;
 using UnityEngine;
 
 namespace PabloLario.DungeonGeneration
@@ -16,15 +17,19 @@ namespace PabloLario.DungeonGeneration
 
             sr.enabled = false;                    // Disable door sprite 
             doorCollider.enabled = false;          // Disable door collider
+            
+            if (RoomAssociatedWith.oldType == RoomTypeOld.NormalRoom)
+                SoundManager.Instance.PlaySound(SoundType.RoomVictory, 1f);
         }
 
         public void CloseDoor()
         {
-            // TODO: Animate door closing
+            //LeanTween.
 
             sr.enabled = true;               // Enable door sprite 
             doorCollider.enabled = true;    // Enable door collider
             DeactivateTrigger();            // Disable door trigger
+            SoundManager.Instance.PlaySound(SoundType.Warning, 1f);
         }
 
         public void PlayerCrossedDoor()

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using PabloLario.Characters.Core.Stats;
 using PabloLario.Managers;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace PabloLario.Characters.Core.Shooting
 {
@@ -16,6 +18,18 @@ namespace PabloLario.Characters.Core.Shooting
         private Vector2 _initialPos = Vector2.zero;
 
         protected BulletStats _stats;
+
+        private void Awake()
+        {
+            GameManager.OnWinGame += DisableBulletInstantly;
+            GameManager.OnLostGame += DisableBulletInstantly;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnWinGame -= DisableBulletInstantly;
+            GameManager.OnLostGame -= DisableBulletInstantly;
+        }
 
         protected virtual void Update()
         {
@@ -67,6 +81,12 @@ namespace PabloLario.Characters.Core.Shooting
 
                 StartCoroutine(Co_DisableBullet(0f));
             }
+        }
+
+        private void DisableBulletInstantly()
+        {
+            if (gameObject.activeInHierarchy)
+                StartCoroutine(Co_DisableBullet(0f));
         }
 
         public IEnumerator Co_DisableBullet(float time)

@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79faa6da97f5f45be30699fc456949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useCost: 3
+  useCost: 5
   destroyAbility: 1
   destroyAbilityTime: 4.5
   abilitySprite: {fileID: 21300000, guid: dcaacf2e6e583ab42ab8b5eba31c9c75, type: 3}

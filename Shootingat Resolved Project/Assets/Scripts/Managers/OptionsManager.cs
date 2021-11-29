@@ -20,8 +20,8 @@ namespace PabloLario.Managers
             // preferences of the options, so that they don't change every time the player restarts the game.
 
             MasterVolume = .5f;
-            MusicVolume = 0f;
-            SfxVolume = 1f;
+            MusicVolume = 0.1f;
+            SfxVolume = 0.4f;
             BloomEffect = true;
             GrainEffect = true;
         }

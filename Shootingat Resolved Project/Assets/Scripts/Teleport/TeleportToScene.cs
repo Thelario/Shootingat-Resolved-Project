@@ -6,6 +6,8 @@ namespace PabloLario.Teleport
 {
     public class TeleportToScene : MonoBehaviour
     {
+        [SerializeField] private bool reloadInitialScene;
+        
         public void GoToScene(int sceneIndex, Vector3 playerStartingPosInNewScene)
         {
             SceneManager.LoadScene(sceneIndex);
@@ -13,7 +15,7 @@ namespace PabloLario.Teleport
             
             if (sceneIndex == 1) // Tutorial Scene
             {
-                CanvasManager.Instance.SwitchCanvas(CanvasType.InGameMenu);
+                CanvasManager.Instance.SwitchCanvas(CanvasType.InGameMenu, reloadInitialScene);
             }
         }
     }

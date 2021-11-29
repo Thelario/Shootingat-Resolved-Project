@@ -23,6 +23,8 @@ namespace PabloLario.Managers
         public delegate void GameState();
         public static event GameState OnPauseGame;
         public static event GameState OnUnPauseGame;
+        public static event GameState OnWinGame;
+        public static event GameState OnLostGame;
 
         public static void InvokeDelegateOnPauseGame()
         {
@@ -36,6 +38,16 @@ namespace PabloLario.Managers
             Time.timeScale = 1f;
             OnUnPauseGame?.Invoke();
             //Debug.Log(Time.timeScale);
+        }
+
+        public static void InvokeDelegateOnWinGame()
+        {
+            OnWinGame?.Invoke();
+        }
+
+        public static void InvokeDelegateOnLostGame()
+        {
+            OnLostGame?.Invoke();
         }
     }
 }

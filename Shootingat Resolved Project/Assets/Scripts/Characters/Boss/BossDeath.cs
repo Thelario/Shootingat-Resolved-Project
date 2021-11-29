@@ -1,6 +1,7 @@
 using PabloLario.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
+using PabloLario.Managers;
 using UnityEngine;
 
 namespace PabloLario.Characters.Boss
@@ -18,6 +19,7 @@ namespace PabloLario.Characters.Boss
         {
             _bsm.Animator.Play(_bsm.DIE);
             GameObject.Destroy(_bsm.gameObject, 2f);
+            GameManager.InvokeDelegateOnWinGame();
         }
 
         public override void Exit()

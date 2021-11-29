@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace PabloLario.Managers
 {
@@ -12,7 +13,10 @@ namespace PabloLario.Managers
         PlayerDash,
         EnemyDead,
         Blop,
-        PlayerDeath
+        PlayerDeath,
+        Laser,
+        RoomVictory,
+        Warning
     }
 
     public enum ParticleType
@@ -116,6 +120,15 @@ namespace PabloLario.Managers
 
         [Header("Score Floating Text")]
         public GameObject damageFloatingText;
+
+        [Header("Dead Game Phrases")]
+        public List<string> deadGamePhrases = new List<string>();
+        
+        [Header("Win Game Phrases")]
+        public List<string> winGamePhrases = new List<string>();
+
+        [Header("Boss Health Slider Reference")]
+        public Slider bossHealthSlider;
 
         protected override void Awake()
         {

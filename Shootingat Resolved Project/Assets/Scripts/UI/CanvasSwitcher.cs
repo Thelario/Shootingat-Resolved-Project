@@ -9,7 +9,8 @@ namespace PabloLario.UI
     {
         public CanvasType desiredCanvasType;
         public bool addButtonEvent = false;
-
+        public bool reloadInitialScene;
+        
         CanvasManager canvasManager;
         Button menuButton;
 
@@ -32,7 +33,7 @@ namespace PabloLario.UI
 
         private void OnButtonClicked()
         {
-            canvasManager.SwitchCanvas(desiredCanvasType);
+            canvasManager.SwitchCanvas(desiredCanvasType, reloadInitialScene);
         }
 
         public void PlayButtonSound()

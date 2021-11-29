@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using PabloLario.Managers;
+using UnityEngine.SceneManagement;
 
 namespace PabloLario.UI
 {
@@ -37,13 +38,13 @@ namespace PabloLario.UI
             // This line iterates all the menus and deactivates them, using linq.
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
 
-            SwitchCanvas(CanvasType.MainMenu);
+            SwitchCanvas(CanvasType.MainMenu, false);
 
             Time.timeScale = 0f;
             GameManager.InvokeDelegateOnPauseGame();
         }
 
-        public void SwitchCanvas(CanvasType type)
+        public void SwitchCanvas(CanvasType type, bool loadInitialScene)
         {
             if (lastActiveCanvas != null)
             {
@@ -56,15 +57,18 @@ namespace PabloLario.UI
                 switch (type)
                 {
                     case CanvasType.InGameMenu:
+                        if (loadInitialScene)
+                            SceneManager.LoadScene(0);
+
                         GameManager.InvokeDelegateOnUnPauseGame();
                         break;
                     case CanvasType.MainMenu:
-                    case CanvasType.PauseGameMenu:
-                    case CanvasType.AboutMenu:
-                    case CanvasType.MainMenuOptionsMenu:
-                    case CanvasType.InGameOptionsMenu:
-                    case CanvasType.MainMenuControlsMenu:
-                    case CanvasType.InGameControlsMenu:
+                        if (loadInitialScene)
+                            SceneManager.LoadScene(0);
+                        
+                        GameManager.InvokeDelegateOnPauseGame();
+                        break;
+                    default: // All the rest of menus will pause the game when called
                         GameManager.InvokeDelegateOnPauseGame();
                         break;
                 }

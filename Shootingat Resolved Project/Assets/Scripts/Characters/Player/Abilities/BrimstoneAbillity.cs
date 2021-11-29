@@ -15,6 +15,8 @@ namespace PabloLario.Characters.Player.Abilities
             
             BrimstoneLaser bl = b.GetComponent<BrimstoneLaser>();
             bl.SetDamageRangeColorAndDestroyTime(ps.bulletStats.Damage, ps.bulletStats.Range, ps.hitAnimation.agentColor, destroyAbilityTime, destroyAbility);
+            
+            SoundManager.Instance.PlaySound(SoundType.Laser);
         }
 
         private GameObject GetBrimstomeLaser()

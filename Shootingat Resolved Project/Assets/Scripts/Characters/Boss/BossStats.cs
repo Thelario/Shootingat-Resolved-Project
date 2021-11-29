@@ -39,6 +39,8 @@ public class BossStats : MonoBehaviour, IDamageable
     [Header("Boss UI Controller")]
     public BossUI bossUI;
 
+    public GameObject bossSceneCanvas;
+
     public bool enraging = false;
     private bool _hasEnraged = false;
     private bool _invencible = false;
@@ -94,6 +96,7 @@ public class BossStats : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        bossSceneCanvas.SetActive(false);
         bossUI.DisableSlider();
         OnBossDeath?.Invoke();
     }

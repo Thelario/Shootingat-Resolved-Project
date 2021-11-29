@@ -159,8 +159,10 @@ MonoBehaviour:
     agentRenderer: {fileID: 6097392990924807573}
     agentColor: {r: 1, g: 1, b: 1, a: 1}
     hitColor: {r: 1, g: 0, b: 0, a: 1}
+    invencibilityColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   bossUI: {fileID: 6097392990622316583}
+  bossSceneCanvas: {fileID: 0}
   enraging: 0
 --- !u!114 &6097392990622316583
 MonoBehaviour:

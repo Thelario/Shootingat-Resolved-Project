@@ -30,6 +30,8 @@ namespace PabloLario.Characters.Core.Shooting
 
         private void Update()
         {
+            transform.position = transform.parent.position;
+            
             if (_destroyTimeCounter < 0f)
                 return;
 

@@ -13,7 +13,7 @@ namespace PabloLario.DungeonGeneration
         public List<Transform> points;
         public RoomType type;
 
-        [SerializeField] private RoomTypeOld oldType;               // Type of the room
+        public RoomTypeOld oldType;               // Type of the room
         [SerializeField] private List<Door> roomDoors;              // Doors associated to the room
         [SerializeField] private List<Transform> spawnPoints;       // Points to spawn enemies
         [SerializeField] private int enemyCount;

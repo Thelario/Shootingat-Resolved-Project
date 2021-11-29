@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using PabloLario.Animations;
 using PabloLario.Characters.Core.Stats;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using PabloLario.Managers;
+using PabloLario.UI;
 
 namespace PabloLario.Characters.Player
 {
@@ -30,6 +29,15 @@ namespace PabloLario.Characters.Player
         [SerializeField] private GameObject walkParticlesG;
         [SerializeField] private ParticleSystem walkParticlesPS;
 
+        [Header("Default Stats Values")]
+        [SerializeField] private int defaultClarity;
+        [SerializeField] private int defaultAbility;
+        [SerializeField] private int defaultDamage;
+        [SerializeField] private float defaultRange;
+        [SerializeField] private float defaultBulletSpeed;
+        [SerializeField] private float defaultFireRate;
+        [SerializeField] private float defaultMoveSpeed;
+        
         private void Start()
         {
             UpdateUI();
@@ -37,6 +45,8 @@ namespace PabloLario.Characters.Player
             clarity.onUpdateValue += OnClarityUpdate;
             abilityPoints.onUpdateValue += OnAbilityUpdate;
             GameManager.OnEnemyDead += UpdateAbilityAfterEnemyDie;
+            GameManager.OnWinGame += Win;
+            GameManager.OnDungeonGenerated += SetStatsToDefaultValues;
         }
 
         private void Update()
@@ -50,6 +60,17 @@ namespace PabloLario.Characters.Player
                     walkParticlesPS.GetComponent<ParticleSystem>().Play();
                 }
             }
+        }
+
+        private void SetStatsToDefaultValues()
+        {
+            fireRate.Value = defaultFireRate;
+            bulletStats.damageUpgradable.Value = defaultDamage;
+            bulletStats.rangeUpgradable.Value = defaultRange;
+            bulletStats.speedUpgradable.Value = defaultBulletSpeed;
+            moveSpeed.Value = defaultMoveSpeed;
+            clarity.Value = defaultClarity;
+            abilityPoints.Value = defaultAbility;
         }
 
         private void UpdateUI()
@@ -89,15 +110,29 @@ namespace PabloLario.Characters.Player
         private IEnumerator Die()
         {
             while (!_freezing)
-                yield return new WaitForSeconds(0.01f);
+                yield return null;
             
             _dying = true;
             SoundManager.Instance.PlaySound(SoundType.PlayerDeath);
             Time.timeScale = 0.25f;
-            yield return new WaitForSeconds(2f);
-            // TODO: After that time, load a screen with a death message
-            // TODO: Give some options to player (go back to menu, restart game)
+            yield return new WaitForSecondsRealtime(2f);
+            GameManager.InvokeDelegateOnLostGame();
+            CanvasManager.Instance.SwitchCanvas(CanvasType.DeadGameMenu, false);
             _dying = false;
+        }
+
+        private void Win()
+        {
+            StartCoroutine(nameof(WinGame));
+        }
+        
+        private IEnumerator WinGame()
+        {
+            SetInvencibility();
+            // TODO: Play win sound
+            Time.timeScale = 0.25f;
+            yield return new WaitForSecondsRealtime(2f);
+            CanvasManager.Instance.SwitchCanvas(CanvasType.WinGameMenu, false);
         }
 
         private void SetInvencibility()
@@ -126,7 +161,8 @@ namespace PabloLario.Characters.Player
             yield return new WaitForSecondsRealtime(0.1f);
 
             _freezing = false;
-            Time.timeScale = 1f;
+            if (!_dying)
+                Time.timeScale = 1f;
         }
     }
 }

@@ -5265,10 +5265,10 @@ MonoBehaviour:
     maxLimit: 20
   bulletStats:
     damageUpgradable:
-      limitValue: 2
+      limitValue: 40
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 10
+      _value: 40
     rangeUpgradable:
       limitValue: 15
       improvingIncreasesValue: 1
@@ -5306,6 +5306,13 @@ MonoBehaviour:
   invencibilityTimeWhenHit: 1
   walkParticlesG: {fileID: 1099566229}
   walkParticlesPS: {fileID: 1099566231}
+  defaultClarity: 5
+  defaultAbility: 5
+  defaultDamage: 2
+  defaultRange: 5
+  defaultBulletSpeed: 10
+  defaultFireRate: 0.35
+  defaultMoveSpeed: 7
 --- !u!114 &304192961
 MonoBehaviour:
   m_ObjectHideFlags: 0

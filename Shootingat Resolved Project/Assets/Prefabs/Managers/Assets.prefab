@@ -61,6 +61,12 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: ccbd2428ca0375d418da10eb88c8bfc2, type: 3}
   - sound: 7
     audioClip: {fileID: 8300000, guid: d3fccc173e4969e46bb959238fbc62fe, type: 3}
+  - sound: 8
+    audioClip: {fileID: 8300000, guid: a3430a35304dc6b4d85f44537057dac0, type: 3}
+  - sound: 9
+    audioClip: {fileID: 8300000, guid: c7fe0b4f641749e40b5d4179c4681cd7, type: 3}
+  - sound: 10
+    audioClip: {fileID: 8300000, guid: 1569f5e02bcc9b346842ecbcccda1e4f, type: 3}
   particlesArray:
   - type: 0
     particlePrefab: {fileID: 7791509615102547665, guid: 8521ed6103a31af4b89f3ac62dda2876, type: 3}
@@ -124,3 +130,16 @@ MonoBehaviour:
   - itemName: Taco
     itemPrefab: {fileID: 6515199749232666185, guid: 3d2baf8886ad1214fb3c19ade8e6b60d, type: 3}
   damageFloatingText: {fileID: 5419167160747013488, guid: a86a47e94e707f647b70f4f8e61e9a4b, type: 3}
+  deadGamePhrases:
+  - HOLY FUCK, YOU SUCK!
+  - YOU DON'T STAND A CHANCE
+  - COME ON, YOU CAN DO IT BETTER
+  - THE PRINCESS IS NOT GOING TO BE RESCUED ALONE
+  - YOU BETTER LEARN HOW TO PLAY, BECAUSE YOU SUCK
+  - I THOUGH YOU WERE GOOD. I SEE I WAS WRONG
+  winGamePhrases:
+  - OH YEAH, YOU MADE IT!
+  - YOU SAVED THE PRINCESS!
+  - GOOD WORK PLAYER
+  - MAYBE YOU ARE NOT THAT BAD
+  bossHealthSlider: {fileID: 0}
