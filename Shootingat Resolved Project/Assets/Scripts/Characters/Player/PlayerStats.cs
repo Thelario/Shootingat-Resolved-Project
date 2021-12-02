@@ -69,9 +69,20 @@ namespace PabloLario.Characters.Player
             bulletStats.rangeUpgradable.Value = defaultRange;
             bulletStats.speedUpgradable.Value = defaultBulletSpeed;
             moveSpeed.Value = defaultMoveSpeed;
+
+
+            if (clarity.LimitValue > 5)
+                clarity.DowngradeMaxLimit(clarity.LimitValue - defaultClarity);
+            else if (clarity.LimitValue < 5)
+                clarity.UpgradeMaxLimit(defaultClarity - clarity.LimitValue);
+
+            if (abilityPoints.LimitValue > 5)
+                abilityPoints.DowngradeMaxLimit(abilityPoints.LimitValue - abilityPoints.Value);
+            else if (abilityPoints.LimitValue < 5)
+                abilityPoints.UpgradeMaxLimit(defaultAbility - abilityPoints.LimitValue);
+
             clarity.Value = defaultClarity;
-            clarity.DowngradeMaxLimit(clarity.LimitValue - clarity.Value);
-            abilityPoints.DowngradeMaxLimit(abilityPoints.LimitValue - abilityPoints.Value);
+            abilityPoints.Value = defaultAbility;
         }
 
         private void UpdateUI()

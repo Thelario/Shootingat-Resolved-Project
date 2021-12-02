@@ -14,6 +14,8 @@ namespace PabloLario.Characters.Core.Stats
             var pre = this.Clone();
             limitValue += Mathf.Min(value, maxLimit);
             onUpdateValue?.Invoke(pre, this);
+            if (Value > limitValue)
+                Value = limitValue;
         }
 
         public void DowngradeMaxLimit(int value)

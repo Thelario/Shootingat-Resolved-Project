@@ -4850,7 +4850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2645952899486639663
 Transform:
   m_ObjectHideFlags: 0
@@ -5299,7 +5299,7 @@ MonoBehaviour:
       limitValue: 40
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 1
+      _value: 2
     rangeUpgradable:
       limitValue: 15
       improvingIncreasesValue: 1

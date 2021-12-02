@@ -7567,10 +7567,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Volume
       objectReference: {fileID: 0}
-    - target: {fileID: 9001411586370133679, guid: dee18d9fcedaabd458b7159d2594c3cb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9001411586370133681, guid: dee18d9fcedaabd458b7159d2594c3cb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -21758,14 +21754,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6710500325846272516, guid: 4b02bc8a3da29db439755da524468f7e, type: 3}
-      propertyPath: sfxSource
-      value: 
-      objectReference: {fileID: 2035998195}
-    - target: {fileID: 6710500325846272516, guid: 4b02bc8a3da29db439755da524468f7e, type: 3}
-      propertyPath: musicAudioSource
-      value: 
-      objectReference: {fileID: 2035998196}
     - target: {fileID: 6710500325846272522, guid: 4b02bc8a3da29db439755da524468f7e, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -22726,112 +22714,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003270021}
   m_CullTransparentMesh: 1
---- !u!1 &2035998194 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6710500325846272522, guid: 4b02bc8a3da29db439755da524468f7e, type: 3}
-  m_PrefabInstance: {fileID: 1916818400}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2035998195 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6710500325846272517, guid: 4b02bc8a3da29db439755da524468f7e, type: 3}
-  m_PrefabInstance: {fileID: 1916818400}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2035998196
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035998194}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba062369306663c4796400ed115f6ba3, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2069727048
 GameObject:
   m_ObjectHideFlags: 0
@@ -24290,10 +24172,6 @@ PrefabInstance:
       propertyPath: abilityPoints.textUiFormatter
       value: 
       objectReference: {fileID: 679694875}
-    - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
-      propertyPath: bulletStats.damageUpgradable._value
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 9200384582610188846, guid: 4c9989e1095dabf46a3ceb424bcf0d21, type: 3}
       propertyPath: bulletStats.rangeUpgradable.textUiFormatter
       value: 

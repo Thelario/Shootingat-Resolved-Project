@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5184109270337626235}
   - component: {fileID: 5184109270337626228}
+  - component: {fileID: 7624069474085436275}
+  - component: {fileID: 8670101250264982116}
   m_Layer: 0
   m_Name: Room_R_BossRoom
   m_TagString: Untagged
@@ -57,8 +59,32 @@ MonoBehaviour:
   - {fileID: 5898995842265970323}
   spawnPoints: []
   enemyCount: 0
-  roomCenter: {fileID: 5184109270649700016}
   showInMinimapFromBeginning: 0
+  pathRequestManager: {fileID: 0}
+--- !u!114 &7624069474085436275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184109270337626229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305cb84ceddd48845892617596c1fcbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8670101250264982116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184109270337626229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc7e959c4409a3478530b7f2491b3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5184109270569694808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4076,8 +4102,8 @@ Tilemap:
   - first: {x: 15, y: -2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 14
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4096,8 +4122,8 @@ Tilemap:
   - first: {x: 17, y: -2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 14
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6147,8 +6173,8 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: b5c0cc8aa45891d4ca82cafbc9a1a2f9, type: 2}
-  - m_RefCount: 2
-    m_Data: {fileID: 11400000, guid: d4e0f042fe39e2d4188449748e437751, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 3
@@ -6173,15 +6199,15 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 2f040e14e10b50c458c17f24d3e03ac5, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 6a47ff1d65b24384c8981071e8e9fa82, type: 2}
-  - m_RefCount: 15
+  - m_RefCount: 17
     m_Data: {fileID: 11400000, guid: 31752291f99d13c4383555b659647c9c, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 6686cf55b66623e4c98bac27ca9093dc, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 3
     m_Data: {fileID: -3806116322179808845, guid: ffdf20b7b03fed8469138bf422eb4958, type: 3}
-  - m_RefCount: 2
-    m_Data: {fileID: 8432669663152394174, guid: 4306668cbd5b0d84c80fbc55977e7575, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 18
@@ -6206,7 +6232,7 @@ Tilemap:
     m_Data: {fileID: -2120710612718094685, guid: a83b98ff23ec8c74592ff432be63b9a3, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 6173245911338587385, guid: ffdf20b7b03fed8469138bf422eb4958, type: 3}
-  - m_RefCount: 15
+  - m_RefCount: 17
     m_Data: {fileID: -4999569055547696071, guid: 0277982c146c4e049a615a1a2fd1dda3, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -2688236258300953305, guid: 0277982c146c4e049a615a1a2fd1dda3, type: 3}
@@ -6345,7 +6371,21 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 5912089845771213641}
     m_ColliderPaths:
-    - - X: 69999900
+    - - X: 200000100
+        Y: -20000041
+      - X: 200000100
+        Y: -9999959
+      - X: 200000041
+        Y: -9999900
+      - X: 139999959
+        Y: -9999900
+      - X: 139999900
+        Y: -9999959
+      - X: 139999900
+        Y: -19999900
+      - X: 69999959
+        Y: -19999900
+      - X: 69999900
         Y: -19999959
       - X: 69999900
         Y: -29999900
@@ -6423,20 +6463,6 @@ CompositeCollider2D:
         Y: -20000100
       - X: 200000041
         Y: -20000100
-      - X: 200000100
-        Y: -20000041
-      - X: 200000100
-        Y: -9999959
-      - X: 200000041
-        Y: -9999900
-      - X: 139999959
-        Y: -9999900
-      - X: 139999900
-        Y: -9999959
-      - X: 139999900
-        Y: -19999900
-      - X: 69999959
-        Y: -19999900
   m_CompositePaths:
     m_Paths:
     - - {x: 14.999971, y: -8}
