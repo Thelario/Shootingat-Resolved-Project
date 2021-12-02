@@ -4804,6 +4804,36 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &2606198733349497508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4917851083546302352}
+  m_Layer: 0
+  m_Name: Eyes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4917851083546302352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2606198733349497508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9200384582610188844}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5609402034069902490
 GameObject:
   m_ObjectHideFlags: 0
@@ -5192,6 +5222,7 @@ Transform:
   - {fileID: 9200384582147479607}
   - {fileID: 1099566232}
   - {fileID: 2645952899486639663}
+  - {fileID: 4917851083546302352}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5239,8 +5270,8 @@ MonoBehaviour:
   weaponPopup: {fileID: 160393134}
   abilityImage: {fileID: 0}
   dashTime: 0.25
-  dashSpeedUpperLimit: 35
-  dashDropRate: 2.5
+  dashSpeedUpperLimit: 25
+  dashDropRate: 4
   playDashSound: 1
   timeBetweenDashes: 0.75
   currentAbility: {fileID: 0}
@@ -5268,7 +5299,7 @@ MonoBehaviour:
       limitValue: 40
       improvingIncreasesValue: 1
       textUiFormatter: {fileID: 0}
-      _value: 40
+      _value: 1
     rangeUpgradable:
       limitValue: 15
       improvingIncreasesValue: 1
@@ -5463,7 +5494,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -4907201984947825597, guid: bb349a034bb7d1741bd78fc1f7a97387, type: 3}
-  m_Color: {r: 0, g: 0.9803922, b: 0.9960785, a: 1}
+  m_Color: {r: 0, g: 0.9816513, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

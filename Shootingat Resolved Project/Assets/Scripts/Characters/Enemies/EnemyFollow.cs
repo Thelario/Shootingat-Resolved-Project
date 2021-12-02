@@ -3,7 +3,7 @@ using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using System.Collections;
 using PabloLario.DungeonGeneration;
-using PabloLario.Astar;
+using System.Text;
 
 #pragma warning disable CS0618 // startColor in ParticleSystem is obsolete
 
@@ -19,11 +19,15 @@ namespace PabloLario.Characters.Enemies
 		protected int targetIndex;
 		protected float timeBetweenMoves = 2f;
 		protected float timeBetweenMovesCounter;
+		protected bool followingPath = true;
 
-        protected virtual void Awake()
+		protected Rigidbody2D _rb;
+
+		protected virtual void Awake()
         {
 			_roomAssociatedTo = FindObjectOfType<Room>();
 			timeBetweenMovesCounter = timeBetweenMoves;
+			_rb = GetComponent<Rigidbody2D>();
         }
 
         protected override void Start()
@@ -33,7 +37,17 @@ namespace PabloLario.Characters.Enemies
 			StartCoroutine(Co_Move());
         }
 
-		private void OnCollisionEnter2D(Collision2D collision)
+        private void FixedUpdate()
+        {
+			if (followingPath)
+				return;
+
+			Vector2 playerDirNorm = (Assets.Instance.playerTransform.position - transform.position).normalized;
+			_rb.MovePosition(_rb.position + (enemyMoveSpeed * Time.fixedDeltaTime * playerDirNorm));
+			transform.up = playerDirNorm;
+		}
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.TryGetComponent(out IDamageable id) && collision.collider.CompareTag("Enemy") == false)
             {
@@ -41,11 +55,23 @@ namespace PabloLario.Characters.Enemies
             }
         }
 
-        protected virtual IEnumerator Co_Move()
-        {
-			PathRequestManager.Instance.RequestPath(transform.position, Assets.Instance.playerTransform.position, OnPathFound);
+		protected virtual IEnumerator Co_Move()
+		{
+			// Checking if there are walls between
+			Vector2 hitDir = Assets.Instance.playerTransform.position - transform.position;
+			LayerMask unwalkableMask = LayerMask.GetMask(new string[] { "Unwalkable", "RoomExplored", "RoomUnexplored" });
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, hitDir.normalized, hitDir.magnitude, unwalkableMask);
+			if (hit.collider == null)
+				followingPath = false;
+			else
+				followingPath = true;
 
-			yield return new WaitForSeconds(.1f);
+			if (_roomAssociatedTo != null)
+				_roomAssociatedTo.pathRequestManager.RequestPath(transform.position, Assets.Instance.playerTransform.position, OnPathFound);
+			else
+				print("Room Associated To is null");
+
+			yield return new WaitForSeconds(.15f);
 
 			yield return Co_Move();
 		}
@@ -55,11 +81,11 @@ namespace PabloLario.Characters.Enemies
             GameManager.InvokeDelegateEnemyDead(abilityPointsToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
 
-			GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity);
+			GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity, Assets.Instance.splashContainer);
 			deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
 			Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
             
-			Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation);
+			Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation, Assets.Instance.splashContainer);
             Destroy(gameObject);
         }
 
@@ -84,7 +110,6 @@ namespace PabloLario.Characters.Enemies
 
 		IEnumerator Co_FollowPath()
 		{
-			bool followingPath = true;
 			int pathIndex = 0;
 
 			if (path.Length > 0)
@@ -118,6 +143,13 @@ namespace PabloLario.Characters.Enemies
 
 		public void OnDrawGizmos()
 		{
+			if (!followingPath)
+            {
+				Vector2 hitDir = Assets.Instance.playerTransform.position - transform.position;
+				Gizmos.DrawRay(transform.position, hitDir);
+				return;
+            }
+
 			if (path != null)
 			{
 				for (int i = targetIndex; i < path.Length; i++)

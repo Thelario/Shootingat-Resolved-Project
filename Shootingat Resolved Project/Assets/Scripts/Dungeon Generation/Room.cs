@@ -8,34 +8,55 @@ namespace PabloLario.DungeonGeneration
 {
     public enum RoomTypeOld { NormalRoom, TreasureRoom, HiddenRoom, BossRoom }
 
+    [RequireComponent(typeof(PathRequestManager))] [RequireComponent(typeof(Pathfinding))]
     public class Room : MonoBehaviour
     {
         public List<Transform> points;
         public RoomType type;
+        public RoomTypeOld oldType;                                 
 
-        public RoomTypeOld oldType;               // Type of the room
         [SerializeField] private List<Door> roomDoors;              // Doors associated to the room
         [SerializeField] private List<Transform> spawnPoints;       // Points to spawn enemies
         [SerializeField] private int enemyCount;
-        [SerializeField] private Transform roomCenter;
         [SerializeField] private bool showInMinimapFromBeginning = false;
 
-        private List<GameObject> enemies = new List<GameObject>();
-        private bool[] spawnPointsCreated;
-        private int enemyCounter = 0;
-        private GameObject backgroundTilemap;
-        private GameObject foregroundTilemap;
+        private List<GameObject> _enemies = new List<GameObject>();
+        private bool[] _spawnPointsCreated;
+        private int _enemyCounter = 0;
+        private GameObject _backgroundTilemap;
+        private GameObject _foregroundTilemap;
+        private Transform _roomCenter;
+
+        // Pathdinging Related References
+        [HideInInspector] public PathRequestManager pathRequestManager;
+        private Pathfinding _pathfinding;
+
+        // Pathfinding Related Fields
+        private bool _displayGridGizmos = false;
+        private LayerMask _unwalkableMask;
+        private Vector2 _gridWorldSize = new Vector2(38f, 22f);
+        private float _nodeRadius = .5f;
+        [HideInInspector] public GridNode grid;
 
         private void Awake()
         {
             Transform grid = transform.Find("Grid");
-            backgroundTilemap = grid.GetChild(0).gameObject;
-            foregroundTilemap = grid.GetChild(1).gameObject;
+
+            _roomCenter = transform.Find("RoomCenter");
+            _unwalkableMask = LayerMask.GetMask(new string[] { "Unwalkable", "RoomExplored", "RoomUnexplored" });
+
+            _backgroundTilemap = grid.GetChild(0).gameObject;
+            _foregroundTilemap = grid.GetChild(1).gameObject;
+
+            _pathfinding = GetComponent<Pathfinding>();
+            pathRequestManager = GetComponent<PathRequestManager>();
+
+            pathRequestManager.InitializePathRequestManager(_pathfinding);
         }
 
         private void Start()
         {
-            enemyCounter = enemyCount;
+            _enemyCounter = enemyCount;
 
             if (!showInMinimapFromBeginning)
                 SetLayermasks("RoomUnexplored");
@@ -45,8 +66,8 @@ namespace PabloLario.DungeonGeneration
 
         public void SetLayermasks(string lm)
         {
-            backgroundTilemap.layer = LayerMask.NameToLayer(lm);
-            foregroundTilemap.layer = LayerMask.NameToLayer(lm);
+            _backgroundTilemap.layer = LayerMask.NameToLayer(lm);
+            _foregroundTilemap.layer = LayerMask.NameToLayer(lm);
         }
 
         public void StartEncounter()
@@ -61,26 +82,22 @@ namespace PabloLario.DungeonGeneration
                 case RoomTypeOld.TreasureRoom:
                     HandleTreasureRoom();
                     break;
-                case RoomTypeOld.BossRoom:
-                    HandleBossRoom();
-                    break;
-                case RoomTypeOld.HiddenRoom:
-                    HandleHiddenRoom();
-                    break;
             }
         }
 
         private void HandleNormalRoom()
         {
-            // In the future, this function will change, because enemies need to be taken randomly
-            // according to the current level of the dungeon an so on.
+            grid = new GridNode(_displayGridGizmos, _unwalkableMask, _gridWorldSize, _nodeRadius, _roomCenter);
+            grid.CreateGrid();
+
+            _pathfinding.InitializePathfinding(pathRequestManager, grid);
 
             CloseDoors();
 
-            // Initializing the spawnPointsCreated array
-            spawnPointsCreated = new bool[spawnPoints.Count];
-            for (int i = 0; i < spawnPointsCreated.Length; i++)
-                spawnPointsCreated[i] = false;
+            // Initializing the spawnPointsCreated array (this is used for checking whether an enemy has already spawned in that spawnPoint)
+            _spawnPointsCreated = new bool[spawnPoints.Count];
+            for (int i = 0; i < _spawnPointsCreated.Length; i++)
+                _spawnPointsCreated[i] = false;
 
             StartCoroutine(Co_SpawnRoomEnemies());
         }
@@ -96,8 +113,10 @@ namespace PabloLario.DungeonGeneration
                 yield return new WaitForSeconds(.5f);
 
                 GameObject go = Instantiate(EnemyManager.Instance.GetRandomEnemy(), pos, Quaternion.identity);
-                enemies.Add(go);
+                _enemies.Add(go);
                 go.GetComponent<IRoomAssignable>().AssignRoom(this);
+                // Here I am going to need to assign to enemies with IPathRequestManagerAssignable the path request
+                // manager so that they can find a path
             }
         }
 
@@ -126,9 +145,9 @@ namespace PabloLario.DungeonGeneration
             {
                 s = Random.Range(0, spawnPoints.Count);
             }
-            while (spawnPointsCreated[s] == true);
+            while (_spawnPointsCreated[s] == true);
 
-            spawnPointsCreated[s] = true;
+            _spawnPointsCreated[s] = true;
             return spawnPoints[s].position;
         }
 
@@ -145,30 +164,12 @@ namespace PabloLario.DungeonGeneration
 
         private void SpawnItem()
         {
-            Instantiate(ItemsManager.Instance.GetRandomItemPrefab(), roomCenter.position, Quaternion.identity);
+            Instantiate(ItemsManager.Instance.GetRandomItemPrefab(), _roomCenter.position, Quaternion.identity);
         }
 
         private void SpawnPowerup()
         {
-            Instantiate(AbilityPickupsManager.Instance.GetRandomAbilityPickupPrefab(), roomCenter.position, Quaternion.identity);
-        }
-        
-        private void HandleBossRoom()
-        {
-            // This functionality might not be here in the future.
-
-            // Move the camera to where the boss is going to spawn.
-            // Make an initial animation for the boss to appear.
-            // Insert an image of the boss appearance and name moving from left to right.
-            // Make combat animation (like a scream or smth similar).
-            // And the fun begins :D
-        }
-
-        private void HandleHiddenRoom()
-        {
-            // I dunno what this logic can be, even if it should be here.
-            // I could have several types of hidden rooms premade, and just create one of them 
-            // at the beginning of the lvel generation.
+            Instantiate(AbilityPickupsManager.Instance.GetRandomAbilityPickupPrefab(), _roomCenter.position, Quaternion.identity);
         }
 
         private void AssignRoomToDoors()
@@ -179,12 +180,27 @@ namespace PabloLario.DungeonGeneration
 
         public void ReduceEnemyCounter()
         {
-            enemyCounter -= 1;
+            _enemyCounter -= 1;
 
-            if (enemyCounter <= 0)
+            if (_enemyCounter <= 0)
             {
                 OpenDoors();
-                // TODO: Play small victory sound
+                _displayGridGizmos = false;
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            //Gizmos.DrawWireCube(_roomCenter.position, new Vector3(_gridWorldSize.x, _gridWorldSize.y, 1));
+            if (grid != null && _displayGridGizmos)
+            {
+                foreach (Node n in grid.grid)
+                {
+                    Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * ((_nodeRadius * 2) - .1f));
+
+                    Gizmos.color = Color.green;
+                }
             }
         }
     }

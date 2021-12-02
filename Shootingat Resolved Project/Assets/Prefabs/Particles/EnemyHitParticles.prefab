@@ -169,7 +169,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: 5
+      minScalar: 35
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -975,7 +975,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 5
+        scalar: 15
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -1040,7 +1040,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.36486435
+          value: 1
           inSlope: -2
           outSlope: -2
           tangentMode: 0

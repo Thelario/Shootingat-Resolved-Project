@@ -9,11 +9,11 @@ namespace PabloLario.Characters.Player.Abilities
         protected override void Use(PlayerStats ps, PlayerController pc)
         {
             ps.abilityPoints.DowngradeValue(useCost);
+
+            _abilityObject = Instantiate(GetBrimstomeLaser(), pc.GetWeaponTransform());
+            _abilityObject.transform.SetPositionAndRotation(pc.GetWeaponTransform().position, pc.GetWeaponTransform().rotation);
             
-            GameObject b = Instantiate(GetBrimstomeLaser(), pc.GetWeaponTransform());
-            b.transform.SetPositionAndRotation(pc.GetWeaponTransform().position, pc.GetWeaponTransform().rotation);
-            
-            BrimstoneLaser bl = b.GetComponent<BrimstoneLaser>();
+            BrimstoneLaser bl = _abilityObject.GetComponent<BrimstoneLaser>();
             bl.SetDamageRangeColorAndDestroyTime(ps.bulletStats.Damage, ps.bulletStats.Range, ps.hitAnimation.agentColor, destroyAbilityTime, destroyAbility);
             
             SoundManager.Instance.PlaySound(SoundType.Laser);

@@ -12,8 +12,8 @@ namespace PabloLario.Astar
 
 		void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Space))
-				PathRequestManager.Instance.RequestPath(transform.position, target.position, OnPathFound);
+			//if (Input.GetKeyDown(KeyCode.Space))
+			//	PathRequestManager.Instance.RequestPath(transform.position, target.position, OnPathFound);
 		}
 
 		public void OnPathFound(Vector3[] newPath, bool pathSuccessful)

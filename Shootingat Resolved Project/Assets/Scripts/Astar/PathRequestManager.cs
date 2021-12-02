@@ -1,47 +1,47 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using PabloLario.Managers;
 
 namespace PabloLario.Astar
 {
-	public class PathRequestManager : Singleton<PathRequestManager>
+	public class PathRequestManager : MonoBehaviour
 	{
-		Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
-		PathRequest currentPathRequest;
+		private Queue<PathRequest> _pathRequestQueue = new Queue<PathRequest>();
+		private PathRequest _currentPathRequest;
 
-		private Pathfinding pathfinding;
+		private Pathfinding _pathfinding;
 
-		bool isProcessingPath = false;
+		private bool _isProcessingPath = false;
 
-		protected override void Awake()
-		{
-			base.Awake();
-
-			pathfinding = GetComponent<Pathfinding>();
-		}
+		public void InitializePathRequestManager(Pathfinding pathfinding)
+        {
+			_pathfinding = pathfinding;
+        }
 
 		public void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
 		{
+			//print("Path Start: " + pathStart.ToString() + ", Path End: " + pathEnd.ToString());
+
 			PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-			pathRequestQueue.Enqueue(newRequest);
+			_pathRequestQueue.Enqueue(newRequest);
+
 			TryProcessNext();
 		}
 
-		void TryProcessNext()
+		private void TryProcessNext()
 		{
-			if (!isProcessingPath && pathRequestQueue.Count > 0)
+			if (!_isProcessingPath && _pathRequestQueue.Count > 0)
 			{
-				currentPathRequest = pathRequestQueue.Dequeue();
-				isProcessingPath = true;
-				pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
+				_currentPathRequest = _pathRequestQueue.Dequeue();
+				_isProcessingPath = true;
+				_pathfinding.StartFindPath(_currentPathRequest.pathStart, _currentPathRequest.pathEnd);
 			}
 		}
 
 		public void FinishedProcessingPath(Vector3[] path, bool success)
 		{
-            currentPathRequest.callback?.Invoke(path, success);
-            isProcessingPath = false;
+            _currentPathRequest.callback?.Invoke(path, success);
+            _isProcessingPath = false;
 			TryProcessNext();
 		}
 

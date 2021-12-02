@@ -16,7 +16,8 @@ namespace PabloLario.Managers
         PlayerDeath,
         Laser,
         RoomVictory,
-        Warning
+        Warning,
+        Heal
     }
 
     public enum ParticleType
@@ -40,7 +41,8 @@ namespace PabloLario.Managers
         GigantBullet,
         BrimstoneLaser,
         TemporalShield,
-        DamageShield
+        DamageShield,
+        Heal
     }
 
     [System.Serializable]
@@ -130,6 +132,8 @@ namespace PabloLario.Managers
         [Header("Boss Health Slider Reference")]
         public Slider bossHealthSlider;
 
+        [Header("Splash Container")]
+        public Transform splashContainer;
         protected override void Awake()
         {
             base.Awake();

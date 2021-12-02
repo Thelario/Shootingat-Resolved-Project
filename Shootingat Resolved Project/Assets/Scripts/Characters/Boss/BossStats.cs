@@ -96,7 +96,7 @@ public class BossStats : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        bossSceneCanvas.SetActive(false);
+        //bossSceneCanvas.SetActive(false);
         bossUI.DisableSlider();
         OnBossDeath?.Invoke();
     }

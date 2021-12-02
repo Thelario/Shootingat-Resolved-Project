@@ -10,9 +10,9 @@ namespace PabloLario.Characters.Player.Abilities
         {
             ps.abilityPoints.DowngradeValue(useCost);
             
-            GameObject a = Instantiate(GetTemporalShield(), pc.transform.position, Quaternion.identity, pc.GetWeaponTransform());
+            _abilityObject = Instantiate(GetTemporalShield(), pc.transform.position, Quaternion.identity, pc.GetWeaponTransform());
 
-            TemporalShield ts = a.GetComponent<TemporalShield>();
+            TemporalShield ts = _abilityObject.GetComponent<TemporalShield>();
             ts.SetColorAndDestroyTime(ps.hitAnimation.agentColor, destroyAbilityTime, destroyAbility);
         }
 

@@ -1,59 +1,48 @@
 using UnityEngine;
 using System.Collections.Generic;
-using PabloLario.Managers;
 
 namespace PabloLario.Astar
 {
-	public class GridNode : MonoBehaviour
+	public class GridNode
 	{
-		public bool displayGridGizmos;
-		public LayerMask unwalkableMask;
-		public Vector2 gridWorldSize;
-		public float nodeRadius;
+		private bool _displayGridGizmos;
+		private LayerMask _unwalkableMask;
+		private Vector2 _gridWorldSize;
+		private float _nodeRadius;
+		private float _nodeDiameter;
+		private int _gridSizeX, _gridSizeY;
 
-		Node[,] grid;
+		public Node[,] grid;
+		public Transform roomCenter;
 
-		float nodeDiameter;
-		int gridSizeX, gridSizeY;
+		public int MaxSize { get => _gridSizeX * _gridSizeY; }
 
-		public int MaxSize
-		{
-			get
-			{
-				return gridSizeX * gridSizeY;
-			}
-		}
-
-		void Awake()
-		{
-			nodeDiameter = nodeRadius * 2;
-			gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-			gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-
-			GameManager.OnDungeonGenerated += CreateGrid;
-		}
-
-        private void OnDestroy()
+		public GridNode(bool displayGridGizmos, LayerMask unwalkableMask, Vector2 gridWorldSize, float nodeRadius, Transform roomCenter)
         {
-			GameManager.OnDungeonGenerated -= CreateGrid;
-		}
+			_displayGridGizmos = displayGridGizmos;
+			_unwalkableMask = unwalkableMask;
+			_gridWorldSize = gridWorldSize;
+			_nodeRadius = nodeRadius;
+			this.roomCenter = roomCenter;
 
-        private void OnDisable()
-        {
-			GameManager.OnDungeonGenerated -= CreateGrid;
-		}
+			_nodeDiameter = _nodeRadius * 2;
+			_gridSizeX = Mathf.RoundToInt(_gridWorldSize.x / _nodeDiameter);
+			_gridSizeY = Mathf.RoundToInt(_gridWorldSize.y / _nodeDiameter);
+
+			CreateGrid();
+        }
 
         public void CreateGrid()
 		{
-			grid = new Node[gridSizeX, gridSizeY];
-			Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+			grid = new Node[_gridSizeX, _gridSizeY];
+			Vector3 worldBottomLeft = roomCenter.position - Vector3.right * _gridWorldSize.x / 2 - Vector3.up * _gridWorldSize.y / 2;
 
-			for (int x = 0; x < gridSizeX; x++)
+			for (int x = 0; x < _gridSizeX; x++)
 			{
-				for (int y = 0; y < gridSizeY; y++)
+				for (int y = 0; y < _gridSizeY; y++)
 				{
-					Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-					bool walkable = !(Physics2D.CircleCast(worldPoint, nodeRadius, Vector2.zero, 0f, unwalkableMask));
+					Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * _nodeDiameter + _nodeRadius) + Vector3.up * (y * _nodeDiameter + _nodeRadius);
+					bool walkable = !(Physics2D.CircleCast(worldPoint, _nodeRadius, Vector2.zero, 0f, _unwalkableMask));
 					grid[x, y] = new Node(walkable, worldPoint, x, y);
 				}
 			}
@@ -73,7 +62,7 @@ namespace PabloLario.Astar
 					int checkX = node.gridX + x;
 					int checkY = node.gridY + y;
 
-					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY)
 					{
 						neighbours.Add(grid[checkX, checkY]);
 					}
@@ -85,31 +74,38 @@ namespace PabloLario.Astar
 
 		public Node NodeFromWorldPoint(Vector3 worldPosition)
 		{
-			float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-			float percentY = (worldPosition.y + gridWorldSize.y / 2) / gridWorldSize.y;
+			float percentX = (worldPosition.x + _gridWorldSize.x / 2) / _gridWorldSize.x;
+			float percentY = (worldPosition.y + _gridWorldSize.y / 2) / _gridWorldSize.y;
+			//Debug.Log("PercentX: " + percentX + ", PercentY: " + percentY);
 
 			percentX = Mathf.Clamp01(percentX);
 			percentY = Mathf.Clamp01(percentY);
+			//Debug.Log("PercentXClamped: " + percentX + ", PercentYClamped: " + percentY);
 
-			int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-			int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+			int x = Mathf.RoundToInt((_gridSizeX - 1) * percentX);
+			int y = Mathf.RoundToInt((_gridSizeY - 1) * percentY);
+			//Debug.Log("x: " + x + ", y: " + y);
+			//Debug.Log("Grid Node (x,y) pos: " + grid[x, y].worldPosition);
 
 			return grid[x, y];
 		}
 
-		void OnDrawGizmos()
+		/* OnDrawGizmos doesn't work if the class doesn't derive from monobehaviour.
+		 * I am leaving this code here in case of future use.
+		private void OnDrawGizmos()
 		{
-			Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
-			if (grid != null && displayGridGizmos)
+			Gizmos.DrawWireCube(_roomCenter.position, new Vector3(_gridWorldSize.x, _gridWorldSize.y, 1));
+			if (grid != null && _displayGridGizmos)
 			{
 				foreach (Node n in grid)
 				{
 					Gizmos.color = (n.walkable) ? Color.white : Color.red;
-					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+					Gizmos.DrawCube(n.worldPosition, Vector3.one * (_nodeDiameter - .1f));
 
 					Gizmos.color = Color.green;
 				}
 			}
 		}
+		*/
 	}
 }

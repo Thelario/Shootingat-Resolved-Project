@@ -9,11 +9,11 @@ namespace PabloLario.Characters.Player.Abilities
         protected override void Use(PlayerStats ps, PlayerController pc)
         {
             ps.abilityPoints.DowngradeValue(useCost);
-            
-            GameObject b = Instantiate(GetGiantBullet());
-            b.transform.SetPositionAndRotation(pc.GetShootPointTransform().position, pc.GetShootPointTransform().rotation);
 
-            GiantBullet gb = b.GetComponent<GiantBullet>();
+            _abilityObject = Instantiate(GetGiantBullet());
+            _abilityObject.transform.SetPositionAndRotation(pc.GetShootPointTransform().position, pc.GetShootPointTransform().rotation);
+
+            GiantBullet gb = _abilityObject.GetComponent<GiantBullet>();
             gb.SetDirStatsColor(pc.dir, ps.bulletStats, ps.hitAnimation.agentColor);
             gb.SetDestroyTime(destroyAbilityTime, destroyAbility);
             

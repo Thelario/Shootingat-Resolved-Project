@@ -23,10 +23,10 @@ namespace PabloLario.Characters.Core.Stats
         public delegate void OnUpdate(UpgradableStat<T> previous, UpgradableStat<T> after);
         public OnUpdate onUpdateValue;
 
-        protected void UpdateText()
+        protected void UpdateText(bool good)
         {
             if (textUiFormatter != null)
-                textUiFormatter.UpdateText(GetArgumentsToDisplay());
+                textUiFormatter.UpdateText(good, GetArgumentsToDisplay());
         }
 
         protected virtual object[] GetArgumentsToDisplay()

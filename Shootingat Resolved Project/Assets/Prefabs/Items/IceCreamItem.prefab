@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 1
-  addedDamage: 2
+  addedDamage: 1
 --- !u!114 &126614126229422131
 MonoBehaviour:
   m_ObjectHideFlags: 0

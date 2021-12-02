@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 0
-  addedHealth: 1
+  addedHealth: 2
 --- !u!114 &7547085537486946493
 MonoBehaviour:
   m_ObjectHideFlags: 0

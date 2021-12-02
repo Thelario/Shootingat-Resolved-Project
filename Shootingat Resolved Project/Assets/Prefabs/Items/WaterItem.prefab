@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 1
-  addedPlayerMoveSpeed: 1.5
+  addedPlayerMoveSpeed: 2

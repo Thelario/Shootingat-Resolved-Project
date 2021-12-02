@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7573024085765195670
 Transform:
   m_ObjectHideFlags: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
     agentRenderer: {fileID: 6028875060185082106}
     agentColor: {r: 0.9960785, g: 0.60784316, b: 0.31764707, a: 1}
     hitColor: {r: 1, g: 1, b: 1, a: 1}
+    invencibilityColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   abilityPointsToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 0.75
@@ -380,9 +381,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0048565865, y: -0.005025625}
+  m_Offset: {x: 0.0048565865, y: -0.002216339}
   serializedVersion: 2
-  m_Radius: 0.51746964
+  m_Radius: 0.40231133
 --- !u!212 &921679518202825626
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 1
-  bulletMoveSpeedIncrease: 1
+  bulletMoveSpeedIncrease: 1.5
 --- !u!114 &5813832834243638301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,4 +138,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 1
-  addedRange: 1
+  addedRange: 1.5

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -4395080084062198528}
   - component: {fileID: 8682355627839952477}
   - component: {fileID: 7058355422610364542}
-  - component: {fileID: 5832693159992480503}
   m_Layer: 0
   m_Name: DonutItem
   m_TagString: Untagged
@@ -141,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 0
-  addedHealth: 1
+  addedHealth: 2
 --- !u!114 &8682355627839952477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,18 +168,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goodPowerup: 1
-  addedPlayerMoveSpeed: 2
---- !u!114 &5832693159992480503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6887414669846699261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb52210c84d297a48b90b55eb9fc89e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goodPowerup: 1
-  addedHealth: 1
+  addedPlayerMoveSpeed: 3

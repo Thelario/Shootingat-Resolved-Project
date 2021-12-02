@@ -10571,6 +10571,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2125925172756096917}
   - component: {fileID: 2125925172756096914}
+  - component: {fileID: 2343278619264604092}
+  - component: {fileID: 6963524229130146252}
   m_Layer: 0
   m_Name: Room_UDRL_1
   m_TagString: Untagged
@@ -10710,8 +10712,37 @@ MonoBehaviour:
   - {fileID: 984171650195710142}
   - {fileID: 888326437130434535}
   enemyCount: 6
-  roomCenter: {fileID: 0}
+  roomCenter: {fileID: 2125925173215463142}
   showInMinimapFromBeginning: 0
+  pathRequestManager: {fileID: 0}
+  _unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _gridWorldSize: {x: 38, y: 22}
+--- !u!114 &2343278619264604092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125925172756096916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305cb84ceddd48845892617596c1fcbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6963524229130146252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125925172756096916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc7e959c4409a3478530b7f2491b3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2125925173200579632
 GameObject:
   m_ObjectHideFlags: 0

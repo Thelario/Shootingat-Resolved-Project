@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Text;
 
 namespace PabloLario.Astar
 {
@@ -24,24 +23,11 @@ namespace PabloLario.Astar
 
 		IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
 		{
-			//print("Path Start: " + startPos.ToString() + ", Path End: " + targetPos.ToString());
-
 			Vector3[] waypoints = new Vector3[0];
 			bool pathSuccess = false;
 
-			/* IMPORTANT
-			 * When I changed the behaviour of the pathfinding so that a grid is created for each room when player enters, I run into a 
-			 * problem in which enemies were always finding the furthest node from the grid from the player. This was because I was using
-			 * the center of the room in the calculations, but the position of the player and the enemies were given from the center of 
-			 * the level. In order to fix this problem I calculated the positions of the player and enemies based on the room they are at,
-			 * and this is achieved by the next two lines of code.*/
-			Vector3 derivedStartPos = startPos - _grid.roomCenter.position;
-			Vector3 derivedTargetPos = targetPos - _grid.roomCenter.position;
-
-			Node startNode = _grid.NodeFromWorldPoint(derivedStartPos);
-			Node targetNode = _grid.NodeFromWorldPoint(derivedTargetPos);
-
-			//print("Start Node: " + startNode.worldPosition.ToString() + ", Target Node: " + targetNode.worldPosition.ToString());
+			Node startNode = _grid.NodeFromWorldPoint(startPos);
+			Node targetNode = _grid.NodeFromWorldPoint(targetPos);
 
 			if (startNode.walkable && targetNode.walkable)
 			{
@@ -85,10 +71,21 @@ namespace PabloLario.Astar
 			if (pathSuccess)
 			{
 				waypoints = RetracePath(startNode, targetNode);
+				DebugPath(waypoints);
 			}
 
 			_requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 		}
+
+		private void DebugPath(Vector3[] waypoints)
+        {
+			StringBuilder sb = new StringBuilder();
+
+			foreach (var w in waypoints)
+            {
+				print(w);
+            }
+        }
 
 		Vector3[] RetracePath(Node startNode, Node endNode)
 		{
@@ -100,21 +97,10 @@ namespace PabloLario.Astar
 				path.Add(currentNode);
 				currentNode = currentNode.parent;
 			}
-			Vector3[] waypoints = DontSimplyPath(path);
+			Vector3[] waypoints = SimplifyPath(path);
 			Array.Reverse(waypoints);
 			return waypoints;
-		}
 
-		Vector3[] DontSimplyPath(List<Node> path)
-        {
-			List<Vector3> waypoints = new List<Vector3>();
-
-            for (int i = 1; i < path.Count; i++)
-            {
-				waypoints.Add(path[i].worldPosition);
-            }
-
-			return waypoints.ToArray();
 		}
 
 		Vector3[] SimplifyPath(List<Node> path)

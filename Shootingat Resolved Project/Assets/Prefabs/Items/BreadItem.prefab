@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7926178377822186660}
   - component: {fileID: 7926178377822186662}
   - component: {fileID: 7926178377822186681}
+  - component: {fileID: 5771695830191253259}
   m_Layer: 0
   m_Name: BreadItem
   m_TagString: Untagged
@@ -124,3 +125,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goodPowerup: 1
   addedHealth: 1
+--- !u!114 &5771695830191253259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926178377822186661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8152d5dc934e394aa34fa8273d80e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodPowerup: 1
+  bulletMoveSpeedIncrease: 1

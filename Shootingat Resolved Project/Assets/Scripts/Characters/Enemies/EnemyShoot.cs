@@ -87,7 +87,7 @@ namespace PabloLario.Characters.Enemies
             if (dir.magnitude < minDistanceAwayFromPlayer)
                 yield break;
 
-            this._dir = dir.normalized;
+            _dir = dir.normalized;
 
             StartCoroutine(base.Co_Move());
         }
@@ -100,7 +100,7 @@ namespace PabloLario.Characters.Enemies
             go.transform.SetPositionAndRotation(shootPoint.position, Quaternion.Euler(shootPoint.rotation.eulerAngles.x, shootPoint.rotation.eulerAngles.y, shootPoint.rotation.eulerAngles.z + Random.Range(-5f, 5f)));
 
             Bullet b = go.GetComponent<Bullet>();
-            b.SetDirStatsColor(_dir, bulletStats, hitAnimation.agentColor);
+            b.SetDirStatsColor(transform.up, bulletStats, hitAnimation.agentColor);
 
             ParticlesManager.Instance.CreateParticle(ParticleType.PlayerShoot, shootPoint.position, 0.5f, shootPoint.rotation);
         }

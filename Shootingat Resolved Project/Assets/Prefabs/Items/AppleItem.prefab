@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 620766062353759676}
   - component: {fileID: 620766062353759678}
   - component: {fileID: 1435310847368235908}
+  - component: {fileID: 2272593912977860507}
+  - component: {fileID: 5457254408394836062}
   m_Layer: 0
   m_Name: AppleItem
   m_TagString: Untagged
@@ -124,3 +126,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goodPowerup: 1
   addedRange: 2.5
+--- !u!114 &2272593912977860507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620766062353759677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7e4877f3e01f2488406b32622fed27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodPowerup: 1
+  addedFireRate: 0.05
+--- !u!114 &5457254408394836062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620766062353759677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8152d5dc934e394aa34fa8273d80e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodPowerup: 0
+  bulletMoveSpeedIncrease: 2

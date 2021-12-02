@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7926178377822186662}
   - component: {fileID: 7926178377822186681}
   - component: {fileID: 1258508068015837667}
+  - component: {fileID: 7159270172347794542}
   m_Layer: 0
   m_Name: HamburguerItem
   m_TagString: Untagged
@@ -139,3 +140,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goodPowerup: 0
   addedFireRate: 0.05
+--- !u!114 &7159270172347794542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926178377822186661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a829be7a6ee87444916d290efef7ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodPowerup: 0
+  addedPlayerMoveSpeed: 2

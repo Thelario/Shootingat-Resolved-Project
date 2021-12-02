@@ -10,12 +10,20 @@ namespace PabloLario.Characters.Player
 
         public Sprite abilitySprite;
 
+        protected GameObject _abilityObject;
+
         public void UseAbility(PlayerStats ps, PlayerController pc)
         {
             if (ps.abilityPoints.Value >= useCost)
             {
                 Use(ps, pc);
             }
+        }
+
+        public void DestroyAbilityObjectInstantly()
+        {
+            if (_abilityObject != null)
+                Destroy(_abilityObject);
         }
 
         protected abstract void Use(PlayerStats ps, PlayerController pc);

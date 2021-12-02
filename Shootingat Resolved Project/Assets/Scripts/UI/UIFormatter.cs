@@ -13,7 +13,8 @@ namespace PabloLario.UI
         [Header("Color change animation when text updates")]
         [SerializeField] private float colorChangeTime;
         [SerializeField] private Color defaultTextColor;
-        [SerializeField] private Color animatedTextColor;
+        [SerializeField] private Color goodAnimatedTextColor;
+        [SerializeField] private Color badAnimatedTextColor;
 
         [Header("Scale change animation when text updates")] 
         [SerializeField] private Vector3 defaultScale;
@@ -26,21 +27,24 @@ namespace PabloLario.UI
             _textUi = GetComponent<TMP_Text>();
         }
 
-        public void UpdateText(params object[] arguments)
+        public void UpdateText(bool good, params object[] arguments)
         {
             if (_textUi != null)
             {
                 _textUi.text = String.Format(_formatter, arguments);
                 
                 if (_textUi.isActiveAndEnabled)
-                    StartCoroutine(nameof(AnimateText));
+                    StartCoroutine(AnimateText(good));
             }
         }
 
-        private IEnumerator AnimateText()
+        private IEnumerator AnimateText(bool good)
         {
-            _textUi.color = animatedTextColor;
-            
+            if (good)
+                _textUi.color = goodAnimatedTextColor;
+            else
+                _textUi.color = badAnimatedTextColor;
+
             LeanTween.scale(gameObject, increasedScale, colorChangeTime / 2f);
 
             yield return new WaitForSeconds(colorChangeTime / 2f);

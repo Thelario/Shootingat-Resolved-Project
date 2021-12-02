@@ -66,7 +66,9 @@ MonoBehaviour:
   - sound: 9
     audioClip: {fileID: 8300000, guid: c7fe0b4f641749e40b5d4179c4681cd7, type: 3}
   - sound: 10
-    audioClip: {fileID: 8300000, guid: 1569f5e02bcc9b346842ecbcccda1e4f, type: 3}
+    audioClip: {fileID: 8300000, guid: dd297bcfd7537a84f96b9ba593c04bd6, type: 3}
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: 0d60e795329386946b969d4244db83dc, type: 3}
   particlesArray:
   - type: 0
     particlePrefab: {fileID: 7791509615102547665, guid: 8521ed6103a31af4b89f3ac62dda2876, type: 3}
@@ -99,6 +101,8 @@ MonoBehaviour:
     pickupPrefab: {fileID: 8734435722503973064, guid: 357a09a0be830554e944169b89108137, type: 3}
   - type: 2
     pickupPrefab: {fileID: 7816895172567132522, guid: 7692dc2f95cf66f4cb6536a078da826c, type: 3}
+  - type: 4
+    pickupPrefab: {fileID: 8657476318471355465, guid: 7c4fd133c528e3f43ab468fe04e48caf, type: 3}
   playerTransform: {fileID: 0}
   bulletSplash1: {fileID: 5826383548311485500, guid: 95ee49141ae5b11498429f4acabfa71e, type: 3}
   bloodSplash1: {fileID: 4247421394170993623, guid: 20998816d37cc7f4daad0b01dc3a43a4, type: 3}
@@ -143,3 +147,4 @@ MonoBehaviour:
   - GOOD WORK PLAYER
   - MAYBE YOU ARE NOT THAT BAD
   bossHealthSlider: {fileID: 0}
+  splashContainer: {fileID: 0}

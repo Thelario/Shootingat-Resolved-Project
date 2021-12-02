@@ -70,7 +70,8 @@ namespace PabloLario.Characters.Player
             bulletStats.speedUpgradable.Value = defaultBulletSpeed;
             moveSpeed.Value = defaultMoveSpeed;
             clarity.Value = defaultClarity;
-            abilityPoints.Value = defaultAbility;
+            clarity.DowngradeMaxLimit(clarity.LimitValue - clarity.Value);
+            abilityPoints.DowngradeMaxLimit(abilityPoints.LimitValue - abilityPoints.Value);
         }
 
         private void UpdateUI()

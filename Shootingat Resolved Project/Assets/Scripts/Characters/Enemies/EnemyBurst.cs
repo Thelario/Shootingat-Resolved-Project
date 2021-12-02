@@ -1,7 +1,6 @@
 using PabloLario.Characters.Core.Shooting;
 using PabloLario.Managers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -106,11 +105,11 @@ namespace PabloLario.Characters.Enemies
             GameManager.InvokeDelegateEnemyDead(abilityPointsToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
 
-            GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity);
+            GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity, Assets.Instance.splashContainer);
             deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
             Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
 
-            Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation);
+            Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation, Assets.Instance.splashContainer);
             Destroy(gameObject);
         }
     }

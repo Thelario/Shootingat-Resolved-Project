@@ -154,6 +154,7 @@ MonoBehaviour:
     agentRenderer: {fileID: 388338676640875013}
     agentColor: {r: 0.9960785, g: 0.45882356, b: 0.45882356, a: 1}
     hitColor: {r: 1, g: 1, b: 1, a: 1}
+    invencibilityColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   abilityPointsToGiveToPlayerWhenDied: 1
   enemyMoveSpeed: 2
@@ -171,7 +172,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.006197989, y: -0.010329872}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -182,7 +183,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.85}
+  m_Size: {x: 0.41447836, y: 0.65579814}
   m_EdgeRadius: 0
 --- !u!50 &388338677628858186
 Rigidbody2D:

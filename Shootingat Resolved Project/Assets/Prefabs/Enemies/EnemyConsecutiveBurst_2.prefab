@@ -131,11 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f054785ec50a0344b48632d1f8ef635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 10
   hitAnimation:
     agentRenderer: {fileID: 4020271554475140892}
     agentColor: {r: 1, g: 1, b: 1, a: 1}
     hitColor: {r: 1, g: 0, b: 0, a: 1}
+    invencibilityColor: {r: 1, g: 0, b: 0, a: 1}
     timeToWaitForColorChange: 0.05
   abilityPointsToGiveToPlayerWhenDied: 1
   weapon: {fileID: 4020271555060939870}

@@ -12,7 +12,7 @@ namespace PabloLario.Characters.Player
 {
     public class PlayerController : Singleton<PlayerController>
     {
-        [Header("References")] 
+        [Header("References")]
         [SerializeField] private Transform shootPoint;
         [SerializeField] private MainCameraController camController;
         [SerializeField] private Transform weaponTransform;
@@ -23,7 +23,7 @@ namespace PabloLario.Characters.Player
         [SerializeField] private Popup weaponPopup;
         [SerializeField] private Image abilityImage;
 
-        [Header("Fields")] 
+        [Header("Fields")]
         [SerializeField] private float dashTime;
         [SerializeField] private float dashSpeedUpperLimit;
         [SerializeField] private float dashDropRate;
@@ -44,8 +44,8 @@ namespace PabloLario.Characters.Player
         private Rigidbody2D _rb;
         private Camera _camera;
 
-        public Ability currentAbility;
-        public Vector2 dir;
+        [HideInInspector] public Ability currentAbility;
+        [HideInInspector] public Vector2 dir;
 
         protected override void Awake()
         {
@@ -70,6 +70,7 @@ namespace PabloLario.Characters.Player
             SceneManager.sceneLoaded += OnLevelLoaded;
             GameManager.OnPauseGame += Pause;
             GameManager.OnUnPauseGame += UnPause;
+            GameManager.OnDungeonGenerated += SetAbilityToDefault;
         }
 
         private void OnDisable()
@@ -77,6 +78,7 @@ namespace PabloLario.Characters.Player
             SceneManager.sceneLoaded -= OnLevelLoaded;
             GameManager.OnPauseGame -= Pause;
             GameManager.OnUnPauseGame -= UnPause;
+            GameManager.OnDungeonGenerated -= SetAbilityToDefault;
         }
 
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
@@ -124,6 +126,16 @@ namespace PabloLario.Characters.Player
                 return;
 
             _rb.MovePosition(_rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
+        }
+
+        private void SetAbilityToDefault()
+        {
+            if (currentAbility != null)
+                currentAbility.DestroyAbilityObjectInstantly();
+
+            abilityImage.sprite = null;
+            currentAbility = null;
+            abilityImage.color = new Color(abilityImage.color.r, abilityImage.color.g, abilityImage.color.b, 0f);
         }
 
         private void Move()
@@ -304,7 +316,9 @@ namespace PabloLario.Characters.Player
             }
             else if (collision.gameObject.TryGetComponent(out Powerup p))
             {
-                p.ApplyPowerup(ps);
+                Powerup[] powerups = collision.gameObject.GetComponents<Powerup>();
+                foreach (Powerup powerup in powerups)
+                    powerup.ApplyPowerup(ps);
             }
             else if (collision.gameObject.TryGetComponent(out Ability a))
             {
@@ -312,6 +326,8 @@ namespace PabloLario.Characters.Player
                     Destroy(currentAbility.gameObject);
 
                 currentAbility = a;
+                a.transform.parent = transform;
+                SoundManager.Instance.PlaySound(SoundType.PickPowerup);
 
                 // TODO: extract responsability from here and move it to somewhere, like a UI manager or smth
                 abilityImage.sprite = a.abilitySprite;

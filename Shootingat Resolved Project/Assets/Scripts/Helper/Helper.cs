@@ -4,7 +4,6 @@ using UnityEngine;
 namespace PabloLario.Helper
 {
     public static class Helper
-
     {
         public static T GetRandomElement<T>(this IList<T> list)
         {
@@ -39,6 +38,5 @@ namespace PabloLario.Helper
                 (ts[i], ts[r]) = (ts[r], ts[i]);
             }
         }
-        
     }
 }

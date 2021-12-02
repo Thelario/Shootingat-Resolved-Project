@@ -7,6 +7,8 @@ namespace PabloLario.Characters.Core.Stats
     {
         [SerializeField] private int _value;
 
+        private bool _good;
+
         public override int Value
         {
             get { return _value; }
@@ -21,7 +23,7 @@ namespace PabloLario.Characters.Core.Stats
                     _value = limitValue;
                 }
 
-                UpdateText();
+                UpdateText(_good);
                 
                 onUpdateValue?.Invoke(previous, this);
             }
@@ -41,10 +43,20 @@ namespace PabloLario.Characters.Core.Stats
         {
             if (improvingIncreasesValue)
             {
+                if (amount < 0f)
+                    _good = false;
+                else
+                    _good = true;
+
                 Value = Value + amount;
             }
             else
             {
+                if (amount > 0f)
+                    _good = false;
+                else
+                    _good = true;
+
                 Value = Value - amount;
             }
         }

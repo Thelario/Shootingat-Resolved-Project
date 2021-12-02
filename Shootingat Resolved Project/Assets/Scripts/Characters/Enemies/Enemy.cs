@@ -16,5 +16,11 @@ namespace PabloLario.Characters.Enemies
         {
             _roomAssociatedTo = room;
         }
+
+        private void OnDisable()
+        {
+            print("Enabling enemy after being disabled when spawnned");
+            gameObject.SetActive(true);
+        }
     }
 }

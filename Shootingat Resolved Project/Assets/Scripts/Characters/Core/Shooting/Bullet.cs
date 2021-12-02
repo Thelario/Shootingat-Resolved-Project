@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using PabloLario.Characters.Core.Stats;
 using PabloLario.Managers;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 namespace PabloLario.Characters.Core.Shooting
 {
@@ -75,7 +73,7 @@ namespace PabloLario.Characters.Core.Shooting
                 }
                 else
                 {
-                    GameObject splash = Instantiate(Assets.Instance.bulletSplash1, transform.position, Quaternion.identity);
+                    GameObject splash = Instantiate(Assets.Instance.bulletSplash1, transform.position, Quaternion.identity, Assets.Instance.splashContainer);
                     splash.GetComponent<SpriteRenderer>().color = sr.color;
                 }
 
@@ -106,7 +104,11 @@ namespace PabloLario.Characters.Core.Shooting
             // Check if the bullet has moved its maximum range
             Vector2 l = _initialPos - new Vector2(transform.position.x, transform.position.y);
 
-            if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= _stats.Range)
+            float range = _stats.Range;
+            if (type == BulletType.GigantBullet)
+                range *= 2f;
+
+            if (Mathf.Abs(Mathf.Abs(l.magnitude)) >= range)
                 StartCoroutine(Co_DisableBullet(0f));
 
             transform.position += _stats.Speed * Time.deltaTime * new Vector3(_dir.normalized.x, _dir.normalized.y);
@@ -120,9 +122,6 @@ namespace PabloLario.Characters.Core.Shooting
         {
             _dir = dir;
             _stats = stats;
-
-            if (type == BulletType.GigantBullet)
-                _stats.Range *= 2;
 
             sr.color = color;
             tr.colorGradient = SetTrailColor(color);
