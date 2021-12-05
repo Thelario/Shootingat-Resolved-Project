@@ -37,7 +37,7 @@ namespace PabloLario.Astar
 			 * and this is achieved by the next two lines of code.*/
 			Vector3 derivedStartPos = startPos - _grid.roomCenter.position;
 			Vector3 derivedTargetPos = targetPos - _grid.roomCenter.position;
-
+			
 			Node startNode = _grid.NodeFromWorldPoint(derivedStartPos);
 			Node targetNode = _grid.NodeFromWorldPoint(derivedTargetPos);
 
