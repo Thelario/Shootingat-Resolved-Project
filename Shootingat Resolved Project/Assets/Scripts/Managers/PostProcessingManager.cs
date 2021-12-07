@@ -12,18 +12,19 @@ namespace PabloLario.Managers
         private void Start()
         {
             _volume = GetComponent<Volume>();
+            
             _volume.profile.TryGet(out _bloom);
             _volume.profile.TryGet(out _grain);
         }
 
-        public void SetBloom(bool enabled)
+        public void SetBloom(float val)
         {
-            _bloom.active = enabled;
+            _bloom.intensity.value = val;
         }
 
-        public void SetGrain(bool enabled)
+        public void SetGrain(float val)
         {
-            _grain.active = enabled;
+            _grain.intensity.value = val;
         }
     }
 }

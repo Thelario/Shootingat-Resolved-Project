@@ -9,8 +9,9 @@ namespace UI
         [SerializeField] private Slider masterVolumeSlider;
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider sfxVolumeSlider;
-        [SerializeField] private Toggle bloomToggle;
-        [SerializeField] private Toggle grainToggle;
+        [SerializeField] private Slider bloomSlider;
+        [SerializeField] private Slider grainSlider;
+        [SerializeField] private Slider cameraShakeSlider;
         
         private void Start()
         {
@@ -27,8 +28,9 @@ namespace UI
             masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
             musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
             sfxVolumeSlider.onValueChanged.AddListener(SetSfxVolume);
-            bloomToggle.onValueChanged.AddListener(SetBloomEffect);
-            grainToggle.onValueChanged.AddListener(SetGrainEffect);
+            bloomSlider.onValueChanged.AddListener(SetBloomEffect);
+            grainSlider.onValueChanged.AddListener(SetGrainEffect);
+            cameraShakeSlider.onValueChanged.AddListener(SetCameraShake);
         }
 
         private void SetValuesFromOptions()
@@ -36,14 +38,16 @@ namespace UI
             masterVolumeSlider.value = OptionsManager.Instance.MasterVolume;
             musicVolumeSlider.value = OptionsManager.Instance.MusicVolume;
             sfxVolumeSlider.value = OptionsManager.Instance.SfxVolume;
-            bloomToggle.isOn = OptionsManager.Instance.BloomEffect;
-            grainToggle.isOn = OptionsManager.Instance.GrainEffect;
+            bloomSlider.value = OptionsManager.Instance.BloomEffect;
+            grainSlider.value = OptionsManager.Instance.GrainEffect;
+            cameraShakeSlider.value = OptionsManager.Instance.CameraShakeEffect;
         }
         
         private void SetMasterVolume(float vol) { OptionsManager.Instance.MasterVolume = vol; }
         private void SetMusicVolume(float vol) { OptionsManager.Instance.MusicVolume = vol; }
         private void SetSfxVolume(float vol) { OptionsManager.Instance.SfxVolume = vol; }
-        private void SetBloomEffect(bool on) { OptionsManager.Instance.BloomEffect = on; }
-        private void SetGrainEffect(bool on) { OptionsManager.Instance.GrainEffect = on; }
+        private void SetBloomEffect(float val) { OptionsManager.Instance.BloomEffect = val; }
+        private void SetGrainEffect(float val) { OptionsManager.Instance.GrainEffect = val; }
+        private void SetCameraShake(float val) { OptionsManager.Instance.CameraShakeEffect = val; }
     }
 }

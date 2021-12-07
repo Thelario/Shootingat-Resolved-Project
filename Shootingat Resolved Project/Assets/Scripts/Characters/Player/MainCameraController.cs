@@ -1,6 +1,8 @@
+using System;
 using PabloLario.Managers;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PabloLario.Characters.Player
 {
@@ -20,6 +22,13 @@ namespace PabloLario.Characters.Player
             base.Awake();
 
             _camera = Camera.main;
+
+            OptionsManager.Instance.CameraShakeChanged += SetCameraShakeValue;
+        }
+
+        private void OnDestroy()
+        {
+            OptionsManager.Instance.CameraShakeChanged -= SetCameraShakeValue;
         }
 
         private void Start()
@@ -61,6 +70,11 @@ namespace PabloLario.Characters.Player
 
                 yield return null;
             }
+        }
+
+        public void SetCameraShakeValue(float val)
+        {
+            screenShakeTime = val;
         }
     }
 }

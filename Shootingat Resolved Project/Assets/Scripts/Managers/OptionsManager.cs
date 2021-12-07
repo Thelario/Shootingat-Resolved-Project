@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
 
 namespace PabloLario.Managers
 {
     public class OptionsManager : Singleton<OptionsManager>
     {
+        public delegate void OnOptionsChanged(float newValue);
+        
         private PostProcessingManager _ppm;
 
         private void Start()
@@ -22,8 +23,9 @@ namespace PabloLario.Managers
             MasterVolume = .5f;
             MusicVolume = 0.1f;
             SfxVolume = 0.4f;
-            BloomEffect = true;
-            GrainEffect = true;
+            BloomEffect = 4f;
+            GrainEffect = 0.3f;
+            CameraShakeEffect = 0.2f;
         }
 
         private float _masterVolume;
@@ -55,8 +57,8 @@ namespace PabloLario.Managers
             set => _sfxVolume = Mathf.Clamp(value, 0f, 1f);
         }
 
-        private bool _bloomEffect;
-        public bool BloomEffect
+        private float _bloomEffect;
+        public float BloomEffect
         {
             get => _bloomEffect;
             set
@@ -66,14 +68,27 @@ namespace PabloLario.Managers
             }
         }
 
-        private bool _grainEffect;
-        public bool GrainEffect
+        private float _grainEffect;
+        public float GrainEffect
         {
             get => _grainEffect;
             set
             {
                 _grainEffect = value;
                 _ppm.SetGrain(value);
+            }
+        }
+
+        public event OnOptionsChanged CameraShakeChanged;
+
+        private float _cameraShakeEffect;
+        public float CameraShakeEffect
+        {
+            get => _cameraShakeEffect;
+            set
+            {
+                _cameraShakeEffect = value;
+                CameraShakeChanged?.Invoke(value);
             }
         }
     }
