@@ -3,7 +3,6 @@ using PabloLario.Characters.Core.Stats;
 using UnityEngine;
 using System.Collections;
 using PabloLario.DungeonGeneration;
-using System.Text;
 
 #pragma warning disable CS0618 // startColor in ParticleSystem is obsolete
 
@@ -22,12 +21,14 @@ namespace PabloLario.Characters.Enemies
 		protected bool followingPath = true;
 
 		protected Rigidbody2D _rb;
+		protected Transform _t;
 
 		protected virtual void Awake()
         {
 			_roomAssociatedTo = FindObjectOfType<Room>();
 			timeBetweenMovesCounter = timeBetweenMoves;
 			_rb = GetComponent<Rigidbody2D>();
+			_t = transform;
         }
 
         protected override void Start()
@@ -42,9 +43,9 @@ namespace PabloLario.Characters.Enemies
 			if (followingPath)
 				return;
 
-			Vector2 playerDirNorm = (Assets.Instance.playerTransform.position - transform.position).normalized;
+			Vector2 playerDirNorm = (Assets.Instance.playerTransform.position - _t.position).normalized;
 			_rb.MovePosition(_rb.position + (enemyMoveSpeed * Time.fixedDeltaTime * playerDirNorm));
-			transform.up = playerDirNorm;
+			_t.up = playerDirNorm;
 		}
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -58,16 +59,21 @@ namespace PabloLario.Characters.Enemies
 		protected virtual IEnumerator Co_Move()
 		{
 			// Checking if there are walls between
-			Vector2 hitDir = Assets.Instance.playerTransform.position - transform.position;
+			Vector2 hitDir = Assets.Instance.playerTransform.position - _t.position;
 			LayerMask unwalkableMask = LayerMask.GetMask(new string[] { "Unwalkable", "RoomExplored", "RoomUnexplored" });
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, hitDir.normalized, hitDir.magnitude, unwalkableMask);
+			RaycastHit2D hit = Physics2D.Raycast(_t.position, hitDir.normalized, hitDir.magnitude, unwalkableMask);
 			if (hit.collider == null)
-				followingPath = false;
+			{
+				if (hitDir.magnitude < 5f)
+					followingPath = false;
+				else
+					followingPath = true;
+			}
 			else
 				followingPath = true;
 
 			if (_roomAssociatedTo != null)
-				_roomAssociatedTo.pathRequestManager.RequestPath(transform.position, Assets.Instance.playerTransform.position, OnPathFound);
+				_roomAssociatedTo.pathRequestManager.RequestPath(_t.position, Assets.Instance.playerTransform.position, OnPathFound);
 			else
 				print("Room Associated To is null");
 
@@ -81,11 +87,11 @@ namespace PabloLario.Characters.Enemies
             GameManager.InvokeDelegateEnemyDead(abilityPointsToGiveToPlayerWhenDied);
             _roomAssociatedTo.ReduceEnemyCounter();
 
-			GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), transform.position, Quaternion.identity, Assets.Instance.splashContainer);
+			GameObject deadParticles = Instantiate(ParticlesManager.Instance.GetParticles(ParticleType.EnemyDead), _t.position, Quaternion.identity, Assets.Instance.splashContainer);
 			deadParticles.GetComponent<ParticleSystem>().startColor = hitAnimation.agentColor;
-			Destroy(Instantiate(deadParticles, transform.position, transform.rotation), 0.5f);
+			Destroy(Instantiate(deadParticles, _t.position, _t.rotation), 0.5f);
             
-			Instantiate(Assets.Instance.bloodSplash1, transform.position, transform.rotation, Assets.Instance.splashContainer);
+			Instantiate(Assets.Instance.bloodSplash1, _t.position, _t.rotation, Assets.Instance.splashContainer);
             Destroy(gameObject);
         }
 
@@ -118,7 +124,7 @@ namespace PabloLario.Characters.Enemies
 
 				while (followingPath)
 				{
-					if (transform.position == currentWaypoint)
+					if (_t.position == currentWaypoint)
 					{
 						pathIndex++;
 						if (pathIndex >= path.Length)
@@ -129,12 +135,12 @@ namespace PabloLario.Characters.Enemies
 						currentWaypoint = path[pathIndex];
 					}
 
-					transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, enemyMoveSpeed * Time.deltaTime);
+					_t.position = Vector3.MoveTowards(_t.position, currentWaypoint, enemyMoveSpeed * Time.deltaTime);
 
 					if (!lookAtPlayer)
-						transform.up = (currentWaypoint - transform.position).normalized; // Rotate towards the next waypoint
+						_t.up = (currentWaypoint - _t.position).normalized; // Rotate towards the next waypoint
 					else
-						transform.up = (Assets.Instance.playerTransform.position - transform.position).normalized; // Rotate towards player
+						_t.up = (Assets.Instance.playerTransform.position - _t.position).normalized; // Rotate towards player
 
 					yield return null;
 				}
@@ -145,8 +151,8 @@ namespace PabloLario.Characters.Enemies
 		{
 			if (!followingPath)
             {
-				Vector2 hitDir = Assets.Instance.playerTransform.position - transform.position;
-				Gizmos.DrawRay(transform.position, hitDir);
+				Vector2 hitDir = Assets.Instance.playerTransform.position - _t.position;
+				Gizmos.DrawRay(_t.position, hitDir);
 				return;
             }
 
@@ -159,7 +165,7 @@ namespace PabloLario.Characters.Enemies
 
 					if (i == targetIndex)
 					{
-						Gizmos.DrawLine(transform.position, path[i]);
+						Gizmos.DrawLine(_t.position, path[i]);
 					}
 					else
 					{
