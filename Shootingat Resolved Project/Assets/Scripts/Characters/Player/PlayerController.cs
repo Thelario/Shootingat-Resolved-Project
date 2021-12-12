@@ -110,7 +110,7 @@ namespace PabloLario.Characters.Player
                 return;
 
             CheckAbilityUse();
-
+            
             Move();
 
             Rotate();
@@ -125,7 +125,10 @@ namespace PabloLario.Characters.Player
             if (Dash())
                 return;
 
-            _rb.MovePosition(_rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
+            if (Input.GetKey(KeyCode.LeftShift))
+                _rb.MovePosition(_rb.position + ((ps.moveSpeed.Value / 2f) * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
+            else
+                _rb.MovePosition(_rb.position + (ps.moveSpeed.Value * Time.fixedDeltaTime * new Vector2(_horizontal, _vertical).normalized));
         }
 
         private void SetAbilityToDefault()

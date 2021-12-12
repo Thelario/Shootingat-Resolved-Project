@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Pablo Lario
   productName: Shootingat Resolved Project
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: af0bafe16a8a4e34b83bc86168b834c5, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1

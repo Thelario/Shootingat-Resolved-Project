@@ -25,7 +25,7 @@ namespace PabloLario.Managers
             SfxVolume = 0.4f;
             BloomEffect = 4f;
             GrainEffect = 0.3f;
-            CameraShakeEffect = 0.2f;
+            CameraShakeEffect = 0.15f;
         }
 
         private float _masterVolume;

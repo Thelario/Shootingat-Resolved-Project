@@ -87,6 +87,8 @@ namespace PabloLario.DungeonGeneration
 
         private void HandleNormalRoom()
         {
+            PostProcessingManager.Instance.SetRandomColorAdjustment();
+            
             grid = new GridNode(_displayGridGizmos, _unwalkableMask, _gridWorldSize, _nodeRadius, _roomCenter);
             grid.CreateGrid();
 
