@@ -5200,6 +5200,7 @@ GameObject:
   - component: {fileID: 304192961}
   - component: {fileID: 6607096218962583076}
   - component: {fileID: 1883876229}
+  - component: {fileID: 4929682841115627389}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5356,9 +5357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd9a0c1d19d5694fb35abd4594fd320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clarityPanelParent: {fileID: 0}
-  availableClarity: {fileID: 8361529106395587015, guid: 0e654dda309934949a4b09742de3b5c2, type: 3}
-  unavailableClarity: {fileID: 9210652142005964909, guid: 78f8a012ee7177143b427d290ab67a61, type: 3}
+  _clarityPanelParent: {fileID: 0}
+  _availableClarity: {fileID: 8361529106395587015, guid: 0e654dda309934949a4b09742de3b5c2, type: 3}
+  _unavailableClarity: {fileID: 9210652142005964909, guid: 78f8a012ee7177143b427d290ab67a61, type: 3}
+  _timeBetweenItemAnimation: 0.15
+  _animationTime: 0.25
+  _defaultScale: {x: 3.5, y: 3.5, z: 3.5}
+  _animationScale: {x: 7, y: 7, z: 7}
 --- !u!114 &6607096218962583076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5371,9 +5376,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cfe1f2b689b904dbc12a7478f2b08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityPanelParent: {fileID: 0}
-  availableAbility: {fileID: 8908303903779177459, guid: 9da9206022e78894b983e0cb274f7339, type: 3}
-  unavailableAbility: {fileID: 6929309954437135944, guid: 2e988e14e2c1bb341b2f1c291bd385a5, type: 3}
+  _abilityPanelParent: {fileID: 0}
+  _availableAbility: {fileID: 8908303903779177459, guid: 9da9206022e78894b983e0cb274f7339, type: 3}
+  _unavailableAbility: {fileID: 6929309954437135944, guid: 2e988e14e2c1bb341b2f1c291bd385a5, type: 3}
+  _timeBetweenItemAnimation: 0.15
+  _animationTime: 0.25
+  _defaultScale: {x: 3.5, y: 3.5, z: 3.5}
+  _animationScale: {x: 7, y: 7, z: 7}
 --- !u!58 &1883876229
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5390,6 +5399,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!114 &4929682841115627389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200384582610188843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df1dbba22df047428cdd1174394e635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countdownText: {fileID: 0}
+  _countdownTextWinPanel: {fileID: 0}
+  _countdownTextDeadPanel: {fileID: 0}
 --- !u!1 &9200384582755046441
 GameObject:
   m_ObjectHideFlags: 0
